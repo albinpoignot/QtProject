@@ -7,6 +7,7 @@
 QT       += core gui network sql xml
 
 TARGET = projetQt
+
 TEMPLATE = app
 
 
