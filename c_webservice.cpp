@@ -37,11 +37,67 @@ C_webservice::C_webservice()
      QString string;
      string.append(rep->readAll());
 
-     qDebug() << string;
+     //qDebug() << string;
 
+     QDomDocument domDoc;
+     domDoc.setContent(string);
 
-     /*while(rep->)
+     //qDebug() << domDoc.childNodes().item(0).childNodes().item(0).childNodes().item(0).nodeName();
+     /*qDebug() << domDoc.childNodes().item(1).nodeName();
+
+     // DOCUMENT
+     qDebug() << domDoc.childNodes().item(1).childNodes().item(0).nodeName();
+
+     // Placemark
+     qDebug() << domDoc.childNodes().item(1).childNodes().item(0).childNodes().item(0).nodeName();
+
+     // nom
+     qDebug() << domDoc.childNodes().item(1).childNodes().item(0).childNodes().item(0).childNodes().item(1).nodeName();
+
+     // LE nom
+     qDebug() << domDoc.childNodes().item(1).childNodes().item(0).childNodes().item(0).childNodes().item(1).firstChild().nodeValue();*/
+
+     insertReply(string);
+ }
+
+ void C_webservice::insertReply(QString str)
+ {
+     // STEP 1 : Init variables
+     QDomDocument domDoc;
+     domDoc.setContent(str);
+
+     QDomNode document = domDoc.childNodes().item(1).childNodes().item(0);
+     QDomNode currentNode;
+     QHash<double, double> currentPos;
+     QString currentPoint;
+     QStringList currentPointList;
+
+     //QDomNodeList currentNode_children;
+
+     C_poi poi;
+
+     // STEP 2 : Iterate over nodes and set variables
+     int i, j;
+
+     QDomNodeList placemarks = domDoc.elementsByTagName("Placemark");
+
+     for(j=0; j < placemarks.count(); j++)
      {
+         currentNode = placemarks.at(j);
+         //currentNode_children = currentNode.childNodes();
 
-     }*/
+         poi = C_poi();
+         poi.setCat(domDoc.elementsByTagName("categorie").at(j).firstChild().nodeValue());
+         poi.setNom(domDoc.elementsByTagName("nom").at(j).firstChild().nodeValue());
+
+         currentPoint = domDoc.elementsByTagName("coordinates").at(j).firstChild().nodeValue();
+         currentPointList = currentPoint.split(",");
+
+         currentPos = QHash<double,double>();
+         currentPos.insert(currentPointList.at(0).toDouble(),currentPointList.at(1).toDouble());
+
+         //poi.setPoint(domDoc.elementsByTagName("categorie").at(j).firstChild().nodeValue());
+     }
+
+
  }
