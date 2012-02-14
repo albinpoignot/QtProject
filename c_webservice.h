@@ -12,6 +12,10 @@
 #include <QUrl>
 #include <QVariant>
 
+#include <QSqlDatabase>
+#include <QSqlError>
+#include <QSqlQuery>
+
 #include "c_poi.h"
 
 #include <QDebug>
@@ -21,7 +25,9 @@ class C_webservice:public QObject
 
     Q_OBJECT
 private:
+     QSqlDatabase db;
      void insertReply(QString);
+     void addPOIToDB(C_poi);
 
 private slots:
     void replyFin(QNetworkReply*);

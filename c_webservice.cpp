@@ -1,109 +1,142 @@
 #include "c_webservice.h"
 
+/**
+* Constructeur par défaut.
+* Il crée la connexion à la BDD et initialise la base si nécessaire
+*/
 C_webservice::C_webservice()
 {
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName("qtProjectDB.db");
+
+    if(db.open())
+    {
+        QStringList tablesList = db.tables();
+
+        if(tablesList.length() <= 0)
+        {
+
+            QSqlQuery query = QSqlQuery();
+            bool res;
+            res = query.exec("CREATE TABLE poi(categorie VARCHAR(255), nom VARCHAR(255), long INTEGER NOT NULL, lat INTEGER NOT NULL, UNIQUE(long,lat))");
+
+            if(!res)
+            {
+                qDebug() << "*** ERREUR *** Initialisation de la BDD impossible ! ";
+            }
+
+            db.close();
+        }
+    }
 }
 
- void C_webservice::getPOI(double lat,double lon)
- {
-     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+void C_webservice::getPOI(double lat,double lon)
+{
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
 
-     connect(manager, SIGNAL(finished(QNetworkReply*)),
-             this, SLOT(replyFin(QNetworkReply*)));
+    connect(manager, SIGNAL(finished(QNetworkReply*)),
+         this, SLOT(replyFin(QNetworkReply*)));
 
-     QString requete;
-     QVariant parser;
-     QNetworkReply *reply;
+    QString requete;
+    QVariant parser;
 
-     requete = "http://www.geovelo.fr/api_test.php?lon=";
-     parser.setValue(lon);
-     requete.append(parser.toString());
+    requete = "http://www.geovelo.fr/api_test.php?lon=";
+    parser.setValue(lon);
+    requete.append(parser.toString());
 
-     requete.append("&lat=");
-     parser.setValue(lat);
-     requete.append(parser.toString());
+    requete.append("&lat=");
+    parser.setValue(lat);
+    requete.append(parser.toString());
 
-     //qDebug() << requete;
+    QUrl url = QUrl(requete);
 
-     QUrl url = QUrl(requete);
+    manager->get(QNetworkRequest(url));
+}
 
-     reply = manager->get(QNetworkRequest(url));
- }
+void C_webservice::replyFin(QNetworkReply* rep)
+{
+    //qDebug("Reponse : ");
 
- void C_webservice::replyFin(QNetworkReply* rep)
- {
-     qDebug("Reponse : ");
+    QString string;
+    string.append(rep->readAll());
 
-     QString string;
-     string.append(rep->readAll());
+    //qDebug() << string;
 
-     //qDebug() << string;
+    QDomDocument domDoc;
+    domDoc.setContent(string);
 
-     QDomDocument domDoc;
-     domDoc.setContent(string);
+    insertReply(string);
+}
 
-     //qDebug() << domDoc.childNodes().item(0).childNodes().item(0).childNodes().item(0).nodeName();
-     /*qDebug() << domDoc.childNodes().item(1).nodeName();
+void C_webservice::insertReply(QString str)
+{
+    // STEP 1 : Init variables
+    QDomDocument domDoc;
+    domDoc.setContent(str);
 
-     // DOCUMENT
-     qDebug() << domDoc.childNodes().item(1).childNodes().item(0).nodeName();
+    QDomNode currentNode;
+    QPointF currentPos;
+    QString currentPoint;
+    QStringList currentPointList;
 
-     // Placemark
-     qDebug() << domDoc.childNodes().item(1).childNodes().item(0).childNodes().item(0).nodeName();
 
-     // nom
-     qDebug() << domDoc.childNodes().item(1).childNodes().item(0).childNodes().item(0).childNodes().item(1).nodeName();
+    C_poi poi;
 
-     // LE nom
-     qDebug() << domDoc.childNodes().item(1).childNodes().item(0).childNodes().item(0).childNodes().item(1).firstChild().nodeValue();*/
+    // STEP 2 : Iterate over nodes and set variables
+    int i;
 
-     insertReply(string);
- }
+    QDomNodeList placemarks = domDoc.elementsByTagName("Placemark");
 
- void C_webservice::insertReply(QString str)
- {
-     // STEP 1 : Init variables
-     QDomDocument domDoc;
-     domDoc.setContent(str);
-
-     QDomNode document = domDoc.childNodes().item(1).childNodes().item(0);
-     QDomNode currentNode;
-     QPointF currentPos;
-     QString currentPoint;
-     QStringList currentPointList;
-
-     //QDomNodeList currentNode_children;
-
-     C_poi poi;
-
-     // STEP 2 : Iterate over nodes and set variables
-     int i, j;
-
-     QDomNodeList placemarks = domDoc.elementsByTagName("Placemark");
-
-     // STEP 3 : Parse data
-     for(j=0; j < placemarks.count(); j++)
-     {
+    // STEP 3 : Parse data
+    for(i=0; i < placemarks.count(); i++)
+    {
          // Get the current placemark
-         currentNode = placemarks.at(j);
-         //currentNode_children = currentNode.childNodes();
+         currentNode = placemarks.at(i);
 
          // Create a new POI and set properties
          poi = C_poi();
-         poi.setCat(domDoc.elementsByTagName("categorie").at(j).firstChild().nodeValue());
-         poi.setNom(domDoc.elementsByTagName("nom").at(j).firstChild().nodeValue());
+         poi.setCat(domDoc.elementsByTagName("categorie").at(i).firstChild().nodeValue());
+         poi.setNom(domDoc.elementsByTagName("nom").at(i).firstChild().nodeValue());
 
          // Special case for Coordinates where we have to split the result and cast in double
-         currentPoint = domDoc.elementsByTagName("coordinates").at(j).firstChild().nodeValue();
+         currentPoint = domDoc.elementsByTagName("coordinates").at(i).firstChild().nodeValue();
          currentPointList = currentPoint.split(",");
 
          currentPos = QPointF();
          currentPos.setX(currentPointList.at(0).toFloat());
          currentPos.setY(currentPointList.at(1).toFloat());
-         //currentPos.insert(currentPointList.at(0).toDouble(),currentPointList.at(1).toDouble());
 
-         //poi.setPoint(domDoc.elementsByTagName("categorie").at(j).firstChild().nodeValue());
-     }
+         poi.setPoint(currentPos);
 
+         // STEP 4 : Add the POI in the database
+         addPOIToDB(poi);
 
- }
+    }
+}
+
+void C_webservice::addPOIToDB(C_poi poi)
+{
+    if(db.open())
+    {
+        QSqlQuery query;
+        QString queryText = "INSERT INTO poi(categorie, nom, long, lat) VALUES('";
+
+        queryText.append(poi.getCat());
+        queryText.append("','");
+        queryText.append(poi.getNom());
+        queryText.append("',");
+        queryText.append(QString().setNum(poi.getPoint().rx(), 'g'));
+        queryText.append(",");
+        queryText.append(QString().setNum(poi.getPoint().ry(), 'g'));
+        queryText.append(")");
+
+        bool res = query.exec(queryText);
+
+        if(!res)
+        {
+            qDebug() << "*** ERREUR *** Impossible d'ajouter le point : " << poi.getNom() << " !";
+        }
+
+        db.close();
+    }
+}
