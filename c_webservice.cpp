@@ -68,7 +68,7 @@ C_webservice::C_webservice()
 
      QDomNode document = domDoc.childNodes().item(1).childNodes().item(0);
      QDomNode currentNode;
-     QHash<double, double> currentPos;
+     QPointF currentPos;
      QString currentPoint;
      QStringList currentPointList;
 
@@ -81,20 +81,26 @@ C_webservice::C_webservice()
 
      QDomNodeList placemarks = domDoc.elementsByTagName("Placemark");
 
+     // STEP 3 : Parse data
      for(j=0; j < placemarks.count(); j++)
      {
+         // Get the current placemark
          currentNode = placemarks.at(j);
          //currentNode_children = currentNode.childNodes();
 
+         // Create a new POI and set properties
          poi = C_poi();
          poi.setCat(domDoc.elementsByTagName("categorie").at(j).firstChild().nodeValue());
          poi.setNom(domDoc.elementsByTagName("nom").at(j).firstChild().nodeValue());
 
+         // Special case for Coordinates where we have to split the result and cast in double
          currentPoint = domDoc.elementsByTagName("coordinates").at(j).firstChild().nodeValue();
          currentPointList = currentPoint.split(",");
 
-         currentPos = QHash<double,double>();
-         currentPos.insert(currentPointList.at(0).toDouble(),currentPointList.at(1).toDouble());
+         currentPos = QPointF();
+         currentPos.setX(currentPointList.at(0).toFloat());
+         currentPos.setY(currentPointList.at(1).toFloat());
+         //currentPos.insert(currentPointList.at(0).toDouble(),currentPointList.at(1).toDouble());
 
          //poi.setPoint(domDoc.elementsByTagName("categorie").at(j).firstChild().nodeValue());
      }

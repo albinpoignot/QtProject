@@ -14,9 +14,9 @@ void C_poi::setNom(QString leNom)
     sNom = leNom;
 }
 
-void C_poi::setPoint(QHash<double,double> lesPoints)
+void C_poi::setPoint(QPointF lePoint)
 {
-    hPoint = lesPoints;
+    pPoint = lePoint;
 }
 
 QString C_poi::getCat()
@@ -29,7 +29,7 @@ QString C_poi::getNom()
     return sNom;
 }
 
-QHash<double,double> C_poi::getPoint()
+QPointF C_poi::getPoint()
 {
-    return hPoint;
+    return pPoint;
 }
