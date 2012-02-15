@@ -112,6 +112,8 @@ void C_webservice::parseAndInsert(QString str)
          addPOIToDB(poi);
 
     }
+
+    qDebug() << "-> Requête terminée";
 }
 
 void C_webservice::addPOIToDB(C_poi poi)
