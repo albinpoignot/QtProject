@@ -1,18 +1,21 @@
 #include "c_webservice.h"
 
-/**
-* Constructeur par défaut.
-* Il crée la connexion à la BDD et initialise la base si nécessaire
-*/
 C_webservice::C_webservice()
 {
+}
+
+/**
+* Constructeur à un argument.
+* Il crée la connexion à la BDD et initialise la base si nécessaire
+*/
+C_webservice::C_webservice(QString database)
+{
     db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("qtProjectDB.db");
+    db.setDatabaseName(database);
 
     if(db.open())
     {
         QStringList tablesList = db.tables();
-
         if(tablesList.length() <= 0)
         {
 
@@ -27,6 +30,10 @@ C_webservice::C_webservice()
 
             db.close();
         }
+    }
+    else
+    {
+        qDebug() << "*** ERREUR *** impossible d'ouvrir la BDD' ! ";
     }
 }
 

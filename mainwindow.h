@@ -2,6 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QInputDialog>
+#include "c_webservice.h"
+#include <QMessageBox>
+#include <QFileDialog>
 
 namespace Ui {
     class MainWindow;
