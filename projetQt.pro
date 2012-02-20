@@ -15,10 +15,14 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     c_webservice.cpp \
-    c_poi.cpp
+    c_poi.cpp \
+    accueil.cpp
 
 HEADERS  += mainwindow.h \
     c_webservice.h \
-    c_poi.h
+    c_poi.h \
+    accueil.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    c_dialog.ui \
+    accueil.ui

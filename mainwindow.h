@@ -7,6 +7,8 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include "qmapcontrol.h"
+#include <QVBoxLayout>
+#include <QWidget>
 
 using namespace qmapcontrol;
 
@@ -21,14 +23,14 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    void openQmapControl();
+
 
 private slots:
-    void on_pushButton_clicked();
-    void on_pushButton_2_clicked();
+
 
 private:
     Ui::MainWindow *ui;
+    void openQmapControl();
 };
 
 #endif // MAINWINDOW_H
