@@ -47,6 +47,7 @@ private slots:
 
 public:
     C_webservice();
+    C_webservice(QString);
 
     /*!
       * Récupère le XML du point ?
