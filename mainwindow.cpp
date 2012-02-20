@@ -14,6 +14,23 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::openQmapControl()
+{
+    // create MapControl
+    MapControl * mc = new MapControl(QSize(480,640));
+
+    // create MapAdapter to get maps from
+   MapAdapter* mapadapter = new OSMMapAdapter();
+
+    // create a map layer with the mapadapter
+    Layer* l = new MapLayer("Custom Layer", mapadapter);
+
+    // add Layer to the MapControl
+    mc->addLayer(l);    
+
+
+}
+
 void MainWindow::on_pushButton_clicked()
 {
    QString fileName = QFileDialog::getOpenFileName(this,
@@ -25,7 +42,9 @@ void MainWindow::on_pushButton_clicked()
     {
         qDebug() << fileName;
         C_webservice ws(fileName);
+        openQmapControl();
     }
+
 }
 
 void MainWindow::on_pushButton_2_clicked()
@@ -37,5 +56,6 @@ void MainWindow::on_pushButton_2_clicked()
     if (ok && !DbName.isEmpty())
     {
         C_webservice ws(DbName);
+        openQmapControl();
     }
 }

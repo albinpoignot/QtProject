@@ -4,6 +4,7 @@
 #
 #-------------------------------------------------
 
+include (QMapControl.pri)
 QT       += core gui network sql xml
 
 TARGET = projetQt
