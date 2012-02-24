@@ -29,8 +29,17 @@ private slots:
 
 
 private:
+    // attributs
     Ui::MainWindow *ui;
+    MapControl * mc;
+    MapAdapter* mapadapter;
+    GeometryLayer * points;
+
+    // methodes
     void openQmapControl();
+    void addZoomButton();
+    void addGeometry();
+    void addPoints();
 };
 
 #endif // MAINWINDOW_H
