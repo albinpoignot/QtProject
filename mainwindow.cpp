@@ -20,7 +20,7 @@ void MainWindow::openQmapControl()
     MapControl * mc = new MapControl(QSize(480,640));
 
     // create MapAdapter to get maps from
-   MapAdapter* mapadapter = new OSMMapAdapter();
+    MapAdapter* mapadapter = new OSMMapAdapter();
 
     // create a map layer with the mapadapter
     Layer* l = new MapLayer("Custom Layer", mapadapter);
@@ -35,8 +35,8 @@ void MainWindow::on_pushButton_clicked()
 {
    QString fileName = QFileDialog::getOpenFileName(this,
                                                         "Open File",
-                                                     "/home/bous/qt/",
-                                                     "bdd (*.db)");
+                                                        QDir::currentPath(),
+                                                        "bdd (*.db)");
 
     if(fileName != NULL)
     {
@@ -52,7 +52,7 @@ void MainWindow::on_pushButton_2_clicked()
     bool ok;
     QString DbName = QInputDialog::getText(this, tr("QInputDialog::getText()"),
                                             tr("Nom de la bdd:"), QLineEdit::Normal,
-                                           "QtProjectDB.db", &ok);
+                                           QDir::currentPath() + "/QtProjectDB.db", &ok);
     if (ok && !DbName.isEmpty())
     {
         C_webservice ws(DbName);
