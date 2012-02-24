@@ -13,6 +13,18 @@ Accueil::~Accueil()
     delete ui;
 }
 
+void Accueil::setW(MainWindow * w)
+{
+    mw = w;
+}
+
+void Accueil::ouvrirMainWindow(QString fileName)
+{
+    C_webservice ws(fileName);
+    this->close();
+    mw->show();
+}
+
 void Accueil::on_pushButton_clicked()
 {
     QString fileName = QFileDialog::getOpenFileName(this,
@@ -22,9 +34,7 @@ void Accueil::on_pushButton_clicked()
 
      if(fileName != NULL)
      {
-         C_webservice ws(fileName);
-          MainWindow w;
-          w.show();
+         ouvrirMainWindow(fileName);
      }
 }
 
@@ -36,7 +46,6 @@ void Accueil::on_pushButton_2_clicked()
                                            "QtProjectDB.db", &ok);
     if (ok && !DbName.isEmpty())
     {
-        C_webservice ws(DbName);
-       // openQmapControl();
+        ouvrirMainWindow(DbName);
     }
 }
