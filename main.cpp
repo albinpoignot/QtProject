@@ -1,15 +1,16 @@
 #include <QtGui/QApplication>
-#include "mainwindow.h"
+#include "accueil.h"
 
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-
-    //MainWindow w;
+   // MainWindow w;
     //w.show();
 
-    QDialog dialog;
+    Accueil d;
+    d.show();
+
 
     return a.exec();
 }
