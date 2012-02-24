@@ -4,6 +4,7 @@ C_webservice::C_webservice()
 {
 }
 
+
 /**
 * Constructeur à un argument.
 * Il crée la connexion à la BDD et initialise la base si nécessaire
