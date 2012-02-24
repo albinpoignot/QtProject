@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-/*
+
     QVBoxLayout * layout  = new QVBoxLayout();
 
     // create MapControl
@@ -21,12 +21,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // add Layer to the MapControl
     mc->addLayer(l);
-
-    qDebug() << "openQmapControl ou bien";
-
      layout->addWidget(mc);
      ui->widget->setLayout(layout);
-     */
+
 }
 
 MainWindow::~MainWindow()

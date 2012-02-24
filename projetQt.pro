@@ -24,5 +24,4 @@ HEADERS  += mainwindow.h \
     accueil.h
 
 FORMS    += mainwindow.ui \
-    c_dialog.ui \
     accueil.ui

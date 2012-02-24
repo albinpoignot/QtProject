@@ -22,6 +22,7 @@ class Accueil : public QDialog
 public:
     explicit Accueil(QWidget *parent = 0);
     ~Accueil();
+    void setW(MainWindow * );
 
 private slots:
     void on_pushButton_clicked();
@@ -29,6 +30,8 @@ private slots:
 
 private:
     Ui::Accueil *ui;
+    void ouvrirMainWindow(QString );
+    MainWindow * mw;
 };
 
 #endif // ACCUEIL_H
