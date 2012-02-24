@@ -84,7 +84,7 @@ void MainWindow::openQmapControl()
     MapControl * mc = new MapControl(QSize(480,640));
 
     // create MapAdapter to get maps from
-   MapAdapter* mapadapter = new OSMMapAdapter();
+    MapAdapter* mapadapter = new OSMMapAdapter();
 
     // create a map layer with the mapadapter
     Layer* l = new MapLayer("Custom Layer", mapadapter);

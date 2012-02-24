@@ -20,17 +20,31 @@
 
 #include <QDebug>
 
+
 class C_webservice:public QObject
 {
 
     Q_OBJECT
 private:
      QSqlDatabase db;
-     void insertReply(QString);
-     void addPOIToDB(C_poi);
+
+     /**
+       * Parse le résultat et insère le tout dans la base de données SQLite
+       * @param Le résultat d'une requête à parser
+       */
+     void parseAndInsert(QString);
+
+     /**
+       * Ajout un point d'intéret à la base de données SQLite
+       * @param poi Le point d'intérêt à ajouter
+       */
+     void addPOIToDB(C_poi poi);
 
 private slots:
-    void replyFin(QNetworkReply*);
+    /**
+      * Appelée à la fin d'une requête. Récupère le résultat et appelle parseAndInsert()
+      */
+    void replyFinished(QNetworkReply*);
 
 public:
     C_webservice();

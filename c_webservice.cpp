@@ -4,6 +4,7 @@ C_webservice::C_webservice()
 {
 }
 
+
 /**
 * Constructeur à un argument.
 * Il crée la connexion à la BDD et initialise la base si nécessaire
@@ -42,7 +43,7 @@ void C_webservice::getPOI(double lat,double lon)
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
 
     connect(manager, SIGNAL(finished(QNetworkReply*)),
-         this, SLOT(replyFin(QNetworkReply*)));
+         this, SLOT(replyFinished(QNetworkReply*)));
 
     QString requete;
     QVariant parser;
@@ -60,7 +61,7 @@ void C_webservice::getPOI(double lat,double lon)
     manager->get(QNetworkRequest(url));
 }
 
-void C_webservice::replyFin(QNetworkReply* rep)
+void C_webservice::replyFinished(QNetworkReply* rep)
 {
     //qDebug("Reponse : ");
 
@@ -72,10 +73,10 @@ void C_webservice::replyFin(QNetworkReply* rep)
     QDomDocument domDoc;
     domDoc.setContent(string);
 
-    insertReply(string);
+    parseAndInsert(string);
 }
 
-void C_webservice::insertReply(QString str)
+void C_webservice::parseAndInsert(QString str)
 {
     // STEP 1 : Init variables
     QDomDocument domDoc;
@@ -119,6 +120,8 @@ void C_webservice::insertReply(QString str)
          addPOIToDB(poi);
 
     }
+
+    qDebug() << "-> Requête terminée";
 }
 
 void C_webservice::addPOIToDB(C_poi poi)
