@@ -66,7 +66,15 @@ void MainWindow::addGeometry()
 
 void MainWindow::addPoints()
 {
-     CirclePoint point = CirclePoint();
+    // Personnalisation du dessin
+    QPen* pointpen = new QPen(QColor(0,255,0)); // couleur verte
+    pointpen->setWidth(5); // épaisseur du trait
+
+    // Point : coord => 2,... et 48,... || rayon => 15 || nom => Albin || ?? || pinceau pour le dessin
+    CirclePoint * point = new CirclePoint(2.3522219, 48.856614, 15, "Albin", Point::Middle, pointpen);
+
+    // Ajout à l'affichage !
+    points->addGeometry(point);
 }
 
 MainWindow::~MainWindow()
