@@ -66,6 +66,11 @@ void MainWindow::addGeometry()
 
 void MainWindow::addPoints()
 {
+    // Liste de points
+    QList<C_poi> listePoints;
+
+
+
     // Personnalisation du dessin
     QPen* pointpen = new QPen(QColor(0,255,0)); // couleur verte
     pointpen->setWidth(5); // épaisseur du trait

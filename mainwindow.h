@@ -36,9 +36,26 @@ private:
     GeometryLayer * points;
 
     // methodes
+
+    /**
+      * Do nothing...
+      */
     void openQmapControl();
+
+    /**
+      * Ajoute les boutons de zoom et de-zoom sur l'écran
+      */
     void addZoomButton();
+
+    /**
+      * Ajoute un GeometryLayer à l'écran pour dessiner les points
+      * En fait, il renseigne l'attribut "points"
+      */
     void addGeometry();
+
+    /**
+      * Ajoute les points d'une BDD dans l'attribut "points" pour le dessiner.
+      */
     void addPoints();
 };
 
