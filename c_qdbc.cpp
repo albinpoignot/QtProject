@@ -33,6 +33,7 @@ void C_qdbc::initDB(QString database)
     }
 }
 
+
 void C_qdbc::addPoi(C_poi point)
 {
     if(db.open())
@@ -53,12 +54,14 @@ void C_qdbc::addPoi(C_poi point)
 
         if(!res)
         {
-            qDebug() << "*** ERREUR *** Impossible d'ajouter le point : " << point.getNom() << " !";
+            qDebug() << "*** ERREUR *** Impossible d'ajouter le point : " + point.getNom() + " (" +
+                        QString::number(point.getPoint().x()) + " - " + QString::number(point.getPoint().y()) + ")";
         }
 
         db.close();
     }
 }
+
 
 C_poi C_qdbc::getPoi(double lon, double lat)
 {
@@ -73,7 +76,8 @@ C_poi C_qdbc::getPoi(double lon, double lat)
 
         if(!res)
         {
-            qDebug() << "*** ERREUR *** Impossible d'obtenir le point : " << QString::number(lon) << " - " << QString::number(lat) << " !";
+            qDebug() << "*** ERREUR *** Impossible d'obtenir le point : " + QString::number(lon) + " - "
+                     + QString::number(lat) + " !";
         }
         else
         {
@@ -90,6 +94,7 @@ C_poi C_qdbc::getPoi(double lon, double lat)
 
     return point;
 }
+
 
 QList<C_poi> C_qdbc::getAllPoi()
 {
@@ -129,6 +134,47 @@ QList<C_poi> C_qdbc::getAllPoi()
     return points;
 }
 
-/*static void updatePoi(double lon, double lat, C_poi point);
 
-static void deletePoi(double lon, double lat);*/
+void C_qdbc::updatePoi(C_poi point)
+{
+    if(db.open())
+    {
+        QSqlQuery query;
+        QString queryText = "UPDATE poi SET categorie = '" + point.getCat() + "', nom = '" + point.getNom() + "'";
+        queryText.append("WHERE long = " + QString::number(point.getPoint().x()) + " AND lat = " + QString::number(point.getPoint().y()));
+
+        bool res = query.exec(queryText);
+
+        if(!res)
+        {
+            qDebug() << "*** ERREUR *** Impossible de modifier le point : " + point.getNom() << " (" <<
+                        QString::number(point.getPoint().x()) + " - " << QString::number(point.getPoint().y()) << ")";
+        }
+
+        db.close();
+    }
+}
+
+
+void C_qdbc::deletePoi(double lon, double lat)
+{
+    if(db.open())
+    {
+        QSqlQuery query;
+        QString queryText = "DELETE FROM poi WHERE long = " + QString::number(lon) + " AND lat = " + QString::number(lat);
+
+        bool res = query.exec(queryText);
+
+        if(!res)
+        {
+            qDebug() << "*** ERREUR *** Impossible de supprimer le point : " + QString::number(lon) + " - " + QString::number(lat);
+        }
+
+        db.close();
+    }
+}
+
+void C_qdbc::deletePoi(C_poi point)
+{
+    deletePoi(point.getPoint().x(), point.getPoint().y());
+}

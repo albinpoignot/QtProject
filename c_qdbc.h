@@ -50,11 +50,9 @@ public:
 
     /**
       * \brief Mise à jour d'un POI
-      * @param lon : longitude du point à modifier
-      * @param lat : latitude du point à modifier
       * @param point : nouveau point (lon et lat ne doivent pas changer)
       */
-    static void updatePoi(double lon, double lat, C_poi point);
+    static void updatePoi(C_poi point);
 
     /**
       * \brief Suppression d'un POI
@@ -62,6 +60,12 @@ public:
       * @param lat : latitude du point à supprimer
       */
     static void deletePoi(double lon, double lat);
+
+    /**
+      * \brief Suppression d'un POI
+      * @param point : le point à modifier
+      */
+    static void deletePoi(C_poi point);
 };
 
 #endif // C_QDBC_H
