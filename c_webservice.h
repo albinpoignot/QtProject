@@ -15,7 +15,7 @@
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlQuery>
-
+#include "c_qdbc.h"
 #include "c_poi.h"
 
 #include <QDebug>
@@ -47,9 +47,6 @@ private slots:
     void replyFinished(QNetworkReply*);
 
 public:
-    C_webservice();
-    C_webservice(QString);
-
     /*!
       * Récupère le XML du point ?
       * @param lat Latitude du POI

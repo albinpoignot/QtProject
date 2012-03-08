@@ -20,9 +20,11 @@ void Accueil::setW(MainWindow * w)
 
 void Accueil::ouvrirMainWindow(QString fileName)
 {
-    C_webservice ws(fileName);
+    C_qdbc::initDB(fileName);
     this->close();
     mw->show();
+    mw->init();
+
 }
 
 void Accueil::on_pushButton_clicked()

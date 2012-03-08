@@ -9,6 +9,7 @@
 #include "qmapcontrol.h"
 #include <QVBoxLayout>
 #include <QWidget>
+#include "c_qdbc.h"
 
 using namespace qmapcontrol;
 
@@ -23,10 +24,9 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-
+    void init();
 
 private slots:
-
 
 private:
     // attributs
@@ -36,11 +36,6 @@ private:
     GeometryLayer * points;
 
     // methodes
-
-    /**
-      * Do nothing...
-      */
-    void openQmapControl();
 
     /**
       * Ajoute les boutons de zoom et de-zoom sur l'écran
@@ -54,9 +49,19 @@ private:
     void addGeometry();
 
     /**
-      * Ajoute les points d'une BDD dans l'attribut "points" pour le dessiner.
+      * récupère tous les points de la base de données pour les passer à addPoint
       */
-    void addPoints();
+    void drawPoints();
+
+    /**
+      * Ajoute le point passé en paramètre dans l'attribut "points" pour le dessiner.
+      */
+    void addPoint(C_poi);
+
+    /**
+      * Rempli le tableau permettant de modifier tous les points d'intérêt
+      */
+    void fillTable();
 };
 
 #endif // MAINWINDOW_H

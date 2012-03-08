@@ -1,42 +1,5 @@
 #include "c_webservice.h"
 
-C_webservice::C_webservice()
-{
-}
-
-
-/**
-* Constructeur à un argument.
-* Il crée la connexion à la BDD et initialise la base si nécessaire
-*/
-C_webservice::C_webservice(QString database)
-{
-    db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName(database);
-
-    if(db.open())
-    {
-        QStringList tablesList = db.tables();
-        if(tablesList.length() <= 0)
-        {
-
-            QSqlQuery query = QSqlQuery();
-            bool res;
-            res = query.exec("CREATE TABLE poi(categorie VARCHAR(255), nom VARCHAR(255), long INTEGER NOT NULL, lat INTEGER NOT NULL, UNIQUE(long,lat))");
-
-            if(!res)
-            {
-                qDebug() << "*** ERREUR *** Initialisation de la BDD impossible ! ";
-            }
-
-            db.close();
-        }
-    }
-    else
-    {
-        qDebug() << "*** ERREUR *** impossible d'ouvrir la BDD' ! ";
-    }
-}
 
 void C_webservice::getPOI(double lat,double lon)
 {
@@ -117,13 +80,14 @@ void C_webservice::parseAndInsert(QString str)
          poi.setPoint(currentPos);
 
          // STEP 4 : Add the POI in the database
-         addPOIToDB(poi);
+         //addPOIToDB(poi);
+         C_qdbc::addPoi(poi);
 
     }
 
     qDebug() << "-> Requête terminée";
 }
-
+/*
 void C_webservice::addPOIToDB(C_poi poi)
 {
     if(db.open())
@@ -149,4 +113,4 @@ void C_webservice::addPOIToDB(C_poi poi)
 
         db.close();
     }
-}
+}*/
