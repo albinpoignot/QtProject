@@ -141,7 +141,9 @@ void C_qdbc::updatePoi(C_poi point)
     {
         QSqlQuery query;
         QString queryText = "UPDATE poi SET categorie = '" + point.getCat() + "', nom = '" + point.getNom() + "'";
-        queryText.append("WHERE long = " + QString::number(point.getPoint().x()) + " AND lat = " + QString::number(point.getPoint().y()));
+        queryText.append(" WHERE long = " + QString::number(point.getPoint().x()) + " AND lat = " + QString::number(point.getPoint().y()));
+
+        qDebug() << queryText;
 
         bool res = query.exec(queryText);
 
@@ -162,6 +164,8 @@ void C_qdbc::deletePoi(double lon, double lat)
     {
         QSqlQuery query;
         QString queryText = "DELETE FROM poi WHERE long = " + QString::number(lon) + " AND lat = " + QString::number(lat);
+
+        qDebug() << queryText;
 
         bool res = query.exec(queryText);
 

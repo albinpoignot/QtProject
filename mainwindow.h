@@ -27,6 +27,10 @@ public:
     void init();
 
 private slots:
+    void modifyPoint(QTableWidgetItem*);
+    void deletePoint(QTableWidgetItem*);
+    /*void confirmedDelete();
+    void canceledDelete();*/
 
 private:
     // attributs
@@ -34,6 +38,10 @@ private:
     MapControl * mc;
     MapAdapter* mapadapter;
     GeometryLayer * points;
+    QTableWidget * table;
+
+    /*QDialogButtonBox * buttonBox;
+    int deletedRow;*/
 
     // methodes
 
@@ -59,9 +67,18 @@ private:
     void addPoint(C_poi);
 
     /**
+      * Ajoute un tableau permettant de modifier tous les points d'intérêt
+      */
+    void addTable();
+
+    /**
       * Rempli le tableau permettant de modifier tous les points d'intérêt
       */
     void fillTable();
+
+    void confirmedDelete(int);
+
+    //void canceledDelete();
 };
 
 #endif // MAINWINDOW_H
