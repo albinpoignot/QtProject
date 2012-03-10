@@ -29,6 +29,7 @@ public:
 private slots:
     void modifyPoint(QTableWidgetItem*);
     void deletePoint(QTableWidgetItem*);
+    void pointClick(Geometry*, QPoint coord_px);
     /*void confirmedDelete();
     void canceledDelete();*/
 

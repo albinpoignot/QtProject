@@ -30,8 +30,9 @@ void MainWindow::init()
 
      addZoomButton();
      addGeometry();
-    // addTable();
      fillTable();
+
+
 }
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -79,6 +80,9 @@ void MainWindow::drawPoints()
     {
         addPoint(listePoints.at(i));
     }
+
+    connect(points, SIGNAL(geometryClicked(Geometry*,QPoint)),
+            this, SLOT(pointClick(Geometry*,QPoint)));
 }
 
 void MainWindow::addPoint(C_poi poi)
@@ -87,7 +91,7 @@ void MainWindow::addPoint(C_poi poi)
     QPen* pointpen = new QPen(QColor(0,255,0)); // couleur verte
     pointpen->setWidth(5); // épaisseur du trait
 
-    // Point : coord => 2,... et 48,... || rayon => 15 || nom => Albin || ?? || pinceau pour le dessin
+    // Point : coord => 2,... et 48,... || rayon => 15 || nom || ?? || pinceau pour le dessin
     CirclePoint * point = new CirclePoint(poi.getPoint().x(), poi.getPoint().y(), 15, poi.getNom(), Point::Middle, pointpen);
 
     // Ajout à l'affichage !
@@ -166,15 +170,6 @@ void MainWindow::deletePoint(QTableWidgetItem * item)
 
         int deletedRow = item->row();
 
-        /*buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
-        buttonBox->show();*/
-
-        /*connect(buttonBox, SIGNAL(accepted()),
-                this, SLOT(confirmedDelete()));
-
-        connect(buttonBox, SIGNAL(rejected()),
-                this, SLOT(canceledDelete()));*/
-
         QMessageBox messageBox;
         messageBox.setText("Voulez-vous vraiment supprimer ce POI ?");
         messageBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
@@ -209,7 +204,9 @@ void MainWindow::confirmedDelete(int deletedRow)
 
 }
 
-/*void MainWindow::canceledDelete()
+void MainWindow::pointClick(Geometry* geom, QPoint coord_px)
 {
-    buttonBox->hide();
-}*/
+    CirclePoint * cp = (CirclePoint*) geom;
+
+    qDebug() << "Geometry clicked - long:" << cp->longitude() << " lat:" << cp->latitude() << " - " << geom->name();
+}
