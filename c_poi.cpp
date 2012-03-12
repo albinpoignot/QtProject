@@ -33,3 +33,23 @@ QPointF C_poi::getPoint()
 {
     return pPoint;
 }
+
+void C_poi::setDescription(QString laDescription)
+{
+    sDescription = laDescription;
+}
+
+void C_poi::setHoraires(QString lesHoraires)
+{
+    sHoraires = lesHoraires;
+}
+
+QString C_poi::getDescription()
+{
+    return sDescription;
+}
+
+QString C_poi::getHoraires()
+{
+    return sHoraires;
+}

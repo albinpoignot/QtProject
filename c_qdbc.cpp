@@ -18,7 +18,7 @@ void C_qdbc::initDB(QString database)
 
             QSqlQuery query = QSqlQuery();
             bool res;
-            res = query.exec("CREATE TABLE poi(categorie VARCHAR(255), nom VARCHAR(255), long INTEGER NOT NULL, lat INTEGER NOT NULL, UNIQUE(long,lat))");
+            res = query.exec("CREATE TABLE poi(categorie VARCHAR(255), nom VARCHAR(255), long INTEGER NOT NULL, lat INTEGER NOT NULL, description VARCHAR(255), horaires VARCHAR(255), UNIQUE(long,lat))");
 
             if(!res)
             {
@@ -87,6 +87,10 @@ C_poi C_qdbc::getPoi(double lon, double lat)
             point.setPoint(QPointF(lon, lat));
             point.setCat(query.value(0).toString());
             point.setNom(query.value(1).toString());
+            if(query.value(2) != NULL)
+                point.setDescription(query.value(2).toString());
+            if(query.value(3) != NULL)
+                point.setHoraires(query.value(3).toString());
         }
 
         db.close();
@@ -123,6 +127,10 @@ QList<C_poi> C_qdbc::getAllPoi()
                 point.setCat(query.value(0).toString());
                 point.setNom(query.value(1).toString());
                 point.setPoint(QPointF(query.value(2).toFloat(), query.value(3).toFloat()));
+                 if(query.value(4) != NULL)
+                point.setDescription(query.value(4).toString());
+                  if(query.value(5) != NULL)
+                point.setHoraires(query.value(5).toString());
 
                 points.append(point);
             }
@@ -140,7 +148,8 @@ void C_qdbc::updatePoi(C_poi point)
     if(db.open())
     {
         QSqlQuery query;
-        QString queryText = "UPDATE poi SET categorie = '" + point.getCat() + "', nom = '" + point.getNom() + "'";
+        QString queryText = "UPDATE poi SET categorie = '" + point.getCat() + "', nom = '" + point.getNom() + "', description ='" + point.getDescription()
+                + "', horaires = '" + point.getHoraires() + "'";
         queryText.append(" WHERE long = " + QString::number(point.getPoint().x()) + " AND lat = " + QString::number(point.getPoint().y()));
 
         qDebug() << queryText;
