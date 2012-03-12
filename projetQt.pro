@@ -17,13 +17,16 @@ SOURCES += main.cpp\
     c_webservice.cpp \
     c_poi.cpp \
     accueil.cpp \
-    c_qdbc.cpp
+    c_qdbc.cpp \
+    c_details.cpp
 
 HEADERS  += mainwindow.h \
     c_webservice.h \
     c_poi.h \
     accueil.h \
-    c_qdbc.h
+    c_qdbc.h \
+    c_details.h
 
 FORMS    += mainwindow.ui \
-    accueil.ui
+    accueil.ui \
+    c_details.ui
