@@ -5,10 +5,8 @@
 void MainWindow::init()
 {
     QVBoxLayout * layout  = new QVBoxLayout();
-    //QStactLayout
 
     // create MapControl
-    //mc = new MapControl(QSize(ui->tab->width(),ui->tab->height()));
     mc = new MapControl(QSize(455,315));
     mc->showScale(true);
 
@@ -33,6 +31,11 @@ void MainWindow::init()
      fillTable();
 
 
+}
+
+void MainWindow::setDetails(C_details * leDetails)
+{
+    details = leDetails;
 }
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -198,7 +201,6 @@ void MainWindow::confirmedDelete(int deletedRow)
     {
         C_qdbc::deletePoi(table->item(deletedRow, 2)->text().toDouble(), table->item(deletedRow, 3)->text().toDouble());
         table->removeRow(deletedRow);
-        //fillTable();
         qDebug() << "delete effectue";
     }
 
@@ -209,4 +211,12 @@ void MainWindow::pointClick(Geometry* geom, QPoint coord_px)
     CirclePoint * cp = (CirclePoint*) geom;
 
     qDebug() << "Geometry clicked - long:" << cp->longitude() << " lat:" << cp->latitude() << " - " << geom->name();
+
+    C_poi point = C_qdbc::getPoi(cp->longitude(), cp->latitude());
+
+    details->setDetails(point);
+    details->move(this->x() + ui->tabWidget->x() + ui->tabWidget->width() + 10,
+                  this->y() + ui->tabWidget->y() + 100);
+    details->show();
+
 }

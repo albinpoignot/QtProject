@@ -10,6 +10,7 @@
 #include <QVBoxLayout>
 #include <QWidget>
 #include "c_qdbc.h"
+#include "c_details.h"
 
 using namespace qmapcontrol;
 
@@ -25,6 +26,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     void init();
+    void setDetails(C_details *);
 
 private slots:
     void modifyPoint(QTableWidgetItem*);
@@ -40,7 +42,7 @@ private:
     MapAdapter* mapadapter;
     GeometryLayer * points;
     QTableWidget * table;
-
+    C_details * details;
     /*QDialogButtonBox * buttonBox;
     int deletedRow;*/
 
