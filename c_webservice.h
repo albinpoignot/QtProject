@@ -42,9 +42,13 @@ private:
 
 private slots:
     /**
-      * Appelée à la fin d'une requête. Récupère le résultat et appelle parseAndInsert()
+      * Appelée à la fin d'une requete. Récupère le résultat et appelle parseAndInsert()
+      * @param rep Requete qui vient d'etre terminée
       */
-    void replyFinished(QNetworkReply*);
+     void replyFinished(QNetworkReply* rep);
+
+signals:
+     void requestFinished();
 
 public:
     /*!

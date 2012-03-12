@@ -27,13 +27,12 @@ public:
     ~MainWindow();
     void init();
     void setDetails(C_details *);
+    void drawPOI();
 
 private slots:
     void modifyPoint(QTableWidgetItem*);
     void deletePoint(QTableWidgetItem*);
     void pointClick(Geometry*, QPoint coord_px);
-    /*void confirmedDelete();
-    void canceledDelete();*/
 
 private:
     // attributs
@@ -43,8 +42,6 @@ private:
     GeometryLayer * points;
     QTableWidget * table;
     C_details * details;
-    /*QDialogButtonBox * buttonBox;
-    int deletedRow;*/
 
     // methodes
 

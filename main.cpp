@@ -13,5 +13,13 @@ int main(int argc, char *argv[])
     d.show();
 
 
+    /*C_qdbc::initDB("Test.db");
+    C_webservice ws;
+    ws.getPOI(48.86,2.33);*/
+    /*this->close();
+    mw->show();
+    mw->init();*/
+
+
     return a.exec();
 }

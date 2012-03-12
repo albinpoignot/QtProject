@@ -22,16 +22,39 @@ class Accueil : public QDialog
 public:
     explicit Accueil(QWidget *parent = 0);
     ~Accueil();
-    void setW(MainWindow * );
+
+    /**
+      * \brief Renseigne la fenêtre parent
+      * @param w La fenêtre parent
+      */
+    void setW(MainWindow * w);
 
 private slots:
+    /**
+      * \brief Ouverture d'une BDD déjà existante
+      */
     void on_pushButton_clicked();
+
+    /**
+      * \brief Création d'une nouvelle BDD
+      */
     void on_pushButton_2_clicked();
+
+    /**
+      * \brief Lance le dessin des boutons sur la map
+      */
+    void wsFinished();
 
 private:
     Ui::Accueil *ui;
-    void ouvrirMainWindow(QString );
+
+    /**
+      * \brief Ouvre la fenetre parente et renseigne la BDD fournie
+      * @param fileName Nom de la BDD
+      */
+    void ouvrirMainWindow(QString fileName);
     MainWindow * mw;
+    C_webservice * ws;
 };
 
 #endif // ACCUEIL_H

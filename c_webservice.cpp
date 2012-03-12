@@ -1,12 +1,9 @@
 #include "c_webservice.h"
 
 
-void C_webservice::getPOI(double lat,double lon)
+void C_webservice::getPOI(double lon,double lat)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-
-    connect(manager, SIGNAL(finished(QNetworkReply*)),
-         this, SLOT(replyFinished(QNetworkReply*)));
 
     QString requete;
     QVariant parser;
@@ -23,7 +20,10 @@ void C_webservice::getPOI(double lat,double lon)
 
     manager->get(QNetworkRequest(url));
 
-    qDebug() << "getPOI";
+    connect(manager, SIGNAL(finished(QNetworkReply*)),
+         this, SLOT(replyFinished(QNetworkReply*)));
+
+    qDebug() << "getPOI - " << requete;
 }
 
 void C_webservice::replyFinished(QNetworkReply* rep)
@@ -37,6 +37,8 @@ void C_webservice::replyFinished(QNetworkReply* rep)
 
     QDomDocument domDoc;
     domDoc.setContent(string);
+
+    rep->deleteLater();
 
     parseAndInsert(string);
 }
@@ -87,6 +89,9 @@ qDebug() << "parse and insert";
          C_qdbc::addPoi(poi);
 
     }
+
+    //this->deleteLater();
+    emit requestFinished();
 
     qDebug() << "-> Requête terminée";
 }

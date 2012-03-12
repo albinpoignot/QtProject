@@ -28,9 +28,6 @@ void MainWindow::init()
 
      addZoomButton();
      addGeometry();
-     fillTable();
-
-
 }
 
 void MainWindow::setDetails(C_details * leDetails)
@@ -64,6 +61,12 @@ void MainWindow::addZoomButton()
     innerlayout->addWidget(zoomin);
     innerlayout->addWidget(zoomout);
     mc->setLayout(innerlayout);
+}
+
+void MainWindow::drawPOI()
+{
+    addGeometry();
+    fillTable();
 }
 
 void MainWindow::addGeometry()
