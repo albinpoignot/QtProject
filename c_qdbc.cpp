@@ -87,9 +87,9 @@ C_poi C_qdbc::getPoi(double lon, double lat)
             point.setPoint(QPointF(lon, lat));
             point.setCat(query.value(0).toString());
             point.setNom(query.value(1).toString());
-            if(query.value(2) != NULL)
+            if(query.value(2).toString() != NULL)
                 point.setDescription(query.value(2).toString());
-            if(query.value(3) != NULL)
+            if(query.value(3).toString() != NULL)
                 point.setHoraires(query.value(3).toString());
         }
 
@@ -127,9 +127,9 @@ QList<C_poi> C_qdbc::getAllPoi()
                 point.setCat(query.value(0).toString());
                 point.setNom(query.value(1).toString());
                 point.setPoint(QPointF(query.value(2).toFloat(), query.value(3).toFloat()));
-                 if(query.value(4) != NULL)
+                 if(query.value(4).toString() != NULL)
                 point.setDescription(query.value(4).toString());
-                  if(query.value(5) != NULL)
+                  if(query.value(5).toString() != NULL)
                 point.setHoraires(query.value(5).toString());
 
                 points.append(point);

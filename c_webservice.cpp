@@ -22,16 +22,18 @@ void C_webservice::getPOI(double lat,double lon)
     QUrl url = QUrl(requete);
 
     manager->get(QNetworkRequest(url));
+
+    qDebug() << "getPOI";
 }
 
 void C_webservice::replyFinished(QNetworkReply* rep)
 {
-    //qDebug("Reponse : ");
+    qDebug("Reponse : ");
 
     QString string;
     string.append(rep->readAll());
 
-    //qDebug() << string;
+    qDebug() << string;
 
     QDomDocument domDoc;
     domDoc.setContent(string);
@@ -50,7 +52,7 @@ void C_webservice::parseAndInsert(QString str)
     QString currentPoint;
     QStringList currentPointList;
 
-
+qDebug() << "parse and insert";
     C_poi poi;
 
     // STEP 2 : Iterate over nodes and set variables
@@ -79,6 +81,7 @@ void C_webservice::parseAndInsert(QString str)
 
          poi.setPoint(currentPos);
 
+        qDebug() << poi.getCat();
          // STEP 4 : Add the POI in the database
          //addPOIToDB(poi);
          C_qdbc::addPoi(poi);

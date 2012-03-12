@@ -116,13 +116,13 @@ void MainWindow::fillTable()
     QList<C_poi> listePoi = C_qdbc::getAllPoi();
     int nbPoi = listePoi.size();
 
-    table = new QTableWidget(nbPoi,5);
+    table = new QTableWidget(nbPoi,7);
     ui->verticalLayout->addWidget(table);
 
     QTableWidgetItem * item;
     for(int i = 0; i < nbPoi;i++)
     {
-        for(int j = 0; j < 5; j++)
+        for(int j = 0; j < 7; j++)
         {
             item = new QTableWidgetItem();
             switch(j)
@@ -137,7 +137,11 @@ void MainWindow::fillTable()
                 case 3: item->setText(QString::number(listePoi[i].getPoint().y()));
                         item->setFlags(item->flags() & ~Qt::ItemIsEditable);
                         break;
-                case 4: item->setText("Delete");
+                case 4: item->setText(listePoi[i].getDescription());
+                        break;
+                case 5: item->setText(listePoi[i].getHoraires());
+                        break;
+                case 6: item->setText("Delete");
                         item->setFlags(item->flags() & ~Qt::ItemIsEditable);
                         break;
             }
@@ -161,13 +165,14 @@ void MainWindow::modifyPoint(QTableWidgetItem * item)
     point.setNom(table->item(item->row(), 1)->text());
     point.setPoint( QPointF(table->item(item->row(), 2)->text().toFloat(),
                            table->item(item->row(), 3)->text().toFloat()) );
-
+    point.setDescription(table->item(item->row(),4)->text());
+    point.setHoraires(table->item(item->row(),5)->text());
     C_qdbc::updatePoi(point);
 }
 
 void MainWindow::deletePoint(QTableWidgetItem * item)
 {
-    if(item->column() == 4)
+    if(item->column() == 6)
     {
         qDebug() << "Suppression demandee -> " << table->item(item->row(), 1)->text();
 

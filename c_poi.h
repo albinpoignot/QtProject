@@ -22,8 +22,8 @@ public:
     void setHoraires(QString);
     void setDescription(QString);
     void setPoint(QPointF);
-    QString getHoraires(QString);
-    QString getDescription(QString);
+    QString getHoraires();
+    QString getDescription();
     QString getCat();
     QString getNom();
     QPointF getPoint();

@@ -21,6 +21,8 @@ void Accueil::setW(MainWindow * w)
 void Accueil::ouvrirMainWindow(QString fileName)
 {
     C_qdbc::initDB(fileName);
+    C_webservice ws;
+    ws.getPOI(48.86,2.33);
     this->close();
     mw->show();
     mw->init();
