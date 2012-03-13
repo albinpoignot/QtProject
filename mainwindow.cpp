@@ -229,13 +229,13 @@ void MainWindow::pointClick(Geometry* geom, QPoint coord_px)
 {
     CirclePoint * cp = (CirclePoint*) geom;
 
-    qDebug() << "Geometry clicked - long:" << cp->longitude() << " lat:" << cp->latitude() << " - " << geom->name();
+    //qDebug() << "Geometry clicked - long:" << cp->longitude() << " lat:" << cp->latitude() << " - " << geom->name();
 
     C_poi point = C_qdbc::getPoi(cp->longitude(), cp->latitude());
 
     details->setDetails(point);
     details->move(this->x() + ui->tabWidget->x() + ui->tabWidget->width() + 10,
-                  this->y() + ui->tabWidget->y() + 100);
+                  this->y() + ui->tabWidget->y() + 50);
     details->show();
 
 }
@@ -249,7 +249,7 @@ void MainWindow::clickInTheWorld(const QMouseEvent* evnt,QPointF point)
     }
     else
     {
-        qDebug() << "click in the world - " << QString::number(point.x()) << ":" << QString::number(point.y());
+        //qDebug() << "click in the world - " << QString::number(point.x()) << ":" << QString::number(point.y());
     }
 }
 

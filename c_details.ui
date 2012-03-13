@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>300</width>
-    <height>400</height>
+    <height>478</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -29,13 +29,16 @@
    </size>
   </property>
   <property name="cursor">
-   <cursorShape>OpenHandCursor</cursorShape>
+   <cursorShape>ArrowCursor</cursorShape>
   </property>
   <property name="windowTitle">
    <string>Détails d'un POI</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(255, 255, 127);</string>
+   <string notr="true">QDialog
+{
+	background-color: rgb(255, 255, 127);
+}</string>
   </property>
   <property name="modal">
    <bool>false</bool>
@@ -53,7 +56,7 @@
     <cursorShape>ArrowCursor</cursorShape>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
+    <string notr="true"/>
    </property>
    <property name="readOnly">
     <bool>true</bool>
@@ -72,7 +75,7 @@
     <cursorShape>ArrowCursor</cursorShape>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
+    <string notr="true"/>
    </property>
    <property name="readOnly">
     <bool>true</bool>
@@ -114,7 +117,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string/>
@@ -124,20 +127,20 @@
    <property name="geometry">
     <rect>
      <x>80</x>
-     <y>130</y>
+     <y>180</y>
      <width>201</width>
-     <height>121</height>
+     <height>101</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
+    <string notr="true"/>
    </property>
   </widget>
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>130</y>
+     <y>180</y>
      <width>51</width>
      <height>17</height>
     </rect>
@@ -150,7 +153,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>260</y>
+     <y>290</y>
      <width>51</width>
      <height>17</height>
     </rect>
@@ -163,13 +166,61 @@
    <property name="geometry">
     <rect>
      <x>80</x>
-     <y>260</y>
+     <y>290</y>
      <width>201</width>
-     <height>121</height>
+     <height>91</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
+    <string notr="true"/>
+   </property>
+  </widget>
+  <widget class="QDialogButtonBox" name="buttonBox">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>400</y>
+     <width>176</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>130</y>
+     <width>61</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Catégorie</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="txtCategorie">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>130</y>
+     <width>201</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>ArrowCursor</cursorShape>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="readOnly">
+    <bool>false</bool>
    </property>
   </widget>
  </widget>

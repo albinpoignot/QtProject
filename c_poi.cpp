@@ -53,3 +53,9 @@ QString C_poi::getHoraires()
 {
     return sHoraires;
 }
+
+QString C_poi::toString()
+{
+    return QString::number(this->getPoint().x()) + "," + QString::number(this->getPoint().y()) + " - " + this->getNom() +
+            " - " + this->getCat() + " - " + this->getDescription() + " - " + this->getHoraires();
+}

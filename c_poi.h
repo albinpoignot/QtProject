@@ -27,6 +27,7 @@ public:
     QString getCat();
     QString getNom();
     QPointF getPoint();
+    QString toString();
 };
 
 #endif // C_POI_H

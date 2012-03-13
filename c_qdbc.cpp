@@ -87,10 +87,12 @@ C_poi C_qdbc::getPoi(double lon, double lat)
             point.setPoint(QPointF(lon, lat));
             point.setCat(query.value(0).toString());
             point.setNom(query.value(1).toString());
-            if(query.value(2).toString() != NULL)
-                point.setDescription(query.value(2).toString());
-            if(query.value(3).toString() != NULL)
-                point.setHoraires(query.value(3).toString());
+            if(query.value(4).toString() != NULL)
+                point.setDescription(query.value(4).toString());
+            if(query.value(5).toString() != NULL)
+                point.setHoraires(query.value(5).toString());
+
+            qDebug() << "getPoi : " + point.toString();
         }
 
         db.close();
@@ -148,13 +150,15 @@ void C_qdbc::updatePoi(C_poi point)
     if(db.open())
     {
         QSqlQuery query;
-        QString queryText = "UPDATE poi SET categorie = '" + point.getCat() + "', nom = '" + point.getNom() + "', description ='" + point.getDescription()
+        QString queryText = "UPDATE poi SET categorie = '" + point.getCat() + "', nom = '" + point.getNom() + "', description = '" + point.getDescription()
                 + "', horaires = '" + point.getHoraires() + "'";
         queryText.append(" WHERE long = " + QString::number(point.getPoint().x()) + " AND lat = " + QString::number(point.getPoint().y()));
 
         qDebug() << queryText;
 
         bool res = query.exec(queryText);
+
+        qDebug() << "updatePOI : " << point.toString();
 
         if(!res)
         {
@@ -164,6 +168,7 @@ void C_qdbc::updatePoi(C_poi point)
 
         db.close();
     }
+
 }
 
 
