@@ -20,6 +20,6 @@ int main(int argc, char *argv[])
     mw->show();
     mw->init();*/
 
-
+    //C_qdbc::removeDb();
     return a.exec();
 }

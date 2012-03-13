@@ -1,20 +1,20 @@
 #ifndef C_WEBSERVICE_H
 #define C_WEBSERVICE_H
 
-#include <QNetworkAccessManager>
-#include <QNetworkRequest>
-#include <QNetworkReply>
 #include <QDomDocument>
 #include <QDomNode>
-#include <QXmlInputSource>
-#include <QXmlReader>
-#include <QXmlSimpleReader>
-#include <QUrl>
-#include <QVariant>
-
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QNetworkRequest>
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlQuery>
+#include <QUrl>
+#include <QVariant>
+#include <QXmlInputSource>
+#include <QXmlReader>
+#include <QXmlSimpleReader>
+
 #include "c_qdbc.h"
 #include "c_poi.h"
 

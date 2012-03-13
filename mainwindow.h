@@ -1,16 +1,20 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
-#include <QInputDialog>
-#include "c_webservice.h"
-#include <QMessageBox>
+
 #include <QFileDialog>
-#include "qmapcontrol.h"
+#include <QInputDialog>
+#include <QMainWindow>
+#include <QMessageBox>
+#include <QMouseEvent>
 #include <QVBoxLayout>
 #include <QWidget>
+
+#include "qmapcontrol.h"
+
 #include "c_qdbc.h"
 #include "c_details.h"
+#include "c_webservice.h"
 
 using namespace qmapcontrol;
 
@@ -33,6 +37,8 @@ private slots:
     void modifyPoint(QTableWidgetItem*);
     void deletePoint(QTableWidgetItem*);
     void pointClick(Geometry*, QPoint coord_px);
+    void clickInTheWorld(const QMouseEvent *, QPointF);
+    void wsFinished();
 
 private:
     // attributs
@@ -42,6 +48,7 @@ private:
     GeometryLayer * points;
     QTableWidget * table;
     C_details * details;
+    C_webservice ws;
 
     // methodes
 

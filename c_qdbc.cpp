@@ -191,3 +191,8 @@ void C_qdbc::deletePoi(C_poi point)
 {
     deletePoi(point.getPoint().x(), point.getPoint().y());
 }
+
+void C_qdbc::removeDb()
+{
+    QSqlDatabase::removeDatabase("Connexion1");
+}

@@ -66,6 +66,8 @@ public:
       * @param point : le point à modifier
       */
     static void deletePoi(C_poi point);
+
+    static void removeDb();
 };
 
 #endif // C_QDBC_H

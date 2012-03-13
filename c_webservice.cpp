@@ -28,12 +28,12 @@ void C_webservice::getPOI(double lon,double lat)
 
 void C_webservice::replyFinished(QNetworkReply* rep)
 {
-    qDebug("Reponse : ");
+    //qDebug("Reponse : ");
 
     QString string;
     string.append(rep->readAll());
 
-    qDebug() << string;
+    //qDebug() << string;
 
     QDomDocument domDoc;
     domDoc.setContent(string);
@@ -54,7 +54,8 @@ void C_webservice::parseAndInsert(QString str)
     QString currentPoint;
     QStringList currentPointList;
 
-qDebug() << "parse and insert";
+    qDebug() << "parse and insert";
+
     C_poi poi;
 
     // STEP 2 : Iterate over nodes and set variables
@@ -65,28 +66,29 @@ qDebug() << "parse and insert";
     // STEP 3 : Parse data
     for(i=0; i < placemarks.count(); i++)
     {
-         // Get the current placemark
-         currentNode = placemarks.at(i);
+        // Get the current placemark
+        currentNode = placemarks.at(i);
 
-         // Create a new POI and set properties
-         poi = C_poi();
-         poi.setCat(domDoc.elementsByTagName("categorie").at(i).firstChild().nodeValue());
-         poi.setNom(domDoc.elementsByTagName("nom").at(i).firstChild().nodeValue());
+        // Create a new POI and set properties
+        poi = C_poi();
+        poi.setCat(domDoc.elementsByTagName("categorie").at(i).firstChild().nodeValue());
+        poi.setNom(domDoc.elementsByTagName("nom").at(i).firstChild().nodeValue());
 
-         // Special case for Coordinates where we have to split the result and cast in double
-         currentPoint = domDoc.elementsByTagName("coordinates").at(i).firstChild().nodeValue();
-         currentPointList = currentPoint.split(",");
+        // Special case for Coordinates where we have to split the result and cast in double
+        currentPoint = domDoc.elementsByTagName("coordinates").at(i).firstChild().nodeValue();
+        currentPointList = currentPoint.split(",");
 
-         currentPos = QPointF();
-         currentPos.setX(currentPointList.at(0).toFloat());
-         currentPos.setY(currentPointList.at(1).toFloat());
+        currentPos = QPointF();
+        currentPos.setX(currentPointList.at(0).toFloat());
+        currentPos.setY(currentPointList.at(1).toFloat());
 
-         poi.setPoint(currentPos);
+        poi.setPoint(currentPos);
 
-        qDebug() << poi.getCat();
-         // STEP 4 : Add the POI in the database
-         //addPOIToDB(poi);
-         C_qdbc::addPoi(poi);
+        //qDebug() << poi.getCat();
+
+        // STEP 4 : Add the POI in the database
+        //addPOIToDB(poi);
+        C_qdbc::addPoi(poi);
 
     }
 

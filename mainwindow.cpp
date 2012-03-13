@@ -17,17 +17,23 @@ void MainWindow::init()
     Layer* l = new MapLayer("Custom Layer", mapadapter);
 
     // add Layer to the MapControl
-     mc->addLayer(l);
-     layout->addWidget(mc);
-     ui->tab->setLayout(layout);
+    mc->addLayer(l);
+    layout->addWidget(mc);
+    ui->tab->setLayout(layout);
 
-     // Paris
-     mc->setView(QPointF(2.3522219,48.856614));
+    // Paris
+    mc->setView(QPointF(2.3522219,48.856614));
 
-     mc->setZoom(11);
+    mc->setZoom(11);
 
-     addZoomButton();
-     addGeometry();
+    connect(mc, SIGNAL(mouseEventCoordinate(const QMouseEvent*,QPointF)),
+            this, SLOT(clickInTheWorld(const QMouseEvent*,QPointF)));
+
+    connect(&ws, SIGNAL(requestFinished()), this, SLOT(wsFinished()));
+
+    addZoomButton();
+    addGeometry();
+
 }
 
 void MainWindow::setDetails(C_details * leDetails)
@@ -80,6 +86,8 @@ void MainWindow::addGeometry()
 
 void MainWindow::drawPoints()
 {
+    points->clearGeometries();
+
     QList<C_poi> listePoints = C_qdbc::getAllPoi();
     int nbPoi = listePoints.size();
     for(int i = 0; i < nbPoi ; i++)
@@ -102,6 +110,9 @@ void MainWindow::addPoint(C_poi poi)
 
     // Ajout à l'affichage !
     points->addGeometry(point);
+
+    delete pointpen;
+    //delete point;
 }
 
 MainWindow::~MainWindow()
@@ -227,4 +238,23 @@ void MainWindow::pointClick(Geometry* geom, QPoint coord_px)
                   this->y() + ui->tabWidget->y() + 100);
     details->show();
 
+}
+
+void MainWindow::clickInTheWorld(const QMouseEvent* evnt,QPointF point)
+{
+    if(evnt->type() == QEvent::MouseButtonDblClick)
+    {
+        qDebug() << "DOUBLE click in the world - " << QString::number(point.x()) << ":" << QString::number(point.y());
+        ws.getPOI(point.x(), point.y());
+    }
+    else
+    {
+        qDebug() << "click in the world - " << QString::number(point.x()) << ":" << QString::number(point.y());
+    }
+}
+
+void MainWindow::wsFinished()
+{
+    //delete ws;
+    drawPoints();
 }
