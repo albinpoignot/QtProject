@@ -2,7 +2,10 @@
 #define C_DETAILS_H
 
 #include <QDialog>
+#include <QMessageBox>
+
 #include <QDebug>
+
 #include "c_poi.h"
 #include "c_qdbc.h"
 
@@ -23,6 +26,16 @@ private slots:
     void on_buttonBox_accepted();
 
     void on_buttonBox_rejected();
+
+    void on_txtNom_textChanged(const QString &arg1);
+
+    void on_txtNom_textEdited(const QString &arg1);
+
+    void on_txtCategorie_textEdited(const QString &arg1);
+
+    void on_txtDesc_textChanged();
+
+    void on_txtDesc_undoAvailable(bool b);
 
 private:
     Ui::C_details *ui;

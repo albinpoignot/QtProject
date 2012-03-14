@@ -32,18 +32,61 @@ void C_details::setDetails(C_poi point)
 void C_details::on_buttonBox_accepted()
 {
     C_poi point;
-    point.setPoint(QPointF(ui->txtLongitude->text().toFloat(), ui->txtLatitude->text().toFloat()));
-    point.setNom(ui->txtNom->text());
-    point.setCat(ui->txtCategorie->text());
-    point.setDescription(ui->txtDesc->toPlainText());
-    point.setHoraires(ui->txtHoraires->toPlainText());
+    QMessageBox messageBox;
+    messageBox.setText("Voulez-vous vraiment mettre à jour ce POI ?");
+    messageBox.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
+    messageBox.setDefaultButton(QMessageBox::No);
 
-    qDebug() << "on_buttonBox_accepted : " + point.toString();
+    int ret = messageBox.exec();
 
-    C_qdbc::updatePoi(point);
+    switch(ret)
+    {
+        case QMessageBox::Yes:
+            point.setPoint(QPointF(ui->txtLongitude->text().toFloat(), ui->txtLatitude->text().toFloat()));
+            point.setNom(ui->txtNom->text());
+            point.setCat(ui->txtCategorie->text());
+            point.setDescription(ui->txtDesc->toPlainText());
+            point.setHoraires(ui->txtHoraires->toPlainText());
+
+            C_qdbc::updatePoi(point);
+            messageBox.close();
+            this->close();
+            break;
+        case QMessageBox::No:
+            messageBox.close();
+            break;
+    }
+
+   // qDebug() << "on_buttonBox_accepted : " + point.toString();
+
 }
 
 void C_details::on_buttonBox_rejected()
 {
     this->close();
+}
+
+void C_details::on_txtNom_textEdited(const QString &arg1)
+{
+    ui->txtNom->setStyleSheet("background-color:red;");
+}
+
+void C_details::on_txtNom_textChanged(const QString &arg1)
+{
+
+}
+
+void C_details::on_txtCategorie_textEdited(const QString &arg1)
+{
+    ui->txtNom->setStyleSheet("background-color:red;");
+}
+
+void C_details::on_txtDesc_textChanged()
+{
+    //ui->txtDesc->setStyleSheet("background-color:red;");
+}
+
+void C_details::on_txtDesc_undoAvailable(bool b)
+{
+
 }

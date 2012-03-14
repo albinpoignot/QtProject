@@ -40,6 +40,8 @@ private slots:
     void clickInTheWorld(const QMouseEvent *, QPointF);
     void wsFinished();
 
+    void on_tabWidget_currentChanged(int index);
+
 private:
     // attributs
     Ui::MainWindow *ui;
@@ -84,6 +86,8 @@ private:
     void fillTable();
 
     void confirmedDelete(int);
+
+    void updateTable();
 
     //void canceledDelete();
 };

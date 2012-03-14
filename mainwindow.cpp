@@ -72,6 +72,7 @@ void MainWindow::addZoomButton()
 void MainWindow::drawPOI()
 {
     addGeometry();
+    addTable();
     fillTable();
 }
 
@@ -123,6 +124,13 @@ MainWindow::~MainWindow()
 void MainWindow::addTable()
 {
 
+}
+
+void MainWindow::updateTable()
+{
+    ui->verticalLayout->removeWidget(table);
+    delete table;
+    fillTable();
 }
 
 void MainWindow::fillTable()
@@ -257,4 +265,9 @@ void MainWindow::wsFinished()
 {
     //delete ws;
     drawPoints();
+}
+
+void MainWindow::on_tabWidget_currentChanged(int index)
+{
+    updateTable();
 }
