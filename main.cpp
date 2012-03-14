@@ -8,6 +8,9 @@ int main(int argc, char *argv[])
     MainWindow w;
     Accueil d;
     C_details details(&w);
+
+    QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
+
     w.setDetails(&details);
     d.setW(&w);
     d.show();

@@ -23,9 +23,9 @@
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>481</width>
+      <x>10</x>
+      <y>10</y>
+      <width>781</width>
       <height>381</height>
      </rect>
     </property>
@@ -44,9 +44,9 @@
      <widget class="QWidget" name="verticalLayoutWidget">
       <property name="geometry">
        <rect>
-        <x>29</x>
+        <x>9</x>
         <y>19</y>
-        <width>421</width>
+        <width>761</width>
         <height>311</height>
        </rect>
       </property>

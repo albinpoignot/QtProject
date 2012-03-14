@@ -31,7 +31,7 @@ public:
     ~MainWindow();
     void init();
     void setDetails(C_details *);
-    void drawPOI();
+    void drawTabWidgetContent();
 
 private slots:
     void modifyPoint(QTableWidgetItem*);
@@ -51,6 +51,7 @@ private:
     QTableWidget * table;
     C_details * details;
     C_webservice ws;
+    QList<CirclePoint *> listeCirclePoints;
 
     // methodes
 
@@ -63,7 +64,7 @@ private:
       * Ajoute un GeometryLayer à l'écran pour dessiner les points
       * En fait, il renseigne l'attribut "points"
       */
-    void addGeometry();
+    void addGeometryLayer();
 
     /**
       * récupère tous les points de la base de données pour les passer à addPoint

@@ -21,10 +21,11 @@ void Accueil::setW(MainWindow * w)
 void Accueil::ouvrirMainWindow(QString fileName)
 {
     C_qdbc::initDB(fileName);
-    ws = new C_webservice();
+
+    /*ws = new C_webservice();
     ws->getPOI(48.86,2.33);
 
-    connect(ws, SIGNAL(requestFinished()), this, SLOT(wsFinished()));
+    connect(ws, SIGNAL(requestFinished()), this, SLOT(wsFinished()));*/
 
     this->close();
     mw->show();
@@ -35,7 +36,7 @@ void Accueil::ouvrirMainWindow(QString fileName)
 void Accueil::wsFinished()
 {
     //delete ws;
-    mw->drawPOI();
+    mw->drawTabWidgetContent();
 }
 
 void Accueil::on_pushButton_clicked()

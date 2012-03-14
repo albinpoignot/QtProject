@@ -7,7 +7,9 @@ void MainWindow::init()
     QVBoxLayout * layout  = new QVBoxLayout();
 
     // create MapControl
-    mc = new MapControl(QSize(455,315));
+    //mc = new MapControl(QSize(455,315));
+    mc = new MapControl(QSize(ui->tabWidget->width() - 25, ui->tabWidget->height() - 60));
+
     mc->showScale(true);
 
     // create MapAdapter to get maps from
@@ -31,8 +33,11 @@ void MainWindow::init()
 
     connect(&ws, SIGNAL(requestFinished()), this, SLOT(wsFinished()));
 
+    details->setParent(this);
+
     addZoomButton();
-    addGeometry();
+    //addGeometryLayer();
+    drawTabWidgetContent();
 
 }
 
@@ -69,14 +74,14 @@ void MainWindow::addZoomButton()
     mc->setLayout(innerlayout);
 }
 
-void MainWindow::drawPOI()
+void MainWindow::drawTabWidgetContent()
 {
-    addGeometry();
+    addGeometryLayer();
     addTable();
     fillTable();
 }
 
-void MainWindow::addGeometry()
+void MainWindow::addGeometryLayer()
 {
    points = new GeometryLayer("Points", mapadapter);
 
@@ -87,10 +92,18 @@ void MainWindow::addGeometry()
 
 void MainWindow::drawPoints()
 {
+    // STEP 1 : suppression des pointeurs
+    while (!listeCirclePoints.isEmpty())
+    {
+         delete listeCirclePoints.takeFirst();
+    }
+
     points->clearGeometries();
 
+    // STEP 2 : obtention des points actuellement dans la BDD pour dessin
     QList<C_poi> listePoints = C_qdbc::getAllPoi();
     int nbPoi = listePoints.size();
+
     for(int i = 0; i < nbPoi ; i++)
     {
         addPoint(listePoints.at(i));
@@ -109,11 +122,12 @@ void MainWindow::addPoint(C_poi poi)
     // Point : coord => 2,... et 48,... || rayon => 15 || nom || ?? || pinceau pour le dessin
     CirclePoint * point = new CirclePoint(poi.getPoint().x(), poi.getPoint().y(), 15, poi.getNom(), Point::Middle, pointpen);
 
+    listeCirclePoints.append(point);
+
     // Ajout à l'affichage !
     points->addGeometry(point);
 
     delete pointpen;
-    //delete point;
 }
 
 MainWindow::~MainWindow()
@@ -196,7 +210,7 @@ void MainWindow::deletePoint(QTableWidgetItem * item)
 {
     if(item->column() == 6)
     {
-        qDebug() << "Suppression demandee -> " << table->item(item->row(), 1)->text();
+        //qDebug() << "Suppression demandee -> " << table->item(item->row(), 1)->text();
 
         int deletedRow = item->row();
 
@@ -222,13 +236,12 @@ void MainWindow::deletePoint(QTableWidgetItem * item)
 
 void MainWindow::confirmedDelete(int deletedRow)
 {
-    qDebug() << "Suppression confirmee -> " << table->item(deletedRow, 1)->text();
+    //qDebug() << "Suppression confirmee -> " << table->item(deletedRow, 1)->text();
 
     if(deletedRow >= 0)
     {
         C_qdbc::deletePoi(table->item(deletedRow, 2)->text().toDouble(), table->item(deletedRow, 3)->text().toDouble());
         table->removeRow(deletedRow);
-        qDebug() << "delete effectue";
     }
 
 }
@@ -237,13 +250,22 @@ void MainWindow::pointClick(Geometry* geom, QPoint coord_px)
 {
     CirclePoint * cp = (CirclePoint*) geom;
 
-    //qDebug() << "Geometry clicked - long:" << cp->longitude() << " lat:" << cp->latitude() << " - " << geom->name();
-
     C_poi point = C_qdbc::getPoi(cp->longitude(), cp->latitude());
 
     details->setDetails(point);
-    details->move(this->x() + ui->tabWidget->x() + ui->tabWidget->width() + 10,
-                  this->y() + ui->tabWidget->y() + 50);
+
+    /* TO THE RIGHT
+     * details->move(this->x() + ui->tabWidget->x() + ui->tabWidget->width() + 10,
+     *             this->y() + ui->tabWidget->y() + 50);
+     */
+
+    /*
+     * ON THE POINT
+     */
+    details->move(coord_px.x() + 30, coord_px.y() + details->height() - 50);
+
+    qDebug() << QString::number(coord_px.x() + 30) << " - " << QString::number(coord_px.y() + details->height() - 50);
+
     details->show();
 
 }
@@ -252,18 +274,31 @@ void MainWindow::clickInTheWorld(const QMouseEvent* evnt,QPointF point)
 {
     if(evnt->type() == QEvent::MouseButtonDblClick)
     {
-        qDebug() << "DOUBLE click in the world - " << QString::number(point.x()) << ":" << QString::number(point.y());
-        ws.getPOI(point.x(), point.y());
-    }
-    else
-    {
-        //qDebug() << "click in the world - " << QString::number(point.x()) << ":" << QString::number(point.y());
+        //qDebug() << "DOUBLE click in the world - " << QString::number(point.x()) << ":" << QString::number(point.y());
+
+        QMessageBox messageBox;
+        messageBox.setText("Voulez-vous récupérer les points proches de votre clic ?");
+        messageBox.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
+        messageBox.setDefaultButton(QMessageBox::No);
+
+        int ret = messageBox.exec();
+
+        switch(ret)
+        {
+            case QMessageBox::Yes:
+                ws.getPOI(point.x(), point.y());
+                messageBox.close();
+                break;
+            case QMessageBox::No:
+                messageBox.close();
+                break;
+        }
+
     }
 }
 
 void MainWindow::wsFinished()
 {
-    //delete ws;
     drawPoints();
 }
 
