@@ -41,6 +41,7 @@ void C_qdbc::addPoi(C_poi point)
         QSqlQuery query;
         QString queryText = "INSERT INTO poi(categorie, nom, long, lat) VALUES('";
 
+        queryText.replace("'","\'");
         queryText.append(point.getCat());
         queryText.append("','");
         queryText.append(point.getNom());

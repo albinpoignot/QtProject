@@ -6,11 +6,13 @@ C_poi::C_poi()
 
 void C_poi::setCat(QString laCat)
 {
+    laCat.replace("'","\'");
     sCategorie = laCat;
 }
 
 void C_poi::setNom(QString leNom)
 {
+    leNom.replace("'","\'");
     sNom = leNom;
 }
 
@@ -36,6 +38,8 @@ QPointF C_poi::getPoint()
 
 void C_poi::setDescription(QString laDescription)
 {
+    laDescription.replace("'","\\'");
+    qDebug() << "setdescription:" << laDescription;
     sDescription = laDescription;
 }
 

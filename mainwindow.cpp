@@ -51,7 +51,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
 }
 
 void MainWindow::addZoomButton()
@@ -97,16 +96,22 @@ void MainWindow::drawPoints()
     CirclePoint * point;
 
     points->clearGeometries();
-
     // STEP 1 : suppression des pointeurs
     if(!listeCirclePoints.isEmpty())
     {
         for(int i=0; i<listeCirclePoints.size(); i++)
         {
-            delete listeCirclePoints[i];
+            points->removeGeometry(listeCirclePoints[0]);
+            delete listeCirclePoints[0];
+            listeCirclePoints.removeFirst();
             //qDebug() << listeCirclePoints[i]->coordinate().x();
             //listeCirclePoints.removeAt(i);
         }
+        QList<CirclePoint *>::iterator it;
+        for(it = listeCirclePoints.begin(); it != listeCirclePoints.end(); it++)
+            delete (*it);
+        /*while (!listeCirclePoints.isEmpty())
+            delete listeCirclePoints.takeFirst();*/
     }
 
     qDebug() << " ****** all points are deleted";
@@ -139,7 +144,6 @@ void MainWindow::addPoint(C_poi poi)
 
     // Ajout à l'affichage !
     points->addGeometry(point);
-
     delete pointpen;
 }
 
@@ -168,7 +172,35 @@ void MainWindow::fillTable()
     table = new QTableWidget(nbPoi,7);
     ui->verticalLayout->addWidget(table);
 
-    QTableWidgetItem * item;
+
+    QTableWidgetItem * item = new QTableWidgetItem();
+    item->setText("Catégorie");
+    table->setHorizontalHeaderItem(0,item);
+
+    item = new QTableWidgetItem();
+    item->setText("Nom");
+    table->setHorizontalHeaderItem(1,item);
+
+    item = new QTableWidgetItem();
+    item->setText("Latitude");
+    table->setHorizontalHeaderItem(2,item);
+
+    item = new QTableWidgetItem();
+    item->setText("longitude");
+    table->setHorizontalHeaderItem(3,item);
+
+    item = new QTableWidgetItem();
+    item->setText("Description");
+    table->setHorizontalHeaderItem(4,item);
+
+    item = new QTableWidgetItem();
+    item->setText("Horaires");
+    table->setHorizontalHeaderItem(5,item);
+
+    item = new QTableWidgetItem();
+    item->setText("Supprimer");
+    table->setHorizontalHeaderItem(6,item);
+
     for(int i = 0; i < nbPoi;i++)
     {
         for(int j = 0; j < 7; j++)

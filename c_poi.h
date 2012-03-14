@@ -4,6 +4,7 @@
 #include <QString>
 #include <QHash>
 #include <QPointF>
+#include <QDebug>
 
 class C_poi
 {
