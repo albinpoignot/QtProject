@@ -55,7 +55,7 @@ void C_qdbc::addPoi(C_poi point)
         if(!res)
         {
             qDebug() << "*** ERREUR *** Impossible d'ajouter le point : " + point.getNom() + " (" +
-                        QString::number(point.getPoint().x()) + " - " + QString::number(point.getPoint().y()) + ")";
+                        QString::number(point.getPoint().x()) + " - " + QString::number(point.getPoint().y()) + ") : " + queryText;
         }
 
         db.close();

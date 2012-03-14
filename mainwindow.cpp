@@ -92,13 +92,24 @@ void MainWindow::addGeometryLayer()
 
 void MainWindow::drawPoints()
 {
-    // STEP 1 : suppression des pointeurs
-    while (!listeCirclePoints.isEmpty())
-    {
-         delete listeCirclePoints.takeFirst();
-    }
+    qDebug() << "*** draw points start - listeCirclePoints.size() = " << listeCirclePoints.size();
+
+    CirclePoint * point;
 
     points->clearGeometries();
+
+    // STEP 1 : suppression des pointeurs
+    if(!listeCirclePoints.isEmpty())
+    {
+        for(int i=0; i<listeCirclePoints.size(); i++)
+        {
+            delete listeCirclePoints[i];
+            //qDebug() << listeCirclePoints[i]->coordinate().x();
+            //listeCirclePoints.removeAt(i);
+        }
+    }
+
+    qDebug() << " ****** all points are deleted";
 
     // STEP 2 : obtention des points actuellement dans la BDD pour dessin
     QList<C_poi> listePoints = C_qdbc::getAllPoi();
@@ -111,6 +122,8 @@ void MainWindow::drawPoints()
 
     connect(points, SIGNAL(geometryClicked(Geometry*,QPoint)),
             this, SLOT(pointClick(Geometry*,QPoint)));
+
+    qDebug() << "fin de drawPoints() - listeCirclePoints.size() = " << listeCirclePoints.size();
 }
 
 void MainWindow::addPoint(C_poi poi)
@@ -299,6 +312,7 @@ void MainWindow::clickInTheWorld(const QMouseEvent* evnt,QPointF point)
 
 void MainWindow::wsFinished()
 {
+    qDebug() << "Request finished _ wsFinished()";
     drawPoints();
 }
 
