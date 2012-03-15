@@ -1,1 +1,6 @@
 projetQt.pro.user
+*.o
+tmp
+Makefile
+button_add_files
+projetQt

@@ -96,20 +96,17 @@ void MainWindow::drawPoints()
     CirclePoint * point;
 
     points->clearGeometries();
+
     // STEP 1 : suppression des pointeurs
     if(!listeCirclePoints.isEmpty())
     {
         for(int i=0; i<listeCirclePoints.size(); i++)
         {
-            points->removeGeometry(listeCirclePoints[0]);
-            delete listeCirclePoints[0];
-            listeCirclePoints.removeFirst();
+            delete listeCirclePoints[i];
+            listeCirclePoints.removeAt(i);
             //qDebug() << listeCirclePoints[i]->coordinate().x();
             //listeCirclePoints.removeAt(i);
         }
-        QList<CirclePoint *>::iterator it;
-        for(it = listeCirclePoints.begin(); it != listeCirclePoints.end(); it++)
-            delete (*it);
         /*while (!listeCirclePoints.isEmpty())
             delete listeCirclePoints.takeFirst();*/
     }
