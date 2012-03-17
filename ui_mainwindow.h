@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Thu Mar 15 15:37:33 2012
+** Created: Sat Mar 17 17:33:03 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -14,11 +14,10 @@
 #include <QtGui/QAction>
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
-#include <QtGui/QComboBox>
-#include <QtGui/QGridLayout>
 #include <QtGui/QHeaderView>
 #include <QtGui/QLabel>
 #include <QtGui/QLineEdit>
+#include <QtGui/QListView>
 #include <QtGui/QMainWindow>
 #include <QtGui/QMenuBar>
 #include <QtGui/QPushButton>
@@ -40,20 +39,18 @@ public:
     QWidget *tab_2;
     QWidget *verticalLayoutWidget;
     QVBoxLayout *verticalLayout;
-    QWidget *gridLayoutWidget;
-    QGridLayout *gridLayout;
-    QComboBox *catGorieComboBox;
-    QLabel *catGorieLabel;
-    QLabel *nomOuCategorieLabel;
-    QLineEdit *lineEdit;
-    QPushButton *pushButton;
-    QPushButton *pushButton_2;
-    QPushButton *pushButton_3;
+    QLabel *label;
     QLabel *label_2;
     QLineEdit *lineEdit_2;
     QLineEdit *lineEdit_3;
+    QPushButton *pushButton_3;
+    QLabel *catGorieLabel;
+    QLabel *nomOuCategorieLabel;
+    QPushButton *pushButton_2;
+    QLineEdit *lineEdit;
     QToolButton *toolButton;
-    QLabel *label;
+    QListView *listView;
+    QToolButton *toolButton_2;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -83,80 +80,53 @@ public:
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
         tabWidget->addTab(tab_2, QString());
-        gridLayoutWidget = new QWidget(centralWidget);
-        gridLayoutWidget->setObjectName(QString::fromUtf8("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(50, 440, 372, 131));
-        gridLayout = new QGridLayout(gridLayoutWidget);
-        gridLayout->setSpacing(6);
-        gridLayout->setContentsMargins(11, 11, 11, 11);
-        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        gridLayout->setContentsMargins(0, 0, 0, 0);
-        catGorieComboBox = new QComboBox(gridLayoutWidget);
-        catGorieComboBox->setObjectName(QString::fromUtf8("catGorieComboBox"));
-
-        gridLayout->addWidget(catGorieComboBox, 0, 3, 1, 1);
-
-        catGorieLabel = new QLabel(gridLayoutWidget);
-        catGorieLabel->setObjectName(QString::fromUtf8("catGorieLabel"));
-
-        gridLayout->addWidget(catGorieLabel, 0, 0, 1, 1);
-
-        nomOuCategorieLabel = new QLabel(gridLayoutWidget);
-        nomOuCategorieLabel->setObjectName(QString::fromUtf8("nomOuCategorieLabel"));
-
-        gridLayout->addWidget(nomOuCategorieLabel, 1, 0, 1, 1);
-
-        lineEdit = new QLineEdit(gridLayoutWidget);
-        lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
-
-        gridLayout->addWidget(lineEdit, 1, 1, 1, 3);
-
-        pushButton = new QPushButton(gridLayoutWidget);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
-
-        gridLayout->addWidget(pushButton, 0, 4, 1, 1);
-
-        pushButton_2 = new QPushButton(gridLayoutWidget);
-        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
-
-        gridLayout->addWidget(pushButton_2, 1, 4, 1, 1);
-
-        pushButton_3 = new QPushButton(gridLayoutWidget);
-        pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
-
-        gridLayout->addWidget(pushButton_3, 2, 4, 1, 1);
-
-        label_2 = new QLabel(gridLayoutWidget);
-        label_2->setObjectName(QString::fromUtf8("label_2"));
-
-        gridLayout->addWidget(label_2, 2, 0, 1, 1);
-
-        lineEdit_2 = new QLineEdit(gridLayoutWidget);
-        lineEdit_2->setObjectName(QString::fromUtf8("lineEdit_2"));
-
-        gridLayout->addWidget(lineEdit_2, 2, 1, 1, 1);
-
-        lineEdit_3 = new QLineEdit(gridLayoutWidget);
-        lineEdit_3->setObjectName(QString::fromUtf8("lineEdit_3"));
-
-        gridLayout->addWidget(lineEdit_3, 2, 3, 1, 1);
-
-        toolButton = new QToolButton(gridLayoutWidget);
-        toolButton->setObjectName(QString::fromUtf8("toolButton"));
-        QIcon icon;
-        icon.addFile(QString::fromUtf8("button_add.png"), QSize(), QIcon::Normal, QIcon::Off);
-        toolButton->setIcon(icon);
-
-        gridLayout->addWidget(toolButton, 0, 1, 1, 2);
-
         label = new QLabel(centralWidget);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(50, 400, 171, 31));
+        label->setGeometry(QRect(350, 400, 71, 31));
         QFont font;
         font.setPointSize(20);
         font.setBold(true);
         font.setWeight(75);
         label->setFont(font);
+        label_2 = new QLabel(centralWidget);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
+        label_2->setGeometry(QRect(600, 440, 116, 27));
+        lineEdit_2 = new QLineEdit(centralWidget);
+        lineEdit_2->setObjectName(QString::fromUtf8("lineEdit_2"));
+        lineEdit_2->setGeometry(QRect(600, 490, 91, 27));
+        lineEdit_3 = new QLineEdit(centralWidget);
+        lineEdit_3->setObjectName(QString::fromUtf8("lineEdit_3"));
+        lineEdit_3->setGeometry(QRect(700, 490, 91, 27));
+        pushButton_3 = new QPushButton(centralWidget);
+        pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
+        pushButton_3->setGeometry(QRect(600, 550, 88, 27));
+        catGorieLabel = new QLabel(centralWidget);
+        catGorieLabel->setObjectName(QString::fromUtf8("catGorieLabel"));
+        catGorieLabel->setGeometry(QRect(60, 440, 116, 32));
+        nomOuCategorieLabel = new QLabel(centralWidget);
+        nomOuCategorieLabel->setObjectName(QString::fromUtf8("nomOuCategorieLabel"));
+        nomOuCategorieLabel->setGeometry(QRect(420, 440, 116, 27));
+        pushButton_2 = new QPushButton(centralWidget);
+        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
+        pushButton_2->setGeometry(QRect(420, 550, 81, 27));
+        lineEdit = new QLineEdit(centralWidget);
+        lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
+        lineEdit->setGeometry(QRect(420, 490, 131, 27));
+        toolButton = new QToolButton(centralWidget);
+        toolButton->setObjectName(QString::fromUtf8("toolButton"));
+        toolButton->setGeometry(QRect(300, 550, 30, 32));
+        QIcon icon;
+        icon.addFile(QString::fromUtf8("button_add.png"), QSize(), QIcon::Normal, QIcon::Off);
+        toolButton->setIcon(icon);
+        listView = new QListView(centralWidget);
+        listView->setObjectName(QString::fromUtf8("listView"));
+        listView->setGeometry(QRect(60, 470, 231, 111));
+        toolButton_2 = new QToolButton(centralWidget);
+        toolButton_2->setObjectName(QString::fromUtf8("toolButton_2"));
+        toolButton_2->setGeometry(QRect(300, 514, 31, 31));
+        QIcon icon1;
+        icon1.addFile(QString::fromUtf8("button_add_files/button_delete.png"), QSize(), QIcon::Normal, QIcon::Off);
+        toolButton_2->setIcon(icon1);
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
@@ -182,17 +152,17 @@ public:
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Vos POI", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "carte", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Modifier les points d'int\303\251r\303\252t", 0, QApplication::UnicodeUTF8));
-        catGorieLabel->setText(QApplication::translate("MainWindow", "Cat\303\251gorie : ", 0, QApplication::UnicodeUTF8));
-        nomOuCategorieLabel->setText(QApplication::translate("MainWindow", "Nom ou Categorie :", 0, QApplication::UnicodeUTF8));
-        pushButton->setText(QApplication::translate("MainWindow", "PushButton", 0, QApplication::UnicodeUTF8));
-        pushButton_2->setText(QApplication::translate("MainWindow", "PushButton", 0, QApplication::UnicodeUTF8));
-        pushButton_3->setText(QApplication::translate("MainWindow", "PushButton", 0, QApplication::UnicodeUTF8));
+        label->setText(QApplication::translate("MainWindow", "Filtre", 0, QApplication::UnicodeUTF8));
         label_2->setText(QApplication::translate("MainWindow", "A proximit\303\251 de :", 0, QApplication::UnicodeUTF8));
+        pushButton_3->setText(QApplication::translate("MainWindow", "Filtrez", 0, QApplication::UnicodeUTF8));
+        catGorieLabel->setText(QApplication::translate("MainWindow", "Cat\303\251gories : ", 0, QApplication::UnicodeUTF8));
+        nomOuCategorieLabel->setText(QApplication::translate("MainWindow", "Nom ou Categorie :", 0, QApplication::UnicodeUTF8));
+        pushButton_2->setText(QApplication::translate("MainWindow", "Filtrez", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
         toolButton->setToolTip(QApplication::translate("MainWindow", "Ajouter une cat\303\251gorie dans la liste", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
         toolButton->setText(QApplication::translate("MainWindow", "...", 0, QApplication::UnicodeUTF8));
-        label->setText(QApplication::translate("MainWindow", "Filtre", 0, QApplication::UnicodeUTF8));
+        toolButton_2->setText(QApplication::translate("MainWindow", "...", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

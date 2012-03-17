@@ -1,9 +1,17 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+MainWindow::MainWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+}
 
 void MainWindow::init()
 {
+    initQsettings();
+
     QVBoxLayout * layout  = new QVBoxLayout();
 
     // create MapControl
@@ -33,11 +41,43 @@ void MainWindow::init()
 
     connect(&ws, SIGNAL(requestFinished()), this, SLOT(wsFinished()));
 
+    connect(settingView, SIGNAL(newCategorie(QString)), this, SLOT(addCategorie(QString)));
+
     details->setParent(this);
 
     addZoomButton();
     //addGeometryLayer();
     drawTabWidgetContent();
+
+    fillFiltre();
+
+}
+
+void MainWindow::initQsettings()
+{
+    if(!settings.contains("supermarche"))    settings.setValue("supermarche","supermarche");
+    if(!settings.contains("musee"))    settings.setValue("musee","musee");
+    if(!settings.contains("cinema"))    settings.setValue("cinema","cinema");
+    if(!settings.contains("theatre"))    settings.setValue("theatre","theatre");
+
+}
+
+void MainWindow::fillFiltre()
+{
+
+    QStringList cles = settings.allKeys();
+    QStandardItemModel *model = new QStandardItemModel;
+
+    foreach(QString cle,cles)
+    {
+        QStandardItem * item = new QStandardItem(settings.value(cle).toString());
+        item->setCheckable(true);
+        item->setEditable(false);
+        item->setCheckState(Qt::Checked);
+        model->appendRow(item);
+    }
+
+    ui->listView->setModel(model);
 
 }
 
@@ -46,11 +86,9 @@ void MainWindow::setDetails(C_details * leDetails)
     details = leDetails;
 }
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+void MainWindow::setSettings(Settings * leSettingView)
 {
-    ui->setupUi(this);
+    settingView = leSettingView;
 }
 
 void MainWindow::addZoomButton()
@@ -348,4 +386,41 @@ void MainWindow::wsFinished()
 void MainWindow::on_tabWidget_currentChanged(int index)
 {
     updateTable();
+}
+
+void MainWindow::on_toolButton_clicked()
+{
+    settingView->show();
+}
+
+void MainWindow::addCategorie(QString laCat)
+{
+    if(!settings.contains(laCat))    settings.setValue(laCat,laCat);
+    fillFiltre();
+}
+
+void MainWindow::on_toolButton_2_clicked()
+{
+    QModelIndex mi = ui->listView->currentIndex();
+    QString cat = ui->listView->model()->data(mi).toString();
+
+    QMessageBox messageBox;
+    messageBox.setText("Voulez-vous vraiment supprimmer " + cat + "?");
+    messageBox.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
+    messageBox.setDefaultButton(QMessageBox::No);
+
+    int ret = messageBox.exec();
+
+    switch(ret)
+    {
+        case QMessageBox::Yes:
+            settings.remove(cat);
+            fillFiltre();
+            messageBox.close();
+            break;
+        case QMessageBox::No:
+            messageBox.close();
+            break;
+    }
+
 }

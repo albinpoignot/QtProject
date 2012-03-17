@@ -9,12 +9,15 @@
 #include <QMouseEvent>
 #include <QVBoxLayout>
 #include <QWidget>
+#include <QSettings>
+#include <QStandardItemModel>
 
 #include "qmapcontrol.h"
 
 #include "c_qdbc.h"
 #include "c_details.h"
 #include "c_webservice.h"
+#include "settings.h"
 
 using namespace qmapcontrol;
 
@@ -31,8 +34,9 @@ public:
     ~MainWindow();
     void init();
     void setDetails(C_details *);
+    void setSettings(Settings *);
     void drawTabWidgetContent();
-
+    void fillFiltre();
 private slots:
     void modifyPoint(QTableWidgetItem*);
     void deletePoint(QTableWidgetItem*);
@@ -41,6 +45,11 @@ private slots:
     void wsFinished();
 
     void on_tabWidget_currentChanged(int index);
+
+    void on_toolButton_clicked();
+
+    void addCategorie(QString);
+    void on_toolButton_2_clicked();
 
 private:
     // attributs
@@ -52,7 +61,8 @@ private:
     C_details * details;
     C_webservice ws;
     QList<CirclePoint *> listeCirclePoints;
-
+    QSettings settings;
+    Settings * settingView;
     // methodes
 
     /**
@@ -89,6 +99,9 @@ private:
     void confirmedDelete(int);
 
     void updateTable();
+
+    void initQsettings();
+
 
     //void canceledDelete();
 };
