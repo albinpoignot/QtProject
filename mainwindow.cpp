@@ -42,7 +42,7 @@ void MainWindow::init()
     connect(&ws, SIGNAL(requestFinished()), this, SLOT(wsFinished()));
 
     connect(settingView, SIGNAL(newCategorie(QString)), this, SLOT(addCategorie(QString)));
-
+    connect(ui->listView,SIGNAL(clicked(QModelIndex)),this,SLOT(filtrer(QModelIndex)));
     details->setParent(this);
 
     addZoomButton();
@@ -66,7 +66,7 @@ void MainWindow::fillFiltre()
 {
 
     QStringList cles = settings.allKeys();
-    QStandardItemModel *model = new QStandardItemModel;
+    model = new QStandardItemModel;
 
     foreach(QString cle,cles)
     {
@@ -75,6 +75,7 @@ void MainWindow::fillFiltre()
         item->setEditable(false);
         item->setCheckState(Qt::Checked);
         model->appendRow(item);
+
     }
 
     ui->listView->setModel(model);
@@ -140,10 +141,8 @@ void MainWindow::drawPoints()
     {
         for(int i=0; i<listeCirclePoints.size(); i++)
         {
-            delete listeCirclePoints[i];
             listeCirclePoints.removeAt(i);
             //qDebug() << listeCirclePoints[i]->coordinate().x();
-            //listeCirclePoints.removeAt(i);
         }
         /*while (!listeCirclePoints.isEmpty())
             delete listeCirclePoints.takeFirst();*/
@@ -173,12 +172,13 @@ void MainWindow::addPoint(C_poi poi)
     pointpen->setWidth(5); // épaisseur du trait
 
     // Point : coord => 2,... et 48,... || rayon => 15 || nom || ?? || pinceau pour le dessin
-    CirclePoint * point = new CirclePoint(poi.getPoint().x(), poi.getPoint().y(), 15, poi.getNom(), Point::Middle, pointpen);
+    CirclePoint * point = new CirclePoint(poi.getPoint().x(), poi.getPoint().y(), 15, poi.getCat(), Point::Middle, pointpen);
 
     listeCirclePoints.append(point);
 
     // Ajout à l'affichage !
     points->addGeometry(point);
+
     delete pointpen;
 }
 
@@ -403,7 +403,6 @@ void MainWindow::on_toolButton_2_clicked()
 {
     QModelIndex mi = ui->listView->currentIndex();
     QString cat = ui->listView->model()->data(mi).toString();
-
     QMessageBox messageBox;
     messageBox.setText("Voulez-vous vraiment supprimmer " + cat + "?");
     messageBox.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
@@ -423,4 +422,44 @@ void MainWindow::on_toolButton_2_clicked()
             break;
     }
 
+}
+void MainWindow::filtrer(QModelIndex index)
+{
+    QStandardItem *item = model->item(index.row());
+    if(item->checkState() == Qt::Checked)
+    {
+        item->setCheckState(Qt::Unchecked);
+        // TODO: enlever la catégorie selectionnée de la carte
+        removePointFromCat(ui->listView->model()->data(index).toString());
+    }
+    else
+    {
+        item->setCheckState(Qt::Checked);
+        // TODO: remettre la catégorie selectionnée sur la carte
+        restorePointFromCat(ui->listView->model()->data(index).toString());
+    }
+}
+
+void MainWindow::removePointFromCat(QString cat)
+{
+
+    foreach(CirclePoint * point, listeCirclePoints)
+    {
+        if(point->name().compare(cat) == 0 )
+        {
+            points->removeGeometry(point);
+        }
+    }
+}
+
+void MainWindow::restorePointFromCat(QString cat)
+{
+
+    foreach(CirclePoint * point, listeCirclePoints)
+    {
+        if(point->name().compare(cat) == 0 )
+        {
+            points->addGeometry(point);
+        }
+    }
 }

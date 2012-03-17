@@ -50,7 +50,7 @@ private slots:
 
     void addCategorie(QString);
     void on_toolButton_2_clicked();
-
+    void filtrer(QModelIndex);
 private:
     // attributs
     Ui::MainWindow *ui;
@@ -63,6 +63,7 @@ private:
     QList<CirclePoint *> listeCirclePoints;
     QSettings settings;
     Settings * settingView;
+     QStandardItemModel *model;
     // methodes
 
     /**
@@ -101,6 +102,10 @@ private:
     void updateTable();
 
     void initQsettings();
+
+    void removePointFromCat(QString);
+
+    void restorePointFromCat(QString);
 
 
     //void canceledDelete();
