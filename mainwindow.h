@@ -53,6 +53,8 @@ private slots:
     void filtrer(QModelIndex);
     void on_pushButton_2_clicked();
 
+    void on_pushButton_3_clicked();
+
 private:
     // attributs
     Ui::MainWindow *ui;

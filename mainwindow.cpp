@@ -346,6 +346,9 @@ void MainWindow::pointClick(Geometry* geom, QPoint coord_px)
 
     qDebug() << QString::number(coord_px.x() + 30) << " - " << QString::number(coord_px.y() + details->height() - 50);
 
+    ui->lineEdit_2->setText(QString::number(point.getPoint().x()));
+    ui->lineEdit_3->setText(QString::number(point.getPoint().y()));
+
     details->show();
 
 }
@@ -495,4 +498,13 @@ void MainWindow::keepPointFromKeyWord(QList<C_poi> pois)
             }
          }
     }
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    if(ui->lineEdit_2->text().length() != 0 && ui->lineEdit_3->text().length() != 0)
+    {
+        // TODO garder les 10 points les plus proches
+    }
+    else qDebug() << "champ vide";
 }
