@@ -138,12 +138,21 @@
      <rect>
       <x>420</x>
       <y>440</y>
-      <width>116</width>
-      <height>27</height>
+      <width>141</width>
+      <height>41</height>
      </rect>
     </property>
+    <property name="acceptDrops">
+     <bool>false</bool>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="lineWidth">
+     <number>1</number>
+    </property>
     <property name="text">
-     <string>Nom ou Categorie :</string>
+     <string>Nom ou description :</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_2">

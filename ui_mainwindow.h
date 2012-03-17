@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Sat Mar 17 17:33:03 2012
+** Created: Sat Mar 17 19:05:18 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -105,7 +105,10 @@ public:
         catGorieLabel->setGeometry(QRect(60, 440, 116, 32));
         nomOuCategorieLabel = new QLabel(centralWidget);
         nomOuCategorieLabel->setObjectName(QString::fromUtf8("nomOuCategorieLabel"));
-        nomOuCategorieLabel->setGeometry(QRect(420, 440, 116, 27));
+        nomOuCategorieLabel->setGeometry(QRect(420, 440, 141, 41));
+        nomOuCategorieLabel->setAcceptDrops(false);
+        nomOuCategorieLabel->setAutoFillBackground(false);
+        nomOuCategorieLabel->setLineWidth(1);
         pushButton_2 = new QPushButton(centralWidget);
         pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
         pushButton_2->setGeometry(QRect(420, 550, 81, 27));
@@ -156,7 +159,7 @@ public:
         label_2->setText(QApplication::translate("MainWindow", "A proximit\303\251 de :", 0, QApplication::UnicodeUTF8));
         pushButton_3->setText(QApplication::translate("MainWindow", "Filtrez", 0, QApplication::UnicodeUTF8));
         catGorieLabel->setText(QApplication::translate("MainWindow", "Cat\303\251gories : ", 0, QApplication::UnicodeUTF8));
-        nomOuCategorieLabel->setText(QApplication::translate("MainWindow", "Nom ou Categorie :", 0, QApplication::UnicodeUTF8));
+        nomOuCategorieLabel->setText(QApplication::translate("MainWindow", "Nom ou description :", 0, QApplication::UnicodeUTF8));
         pushButton_2->setText(QApplication::translate("MainWindow", "Filtrez", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
         toolButton->setToolTip(QApplication::translate("MainWindow", "Ajouter une cat\303\251gorie dans la liste", 0, QApplication::UnicodeUTF8));

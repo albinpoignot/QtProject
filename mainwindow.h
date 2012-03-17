@@ -51,6 +51,8 @@ private slots:
     void addCategorie(QString);
     void on_toolButton_2_clicked();
     void filtrer(QModelIndex);
+    void on_pushButton_2_clicked();
+
 private:
     // attributs
     Ui::MainWindow *ui;
@@ -106,6 +108,8 @@ private:
     void removePointFromCat(QString);
 
     void restorePointFromCat(QString);
+
+    void keepPointFromKeyWord(QList<C_poi>);
 
 
     //void canceledDelete();

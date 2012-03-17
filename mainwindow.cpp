@@ -463,3 +463,36 @@ void MainWindow::restorePointFromCat(QString cat)
         }
     }
 }
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    QList<C_poi> listePoi = C_qdbc::getAllPoi();
+    QString filtre = ui->lineEdit->text();
+
+    QList<C_poi> points;
+    foreach(C_poi point,listePoi)
+    {
+        if(point.getNom().contains(filtre) || point.getDescription().contains(filtre))
+            points.append(point);
+    }
+    if(!points.isEmpty())
+        keepPointFromKeyWord(points);
+}
+
+void MainWindow::keepPointFromKeyWord(QList<C_poi> pois)
+{
+    int nbCat = model->rowCount();
+    for(int i =0; i < nbCat;i++)
+        model->item(i)->setCheckState(Qt::Unchecked);
+    points->clearGeometries();
+    foreach(CirclePoint * point, listeCirclePoints)
+    {
+        foreach(C_poi poi,pois)
+         {
+            if(point->name().compare(poi.getCat()) == 0 && point->coordinate().x() == poi.getPoint().x() && point->coordinate().y() == poi.getPoint().y())
+            {
+               points->addGeometry(point);
+            }
+         }
+    }
+}
