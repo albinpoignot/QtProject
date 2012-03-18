@@ -116,7 +116,8 @@ void MainWindow::drawTabWidgetContent()
 {
     addGeometryLayer();
     addTable();
-    fillTable();
+    QList<C_poi> listePoi = C_qdbc::getAllPoi();
+    fillTable(listePoi);
 }
 
 void MainWindow::addGeometryLayer()
@@ -192,16 +193,16 @@ void MainWindow::addTable()
 
 }
 
-void MainWindow::updateTable()
+void MainWindow::updateTable(QList<C_poi> listePoi)
 {
     ui->verticalLayout->removeWidget(table);
-    delete table;
-    fillTable();
+    delete table;    
+    fillTable(listePoi);
 }
 
-void MainWindow::fillTable()
+void MainWindow::fillTable(QList<C_poi> listePoi)
 {
-    QList<C_poi> listePoi = C_qdbc::getAllPoi();
+
     int nbPoi = listePoi.size();
 
     table = new QTableWidget(nbPoi,7);
@@ -261,7 +262,7 @@ void MainWindow::fillTable()
                         item->setFlags(item->flags() & ~Qt::ItemIsEditable);
                         break;
             }
-            table->setItem(i,j,item);
+            table->setItem(i,j,item);           
         }
     }
 
@@ -388,7 +389,8 @@ void MainWindow::wsFinished()
 
 void MainWindow::on_tabWidget_currentChanged(int index)
 {
-    updateTable();
+    QList<C_poi> listePoi = C_qdbc::getAllPoi();
+    updateTable(listePoi);
 }
 
 void MainWindow::on_toolButton_clicked()
@@ -432,25 +434,23 @@ void MainWindow::filtrer(QModelIndex index)
     if(item->checkState() == Qt::Checked)
     {
         item->setCheckState(Qt::Unchecked);
-        // TODO: enlever la catégorie selectionnée de la carte
         removePointFromCat(ui->listView->model()->data(index).toString());
     }
     else
     {
         item->setCheckState(Qt::Checked);
-        // TODO: remettre la catégorie selectionnée sur la carte
         restorePointFromCat(ui->listView->model()->data(index).toString());
     }
 }
 
 void MainWindow::removePointFromCat(QString cat)
 {
-
     foreach(CirclePoint * point, listeCirclePoints)
     {
         if(point->name().compare(cat) == 0 )
         {
             points->removeGeometry(point);
+
         }
     }
 }
@@ -462,31 +462,36 @@ void MainWindow::restorePointFromCat(QString cat)
     {
         if(point->name().compare(cat) == 0 )
         {
-            points->addGeometry(point);
+            points->addGeometry(point);            
         }
     }
 }
 
 void MainWindow::on_pushButton_2_clicked()
 {
-    QList<C_poi> listePoi = C_qdbc::getAllPoi();
     QString filtre = ui->lineEdit->text();
-
-    QList<C_poi> points;
-    foreach(C_poi point,listePoi)
+    if(!filtre.isEmpty())
     {
-        if(point.getNom().contains(filtre) || point.getDescription().contains(filtre))
-            points.append(point);
+        QList<C_poi> listePoi = C_qdbc::getAllPoi();
+
+
+        QList<C_poi> points;
+        foreach(C_poi point,listePoi)
+        {
+            if(point.getNom().contains(filtre) || point.getDescription().contains(filtre))
+                points.append(point);
+        }
+        if(!points.isEmpty())
+            keepPointFromList(points);
     }
-    if(!points.isEmpty())
-        keepPointFromKeyWord(points);
+    else qDebug() << "champ vide";
 }
 
-void MainWindow::keepPointFromKeyWord(QList<C_poi> pois)
+void MainWindow::keepPointFromList(QList<C_poi> pois)
 {
     int nbCat = model->rowCount();
     for(int i =0; i < nbCat;i++)
-        model->item(i)->setCheckState(Qt::Unchecked);
+    model->item(i)->setCheckState(Qt::Unchecked);
     points->clearGeometries();
     foreach(CirclePoint * point, listeCirclePoints)
     {
@@ -498,13 +503,42 @@ void MainWindow::keepPointFromKeyWord(QList<C_poi> pois)
             }
          }
     }
+    updateTable(pois);
 }
 
 void MainWindow::on_pushButton_3_clicked()
 {
     if(ui->lineEdit_2->text().length() != 0 && ui->lineEdit_3->text().length() != 0)
     {
-        // TODO garder les 10 points les plus proches
+        double lat = ui->lineEdit_2->text().toDouble();
+        double lon = ui->lineEdit_3->text().toDouble();
+
+        QList<C_poi> listePoi = C_qdbc::getAllPoi();
+        QList<C_poi> points;
+        QMap<qreal, int> distances;    // (key,value) => (distance, indice), la qmap est triée par la clé
+
+        int i =0;
+        foreach(C_poi point,listePoi)
+        {
+            qreal d = qSqrt( qPow((point.getPoint().y() - lon),2) + qPow((point.getPoint().x() - lat),2) );
+            distances.insert(d,i);
+            i++;
+        }
+
+        // les 10 premiers éléments de la qmap sont donc les 10 plus petites disctances
+        // et la valeur associée à ces cles est l'indice du point dans listePoi
+
+        QMap<qreal,int>::const_iterator it = distances.begin();
+
+        for(; it != distances.begin() + 10 ; it++)
+        {
+            points.append(listePoi[it.value()]);
+        }
+
+        if(!points.isEmpty())
+        {
+            keepPointFromList(points);
+        }
     }
-    else qDebug() << "champ vide";
+    else qDebug() << "champs latitude et longitude vides";
 }

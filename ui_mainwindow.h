@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Sat Mar 17 19:05:18 2012
+** Created: Sun Mar 18 17:45:30 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -90,7 +90,7 @@ public:
         label->setFont(font);
         label_2 = new QLabel(centralWidget);
         label_2->setObjectName(QString::fromUtf8("label_2"));
-        label_2->setGeometry(QRect(600, 440, 116, 27));
+        label_2->setGeometry(QRect(600, 447, 116, 20));
         lineEdit_2 = new QLineEdit(centralWidget);
         lineEdit_2->setObjectName(QString::fromUtf8("lineEdit_2"));
         lineEdit_2->setGeometry(QRect(600, 490, 91, 27));
@@ -105,7 +105,7 @@ public:
         catGorieLabel->setGeometry(QRect(60, 440, 116, 32));
         nomOuCategorieLabel = new QLabel(centralWidget);
         nomOuCategorieLabel->setObjectName(QString::fromUtf8("nomOuCategorieLabel"));
-        nomOuCategorieLabel->setGeometry(QRect(420, 440, 141, 41));
+        nomOuCategorieLabel->setGeometry(QRect(420, 450, 141, 16));
         nomOuCategorieLabel->setAcceptDrops(false);
         nomOuCategorieLabel->setAutoFillBackground(false);
         nomOuCategorieLabel->setLineWidth(1);

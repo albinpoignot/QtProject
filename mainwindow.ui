@@ -78,9 +78,9 @@
     <property name="geometry">
      <rect>
       <x>600</x>
-      <y>440</y>
+      <y>447</y>
       <width>116</width>
-      <height>27</height>
+      <height>20</height>
      </rect>
     </property>
     <property name="text">
@@ -137,9 +137,9 @@
     <property name="geometry">
      <rect>
       <x>420</x>
-      <y>440</y>
+      <y>450</y>
       <width>141</width>
-      <height>41</height>
+      <height>16</height>
      </rect>
     </property>
     <property name="acceptDrops">

@@ -11,6 +11,8 @@
 #include <QWidget>
 #include <QSettings>
 #include <QStandardItemModel>
+#include <QMap>
+#include <qmath.h>
 
 #include "qmapcontrol.h"
 
@@ -99,11 +101,11 @@ private:
     /**
       * Rempli le tableau permettant de modifier tous les points d'intérêt
       */
-    void fillTable();
+    void fillTable(QList<C_poi>);
 
     void confirmedDelete(int);
 
-    void updateTable();
+    void updateTable(QList<C_poi>);
 
     void initQsettings();
 
@@ -111,7 +113,7 @@ private:
 
     void restorePointFromCat(QString);
 
-    void keepPointFromKeyWord(QList<C_poi>);
+    void keepPointFromList(QList<C_poi>);
 
 
     //void canceledDelete();
