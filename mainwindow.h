@@ -70,6 +70,7 @@ private:
     QSettings settings;
     Settings * settingView;
      QStandardItemModel *model;
+     QList<C_poi> currentList;
     // methodes
 
     /**
@@ -94,26 +95,38 @@ private:
     void addPoint(C_poi);
 
     /**
-      * Ajoute un tableau permettant de modifier tous les points d'intérêt
-      */
-    void addTable();
-
-    /**
       * Rempli le tableau permettant de modifier tous les points d'intérêt
       */
-    void fillTable(QList<C_poi>);
+    void fillTable();
 
     void confirmedDelete(int);
 
-    void updateTable(QList<C_poi>);
+    /**
+      * met à jour le tableau de points d'intérêt
+      */
+    void updateTable();
 
+    /**
+      * Initilise la liste des catégories présente dans qSetting (pour le 1er lancement de l'application)
+      */
     void initQsettings();
 
+    /**
+      * Retire de la carte les points d'une catégorie desélectionnée
+      */
     void removePointFromCat(QString);
 
+    /**
+      * Redessine les points d'une catégorie sélectionnée
+      */
     void restorePointFromCat(QString);
 
-    void keepPointFromList(QList<C_poi>);
+    /**
+      * Garde les points filtrés sur la carte et dans le tableau
+      * @param La liste des points à afficher
+      * @param vrai si ce sont toutes les catégories qui sont affichées, faux si un filtre est appliqué
+      */
+    void keepPointFromList(QList<C_poi>,bool);
 
 
     //void canceledDelete();

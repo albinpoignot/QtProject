@@ -43,6 +43,7 @@ void MainWindow::init()
 
     connect(settingView, SIGNAL(newCategorie(QString)), this, SLOT(addCategorie(QString)));
     connect(ui->listView,SIGNAL(clicked(QModelIndex)),this,SLOT(filtrer(QModelIndex)));
+
     details->setParent(this);
 
     addZoomButton();
@@ -115,9 +116,8 @@ void MainWindow::addZoomButton()
 void MainWindow::drawTabWidgetContent()
 {
     addGeometryLayer();
-    addTable();
-    QList<C_poi> listePoi = C_qdbc::getAllPoi();
-    fillTable(listePoi);
+    currentList = C_qdbc::getAllPoi();
+    fillTable();
 }
 
 void MainWindow::addGeometryLayer()
@@ -188,90 +188,87 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::addTable()
-{
 
-}
-
-void MainWindow::updateTable(QList<C_poi> listePoi)
+void MainWindow::updateTable()
 {
     ui->verticalLayout->removeWidget(table);
     delete table;    
-    fillTable(listePoi);
+    fillTable();
 }
 
-void MainWindow::fillTable(QList<C_poi> listePoi)
+void MainWindow::fillTable()
 {
-
-    int nbPoi = listePoi.size();
-
-    table = new QTableWidget(nbPoi,7);
-    ui->verticalLayout->addWidget(table);
-
-
-    QTableWidgetItem * item = new QTableWidgetItem();
-    item->setText("Catégorie");
-    table->setHorizontalHeaderItem(0,item);
-
-    item = new QTableWidgetItem();
-    item->setText("Nom");
-    table->setHorizontalHeaderItem(1,item);
-
-    item = new QTableWidgetItem();
-    item->setText("Latitude");
-    table->setHorizontalHeaderItem(2,item);
-
-    item = new QTableWidgetItem();
-    item->setText("longitude");
-    table->setHorizontalHeaderItem(3,item);
-
-    item = new QTableWidgetItem();
-    item->setText("Description");
-    table->setHorizontalHeaderItem(4,item);
-
-    item = new QTableWidgetItem();
-    item->setText("Horaires");
-    table->setHorizontalHeaderItem(5,item);
-
-    item = new QTableWidgetItem();
-    item->setText("Supprimer");
-    table->setHorizontalHeaderItem(6,item);
-
-    for(int i = 0; i < nbPoi;i++)
+    if(!currentList.empty())
     {
-        for(int j = 0; j < 7; j++)
+        int nbPoi = currentList.size();
+
+        table = new QTableWidget(nbPoi,7);
+        ui->verticalLayout->addWidget(table);
+
+
+        QTableWidgetItem * item = new QTableWidgetItem();
+        item->setText("Catégorie");
+        table->setHorizontalHeaderItem(0,item);
+
+        item = new QTableWidgetItem();
+        item->setText("Nom");
+        table->setHorizontalHeaderItem(1,item);
+
+        item = new QTableWidgetItem();
+        item->setText("Latitude");
+        table->setHorizontalHeaderItem(2,item);
+
+        item = new QTableWidgetItem();
+        item->setText("longitude");
+        table->setHorizontalHeaderItem(3,item);
+
+        item = new QTableWidgetItem();
+        item->setText("Description");
+        table->setHorizontalHeaderItem(4,item);
+
+        item = new QTableWidgetItem();
+        item->setText("Horaires");
+        table->setHorizontalHeaderItem(5,item);
+
+        item = new QTableWidgetItem();
+        item->setText("Supprimer");
+        table->setHorizontalHeaderItem(6,item);
+
+        for(int i = 0; i < nbPoi;i++)
         {
-            item = new QTableWidgetItem();
-            switch(j)
+            for(int j = 0; j < 7; j++)
             {
-                case 0: item->setText(listePoi[i].getCat());
-                        break;
-                case 1: item->setText(listePoi[i].getNom());
-                        break;
-                case 2: item->setText(QString::number(listePoi[i].getPoint().x()));
-                        item->setFlags(item->flags() & ~Qt::ItemIsEditable);
-                        break;
-                case 3: item->setText(QString::number(listePoi[i].getPoint().y()));
-                        item->setFlags(item->flags() & ~Qt::ItemIsEditable);
-                        break;
-                case 4: item->setText(listePoi[i].getDescription());
-                        break;
-                case 5: item->setText(listePoi[i].getHoraires());
-                        break;
-                case 6: item->setText("Delete");
-                        item->setFlags(item->flags() & ~Qt::ItemIsEditable);
-                        break;
+                item = new QTableWidgetItem();
+                switch(j)
+                {
+                    case 0: item->setText(currentList[i].getCat());
+                            break;
+                    case 1: item->setText(currentList[i].getNom());
+                            break;
+                    case 2: item->setText(QString::number(currentList[i].getPoint().x()));
+                            item->setFlags(item->flags() & ~Qt::ItemIsEditable);
+                            break;
+                    case 3: item->setText(QString::number(currentList[i].getPoint().y()));
+                            item->setFlags(item->flags() & ~Qt::ItemIsEditable);
+                            break;
+                    case 4: item->setText(currentList[i].getDescription());
+                            break;
+                    case 5: item->setText(currentList[i].getHoraires());
+                            break;
+                    case 6: item->setText("Delete");
+                            item->setFlags(item->flags() & ~Qt::ItemIsEditable);
+                            break;
+                }
+                table->setItem(i,j,item);
             }
-            table->setItem(i,j,item);           
         }
+
+        connect(table, SIGNAL(itemChanged(QTableWidgetItem*)),
+                this, SLOT(modifyPoint(QTableWidgetItem*)));
+
+        connect(table, SIGNAL(itemDoubleClicked(QTableWidgetItem *)),
+                this, SLOT(deletePoint(QTableWidgetItem*)));
     }
-
-    connect(table, SIGNAL(itemChanged(QTableWidgetItem*)),
-            this, SLOT(modifyPoint(QTableWidgetItem*)));
-
-    connect(table, SIGNAL(itemDoubleClicked(QTableWidgetItem *)),
-            this, SLOT(deletePoint(QTableWidgetItem*)));
-
 }
 
 void MainWindow::modifyPoint(QTableWidgetItem * item)
@@ -388,9 +385,8 @@ void MainWindow::wsFinished()
 }
 
 void MainWindow::on_tabWidget_currentChanged(int index)
-{
-    QList<C_poi> listePoi = C_qdbc::getAllPoi();
-    updateTable(listePoi);
+{    
+    updateTable();
 }
 
 void MainWindow::on_toolButton_clicked()
@@ -450,13 +446,23 @@ void MainWindow::removePointFromCat(QString cat)
         if(point->name().compare(cat) == 0 )
         {
             points->removeGeometry(point);
-
         }
+
     }
+    int i = 0;
+    foreach(C_poi point, currentList)
+    {
+        if(point.getCat().compare(cat) == 0)
+        {
+            currentList.removeAt(i);
+        }else i++;
+    }
+    updateTable();
 }
 
 void MainWindow::restorePointFromCat(QString cat)
 {
+    QList<C_poi> allpoints = C_qdbc::getAllPoi();
 
     foreach(CirclePoint * point, listeCirclePoints)
     {
@@ -465,56 +471,57 @@ void MainWindow::restorePointFromCat(QString cat)
             points->addGeometry(point);            
         }
     }
+    foreach(C_poi point,allpoints)
+    {
+        if(point.getCat().compare(cat) == 0)
+            currentList.append(point);
+    }
+    updateTable();
 }
 
 void MainWindow::on_pushButton_2_clicked()
 {
     QString filtre = ui->lineEdit->text();
+
+    QList<C_poi> listePoi = C_qdbc::getAllPoi();
+    QList<C_poi> points;
+
+    bool allPoints = true;
+
     if(!filtre.isEmpty())
     {
-        QList<C_poi> listePoi = C_qdbc::getAllPoi();
 
-
-        QList<C_poi> points;
         foreach(C_poi point,listePoi)
         {
             if(point.getNom().contains(filtre) || point.getDescription().contains(filtre))
                 points.append(point);
         }
-        if(!points.isEmpty())
-            keepPointFromList(points);
-    }
-    else qDebug() << "champ vide";
-}
 
-void MainWindow::keepPointFromList(QList<C_poi> pois)
-{
-    int nbCat = model->rowCount();
-    for(int i =0; i < nbCat;i++)
-    model->item(i)->setCheckState(Qt::Unchecked);
-    points->clearGeometries();
-    foreach(CirclePoint * point, listeCirclePoints)
+        allPoints = false;
+
+    }else
     {
-        foreach(C_poi poi,pois)
-         {
-            if(point->name().compare(poi.getCat()) == 0 && point->coordinate().x() == poi.getPoint().x() && point->coordinate().y() == poi.getPoint().y())
-            {
-               points->addGeometry(point);
-            }
-         }
+        points = listePoi;
     }
-    updateTable(pois);
+
+    if(!points.isEmpty())
+    {
+       keepPointFromList(points,allPoints);
+    }
 }
 
 void MainWindow::on_pushButton_3_clicked()
 {
+    QList<C_poi> points;
+    QList<C_poi> listePoi = C_qdbc::getAllPoi();
+
+    bool allPoints = true;
+
     if(ui->lineEdit_2->text().length() != 0 && ui->lineEdit_3->text().length() != 0)
     {
         double lat = ui->lineEdit_2->text().toDouble();
         double lon = ui->lineEdit_3->text().toDouble();
 
-        QList<C_poi> listePoi = C_qdbc::getAllPoi();
-        QList<C_poi> points;
         QMap<qreal, int> distances;    // (key,value) => (distance, indice), la qmap est triée par la clé
 
         int i =0;
@@ -535,10 +542,45 @@ void MainWindow::on_pushButton_3_clicked()
             points.append(listePoi[it.value()]);
         }
 
-        if(!points.isEmpty())
-        {
-            keepPointFromList(points);
-        }
+        allPoints = false;
+
     }
-    else qDebug() << "champs latitude et longitude vides";
+    else
+    {
+        points = listePoi;
+    }
+
+    if(!points.isEmpty())
+    {
+       keepPointFromList(points,allPoints);
+    }
+
+}
+
+
+
+void MainWindow::keepPointFromList(QList<C_poi> pois,bool allPoints)
+{
+    int nbCat = model->rowCount();
+
+    for(int i =0; i < nbCat;i++)
+    {
+        if(allPoints)
+            model->item(i)->setCheckState(Qt::Checked);
+        else
+            model->item(i)->setCheckState(Qt::Unchecked);
+    }
+    points->clearGeometries();
+    foreach(CirclePoint * point, listeCirclePoints)
+    {
+        foreach(C_poi poi,pois)
+         {
+            if(point->name().compare(poi.getCat()) == 0 && point->coordinate().x() == poi.getPoint().x() && point->coordinate().y() == poi.getPoint().y())
+            {
+               points->addGeometry(point);
+            }
+         }
+    }
+    currentList = pois;
+    updateTable();
 }
