@@ -12,6 +12,10 @@
 #include <QSettings>
 #include <QStandardItemModel>
 #include <QMap>
+
+#include <QFile>
+#include <QTextStream>
+
 #include <qmath.h>
 
 #include "qmapcontrol.h"
@@ -41,6 +45,7 @@ public:
     void fillFiltre();
 private slots:
     void modifyPoint(QTableWidgetItem*);
+    void changeCatPoint(QTableWidgetItem*);
     void deletePoint(QTableWidgetItem*);
     void pointClick(Geometry*, QPoint coord_px);
     void clickInTheWorld(const QMouseEvent *, QPointF);
@@ -57,6 +62,8 @@ private slots:
 
     void on_pushButton_3_clicked();
 
+    void on_btnExport_clicked();
+
 private:
     // attributs
     Ui::MainWindow *ui;
@@ -69,60 +76,68 @@ private:
     QList<CirclePoint *> listeCirclePoints;
     QSettings settings;
     Settings * settingView;
-     QStandardItemModel *model;
-     QList<C_poi> currentList;
+    QStandardItemModel *model;
+    QList<C_poi> currentList;
     // methodes
 
     /**
-      * Ajoute les boutons de zoom et de-zoom sur l'écran
+      * \brief Ajoute les boutons de zoom et de-zoom sur l'écran
       */
     void addZoomButton();
 
     /**
-      * Ajoute un GeometryLayer à l'écran pour dessiner les points
+      * \brief Ajoute un GeometryLayer à l'écran pour dessiner les points
       * En fait, il renseigne l'attribut "points"
       */
     void addGeometryLayer();
 
     /**
-      * récupère tous les points de la base de données pour les passer à addPoint
+      * \brief Récupère tous les points de la base de données pour les passer à addPoint
       */
     void drawPoints();
 
     /**
-      * Ajoute le point passé en paramètre dans l'attribut "points" pour le dessiner.
+      * \brief Ajoute le point passé en paramètre dans l'attribut "points" pour le dessiner.
+      * @param poi Le POI a insérer
       */
-    void addPoint(C_poi);
+    void addPoint(C_poi poi);
 
     /**
-      * Rempli le tableau permettant de modifier tous les points d'intérêt
+      * \brief Rempli le tableau permettant de modifier tous les points d'intérêt
       */
     void fillTable();
 
-    void confirmedDelete(int);
+    /**
+      * \brief Appelée lorsque la suppression est confirmée : effectue effectivement la suppression
+      * dans la BDD
+      * @param deletedRow Le numéro de la ligne à supprimer
+      */
+    void confirmedDelete(int deletedRow);
 
     /**
-      * met à jour le tableau de points d'intérêt
+      * \brief Met à jour le tableau de points d'intérêt
       */
     void updateTable();
 
     /**
-      * Initilise la liste des catégories présente dans qSetting (pour le 1er lancement de l'application)
+      * \brief Initilise la liste des catégories présente dans qSetting (pour le 1er lancement de l'application)
       */
     void initQsettings();
 
     /**
-      * Retire de la carte les points d'une catégorie desélectionnée
+      * \brief Retire de la carte les points d'une catégorie désélectionnée
+      * @param cat La catégorie désélectionnée
       */
-    void removePointFromCat(QString);
+    void removePointFromCat(QString cat);
 
     /**
-      * Redessine les points d'une catégorie sélectionnée
+      * \brief Redessine les points d'une catégorie sélectionnée
+      * @param cat La catégorie sélectionnée
       */
-    void restorePointFromCat(QString);
+    void restorePointFromCat(QString cat);
 
     /**
-      * Garde les points filtrés sur la carte et dans le tableau
+      * \brief Garde les points filtrés sur la carte et dans le tableau
       * @param La liste des points à afficher
       * @param vrai si ce sont toutes les catégories qui sont affichées, faux si un filtre est appliqué
       */

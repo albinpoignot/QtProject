@@ -67,6 +67,9 @@ public:
       */
     static void deletePoi(C_poi point);
 
+    /**
+      * \brief Supprime la base de données
+      */
     static void removeDb();
 };
 

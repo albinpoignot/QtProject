@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'c_details.ui'
 **
-** Created: Thu Mar 15 15:37:33 2012
+** Created: Mon Mar 19 09:16:33 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -14,6 +14,7 @@
 #include <QtGui/QAction>
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
+#include <QtGui/QComboBox>
 #include <QtGui/QDialog>
 #include <QtGui/QDialogButtonBox>
 #include <QtGui/QHeaderView>
@@ -37,7 +38,7 @@ public:
     QTextEdit *txtHoraires;
     QDialogButtonBox *buttonBox;
     QLabel *label_5;
-    QLineEdit *txtCategorie;
+    QComboBox *cbCategories;
 
     void setupUi(QDialog *C_details)
     {
@@ -101,12 +102,9 @@ public:
         label_5 = new QLabel(C_details);
         label_5->setObjectName(QString::fromUtf8("label_5"));
         label_5->setGeometry(QRect(10, 80, 61, 17));
-        txtCategorie = new QLineEdit(C_details);
-        txtCategorie->setObjectName(QString::fromUtf8("txtCategorie"));
-        txtCategorie->setGeometry(QRect(80, 80, 201, 27));
-        txtCategorie->setCursor(QCursor(Qt::ArrowCursor));
-        txtCategorie->setStyleSheet(QString::fromUtf8(""));
-        txtCategorie->setReadOnly(false);
+        cbCategories = new QComboBox(C_details);
+        cbCategories->setObjectName(QString::fromUtf8("cbCategories"));
+        cbCategories->setGeometry(QRect(80, 80, 201, 27));
 
         retranslateUi(C_details);
 

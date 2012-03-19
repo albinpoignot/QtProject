@@ -204,7 +204,7 @@
     <string>Catégorie</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="txtCategorie">
+  <widget class="QComboBox" name="cbCategories">
    <property name="geometry">
     <rect>
      <x>80</x>
@@ -212,15 +212,6 @@
      <width>201</width>
      <height>27</height>
     </rect>
-   </property>
-   <property name="cursor">
-    <cursorShape>ArrowCursor</cursorShape>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
-   <property name="readOnly">
-    <bool>false</bool>
    </property>
   </widget>
  </widget>

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Sun Mar 18 17:45:30 2012
+** Created: Mon Mar 19 08:49:38 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -51,6 +51,7 @@ public:
     QToolButton *toolButton;
     QListView *listView;
     QToolButton *toolButton_2;
+    QPushButton *btnExport;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -130,6 +131,9 @@ public:
         QIcon icon1;
         icon1.addFile(QString::fromUtf8("button_add_files/button_delete.png"), QSize(), QIcon::Normal, QIcon::Off);
         toolButton_2->setIcon(icon1);
+        btnExport = new QPushButton(centralWidget);
+        btnExport->setObjectName(QString::fromUtf8("btnExport"));
+        btnExport->setGeometry(QRect(20, 400, 111, 27));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
@@ -166,6 +170,7 @@ public:
 #endif // QT_NO_TOOLTIP
         toolButton->setText(QApplication::translate("MainWindow", "...", 0, QApplication::UnicodeUTF8));
         toolButton_2->setText(QApplication::translate("MainWindow", "...", 0, QApplication::UnicodeUTF8));
+        btnExport->setText(QApplication::translate("MainWindow", "Exporter en CSV", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

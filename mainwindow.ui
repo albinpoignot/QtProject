@@ -225,6 +225,19 @@
       <normaloff>button_add_files/button_delete.png</normaloff>button_add_files/button_delete.png</iconset>
     </property>
    </widget>
+   <widget class="QPushButton" name="btnExport">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>400</y>
+      <width>111</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Exporter en CSV</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

@@ -198,8 +198,8 @@ void MainWindow::updateTable()
 
 void MainWindow::fillTable()
 {
-    if(!currentList.empty())
-    {
+    /*if(!currentList.empty())
+    {*/
         int nbPoi = currentList.size();
 
         table = new QTableWidget(nbPoi,7);
@@ -233,7 +233,7 @@ void MainWindow::fillTable()
         item = new QTableWidgetItem();
         item->setText("Supprimer");
         table->setHorizontalHeaderItem(6,item);
-
+        QComboBox * cb;
         for(int i = 0; i < nbPoi;i++)
         {
             for(int j = 0; j < 7; j++)
@@ -241,7 +241,11 @@ void MainWindow::fillTable()
                 item = new QTableWidgetItem();
                 switch(j)
                 {
-                    case 0: item->setText(currentList[i].getCat());
+                    case 0: cb = new QComboBox();
+                            cb->addItems(settings.allKeys());
+                            cb->setCurrentIndex(cb->findText(currentList[i].getCat()));
+                            table->setCellWidget(i, 0, cb);
+                            //item->setText(currentList[i].getCat());
                             break;
                     case 1: item->setText(currentList[i].getNom());
                             break;
@@ -263,25 +267,44 @@ void MainWindow::fillTable()
             }
         }
 
+        connect(table, SIGNAL(itemClicked(QTableWidgetItem*)),
+                this, SLOT(changeCatPoint(QTableWidgetItem*)));
+
         connect(table, SIGNAL(itemChanged(QTableWidgetItem*)),
                 this, SLOT(modifyPoint(QTableWidgetItem*)));
 
         connect(table, SIGNAL(itemDoubleClicked(QTableWidgetItem *)),
                 this, SLOT(deletePoint(QTableWidgetItem*)));
-    }
+   // }
+
+}
+
+void MainWindow::changeCatPoint(QTableWidgetItem * item)
+{
+    qDebug() << "changeCatPoint()";
+    qDebug() << table->row(item);
 }
 
 void MainWindow::modifyPoint(QTableWidgetItem * item)
 {
     C_poi point;
 
-    point.setCat(table->item(item->row(), 0)->text());
+    QComboBox * cb = (QComboBox*)(table->cellWidget(item->row(), 0));
+
+    point.setCat(cb->currentText());
     point.setNom(table->item(item->row(), 1)->text());
     point.setPoint( QPointF(table->item(item->row(), 2)->text().toFloat(),
                            table->item(item->row(), 3)->text().toFloat()) );
     point.setDescription(table->item(item->row(),4)->text());
     point.setHoraires(table->item(item->row(),5)->text());
     C_qdbc::updatePoi(point);
+
+
+    currentList[item->row()].setCat(point.getCat());
+    currentList[item->row()].setNom(point.getNom());
+    currentList[item->row()].setDescription(point.getDescription());
+    currentList[item->row()].setHoraires(point.getHoraires());
+
 }
 
 void MainWindow::deletePoint(QTableWidgetItem * item)
@@ -330,7 +353,7 @@ void MainWindow::pointClick(Geometry* geom, QPoint coord_px)
 
     C_poi point = C_qdbc::getPoi(cp->longitude(), cp->latitude());
 
-    details->setDetails(point);
+    details->setDetails(point, settings.allKeys());
 
     /* TO THE RIGHT
      * details->move(this->x() + ui->tabWidget->x() + ui->tabWidget->width() + 10,
@@ -382,6 +405,7 @@ void MainWindow::wsFinished()
 {
     qDebug() << "Request finished _ wsFinished()";
     drawPoints();
+    currentList = C_qdbc::getAllPoi();
 }
 
 void MainWindow::on_tabWidget_currentChanged(int index)
@@ -583,4 +607,23 @@ void MainWindow::keepPointFromList(QList<C_poi> pois,bool allPoints)
     }
     currentList = pois;
     updateTable();
+}
+
+void MainWindow::on_btnExport_clicked()
+{
+    QFile file(QDir::currentPath() + "/export_test.csv");
+    file.open(QIODevice::WriteOnly | QIODevice::Text);
+    QTextStream out(&file);
+    C_poi point;
+
+    for(int i = 0; i < currentList.size(); i++)
+    {
+        point = currentList.at(i);
+        out << QString::number(point.getPoint().x()) + ';' + QString::number(point.getPoint().y()) + ';' +
+               point.getNom() + ';' + point.getCat() + ';' + point.getDescription() + ';' +
+               point.getHoraires() + '\n';
+    }
+
+    file.close();
+
 }
