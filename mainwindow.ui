@@ -30,9 +30,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
+      <y>20</y>
       <width>781</width>
-      <height>381</height>
+      <height>371</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -40,7 +40,7 @@
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
-      <string>carte</string>
+      <string>Carte</string>
      </attribute>
      <widget class="QLabel" name="label_3">
       <property name="geometry">
@@ -141,7 +141,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Filtrez</string>
+     <string>Filtrer</string>
     </property>
    </widget>
    <widget class="QLabel" name="catGorieLabel">
@@ -189,7 +189,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Filtrez</string>
+     <string>Filtrer</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit">
@@ -246,7 +246,7 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>button_add_files/button_delete.png</normaloff>button_add_files/button_delete.png</iconset>
+      <normaloff>button_delete.png</normaloff>button_delete.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="btnExport">

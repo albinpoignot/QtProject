@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>ouvrir une base de données existante</string>
+    <string>Ouvrir une base de données existante</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton_2">
@@ -36,7 +36,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>créer une nouvelle base de données</string>
+    <string>Créer une nouvelle base de données</string>
    </property>
   </widget>
   <widget class="QLabel" name="label">
@@ -67,7 +67,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Si c'est votre première visite, veuillez en créer une nouvelle base de donnée</string>
+    <string>Si c'est votre première visite, veuillez créer une nouvelle base de données</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_3">

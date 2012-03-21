@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Wed Mar 21 22:07:07 2012
+** Created: Wed Mar 21 22:31:27 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -88,7 +88,7 @@ public:
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
-        tabWidget->setGeometry(QRect(10, 10, 781, 381));
+        tabWidget->setGeometry(QRect(10, 20, 781, 371));
         tab = new QWidget();
         tab->setObjectName(QString::fromUtf8("tab"));
         label_3 = new QLabel(tab);
@@ -206,14 +206,14 @@ public:
         es->setText(QApplication::translate("MainWindow", "Espagnol", 0, QApplication::UnicodeUTF8));
         actionMode_d_emploi->setText(QApplication::translate("MainWindow", "Mode d'emploi", 0, QApplication::UnicodeUTF8));
         label_3->setText(QApplication::translate("MainWindow", "Double clickez sur la carte pour r\303\251cup\303\251rer les points d'int\303\251r\303\252t des alentours", 0, QApplication::UnicodeUTF8));
-        tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "carte", 0, QApplication::UnicodeUTF8));
+        tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "Carte", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Modifier les points d'int\303\251r\303\252t", 0, QApplication::UnicodeUTF8));
         label->setText(QApplication::translate("MainWindow", "Filtres", 0, QApplication::UnicodeUTF8));
         label_2->setText(QApplication::translate("MainWindow", "A proximit\303\251 de :", 0, QApplication::UnicodeUTF8));
-        b_filtre_proximite->setText(QApplication::translate("MainWindow", "Filtrez", 0, QApplication::UnicodeUTF8));
+        b_filtre_proximite->setText(QApplication::translate("MainWindow", "Filtrer", 0, QApplication::UnicodeUTF8));
         catGorieLabel->setText(QApplication::translate("MainWindow", "Cat\303\251gories : ", 0, QApplication::UnicodeUTF8));
         nomOuCategorieLabel->setText(QApplication::translate("MainWindow", "Nom ou description :", 0, QApplication::UnicodeUTF8));
-        b_filtre_keyword->setText(QApplication::translate("MainWindow", "Filtrez", 0, QApplication::UnicodeUTF8));
+        b_filtre_keyword->setText(QApplication::translate("MainWindow", "Filtrer", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
         b_add_cat->setToolTip(QApplication::translate("MainWindow", "Ajouter une cat\303\251gorie dans la liste", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
