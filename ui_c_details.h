@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'c_details.ui'
 **
-** Created: Wed Mar 21 15:24:59 2012
+** Created: Wed Mar 21 18:18:01 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -60,13 +60,13 @@ public:
         C_details->setModal(false);
         txtLongitude = new QLineEdit(C_details);
         txtLongitude->setObjectName(QString::fromUtf8("txtLongitude"));
-        txtLongitude->setGeometry(QRect(90, 40, 51, 27));
+        txtLongitude->setGeometry(QRect(90, 40, 61, 27));
         txtLongitude->setCursor(QCursor(Qt::ArrowCursor));
         txtLongitude->setStyleSheet(QString::fromUtf8(""));
         txtLongitude->setReadOnly(true);
         txtLatitude = new QLineEdit(C_details);
         txtLatitude->setObjectName(QString::fromUtf8("txtLatitude"));
-        txtLatitude->setGeometry(QRect(190, 40, 51, 27));
+        txtLatitude->setGeometry(QRect(190, 40, 61, 27));
         txtLatitude->setCursor(QCursor(Qt::ArrowCursor));
         txtLatitude->setStyleSheet(QString::fromUtf8(""));
         txtLatitude->setReadOnly(true);
@@ -75,7 +75,7 @@ public:
         label->setGeometry(QRect(50, 40, 41, 17));
         label_2 = new QLabel(C_details);
         label_2->setObjectName(QString::fromUtf8("label_2"));
-        label_2->setGeometry(QRect(150, 40, 31, 17));
+        label_2->setGeometry(QRect(160, 40, 31, 17));
         txtNom = new QLineEdit(C_details);
         txtNom->setObjectName(QString::fromUtf8("txtNom"));
         txtNom->setGeometry(QRect(20, 10, 261, 27));

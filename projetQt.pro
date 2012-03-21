@@ -19,7 +19,9 @@ SOURCES += main.cpp\
     accueil.cpp \
     c_qdbc.cpp \
     c_details.cpp \
-    settings.cpp
+    settings.cpp \
+    TestQdbc.cpp \
+    c_modeemploi.cpp
 
 HEADERS  += mainwindow.h \
     c_webservice.h \
@@ -27,9 +29,11 @@ HEADERS  += mainwindow.h \
     accueil.h \
     c_qdbc.h \
     c_details.h \
-    settings.h
+    settings.h \
+    c_modeemploi.h
 
 FORMS    += mainwindow.ui \
     accueil.ui \
     c_details.ui \
-    settings.ui
+    settings.ui \
+    c_modeemploi.ui

@@ -10,10 +10,16 @@
     <height>648</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="minimumSize">
    <size>
-    <width>50</width>
-    <height>50</height>
+    <width>800</width>
+    <height>648</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -36,6 +42,24 @@
      <attribute name="title">
       <string>carte</string>
      </attribute>
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>0</y>
+        <width>371</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>8</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Double clickez sur la carte pour récupérer les points d'intérêt des alentours</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
@@ -107,7 +131,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_3">
+   <widget class="QPushButton" name="b_filtre_proximite">
     <property name="geometry">
      <rect>
       <x>600</x>
@@ -155,7 +179,7 @@
      <string>Nom ou description :</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="b_filtre_keyword">
     <property name="geometry">
      <rect>
       <x>420</x>
@@ -178,7 +202,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QToolButton" name="toolButton">
+   <widget class="QToolButton" name="b_add_cat">
     <property name="geometry">
      <rect>
       <x>300</x>
@@ -208,7 +232,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QToolButton" name="toolButton_2">
+   <widget class="QToolButton" name="b_delete_cat">
     <property name="geometry">
      <rect>
       <x>300</x>
@@ -277,7 +301,14 @@
     <addaction name="fr"/>
     <addaction name="es"/>
    </widget>
+   <widget class="QMenu" name="menuAide">
+    <property name="title">
+     <string>Aide</string>
+    </property>
+    <addaction name="actionMode_d_emploi"/>
+   </widget>
    <addaction name="menuLangages"/>
+   <addaction name="menuAide"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <property name="enabled">
@@ -307,6 +338,11 @@
   <action name="es">
    <property name="text">
     <string>Espagnol</string>
+   </property>
+  </action>
+  <action name="actionMode_d_emploi">
+   <property name="text">
+    <string>Mode d'emploi</string>
    </property>
   </action>
  </widget>

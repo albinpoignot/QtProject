@@ -54,11 +54,18 @@ void MainWindow::init()
     connect(ui->menuBar, SIGNAL(triggered(QAction*)),
             this, SLOT(languageChanged(QAction*)));
 
+    connect(ui->menuAide,SIGNAL(triggered(QAction*)),this,SLOT(on_ActionModeEmploi(QAction*)));
+
 }
 
 void MainWindow::setTranslator(QTranslator * tr)
 {
     trsl = tr;
+}
+
+void MainWindow::setModeEmploi(C_modeEmploi * me)
+{
+    modeEmploi = me;
 }
 
 void MainWindow::languageChanged(QAction * action)
@@ -72,6 +79,14 @@ void MainWindow::languageChanged(QAction * action)
         trsl->load("qt_" + action->objectName(), "/usr/share/qt4/translations");
 
         qApp->installTranslator(trsl);
+    }
+}
+
+void MainWindow::on_ActionModeEmploi(QAction * action)
+{
+    if(action != 0)
+    {
+        modeEmploi->show();
     }
 }
 
@@ -446,7 +461,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
     updateTable();
 }
 
-void MainWindow::on_toolButton_clicked()
+void MainWindow::on_b_add_cat_clicked()
 {
     settingView->show();
 }
@@ -457,7 +472,7 @@ void MainWindow::addCategorie(QString laCat)
     fillFiltre();
 }
 
-void MainWindow::on_toolButton_2_clicked()
+void MainWindow::on_b_delete_cat_clicked()
 {
     QModelIndex mi = ui->listView->currentIndex();
     QString cat = ui->listView->model()->data(mi).toString();
@@ -536,7 +551,7 @@ void MainWindow::restorePointFromCat(QString cat)
     updateTable();
 }
 
-void MainWindow::on_pushButton_2_clicked()
+void MainWindow::on_b_filtre_keyword_clicked()
 {
     QString filtre = ui->lineEdit->text();
 
@@ -567,7 +582,7 @@ void MainWindow::on_pushButton_2_clicked()
     }
 }
 
-void MainWindow::on_pushButton_3_clicked()
+void MainWindow::on_b_filtre_proximite_clicked()
 {
     QList<C_poi> points;
     QList<C_poi> listePoi = C_qdbc::getAllPoi();

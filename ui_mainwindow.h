@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Wed Mar 21 15:24:59 2012
+** Created: Wed Mar 21 19:04:32 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -37,9 +37,11 @@ public:
     QAction *en;
     QAction *fr;
     QAction *es;
+    QAction *actionMode_d_emploi;
     QWidget *centralWidget;
     QTabWidget *tabWidget;
     QWidget *tab;
+    QLabel *label_3;
     QWidget *tab_2;
     QWidget *verticalLayoutWidget;
     QVBoxLayout *verticalLayout;
@@ -47,17 +49,18 @@ public:
     QLabel *label_2;
     QLineEdit *lineEdit_2;
     QLineEdit *lineEdit_3;
-    QPushButton *pushButton_3;
+    QPushButton *b_filtre_proximite;
     QLabel *catGorieLabel;
     QLabel *nomOuCategorieLabel;
-    QPushButton *pushButton_2;
+    QPushButton *b_filtre_keyword;
     QLineEdit *lineEdit;
-    QToolButton *toolButton;
+    QToolButton *b_add_cat;
     QListView *listView;
-    QToolButton *toolButton_2;
+    QToolButton *b_delete_cat;
     QPushButton *btnExport;
     QMenuBar *menuBar;
     QMenu *menuLangages;
+    QMenu *menuAide;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -66,7 +69,12 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
         MainWindow->resize(800, 648);
-        MainWindow->setMinimumSize(QSize(50, 50));
+        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
+        MainWindow->setSizePolicy(sizePolicy);
+        MainWindow->setMinimumSize(QSize(800, 648));
         en = new QAction(MainWindow);
         en->setObjectName(QString::fromUtf8("en"));
         en->setCheckable(false);
@@ -74,6 +82,8 @@ public:
         fr->setObjectName(QString::fromUtf8("fr"));
         es = new QAction(MainWindow);
         es->setObjectName(QString::fromUtf8("es"));
+        actionMode_d_emploi = new QAction(MainWindow);
+        actionMode_d_emploi->setObjectName(QString::fromUtf8("actionMode_d_emploi"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         tabWidget = new QTabWidget(centralWidget);
@@ -81,6 +91,12 @@ public:
         tabWidget->setGeometry(QRect(10, 10, 781, 381));
         tab = new QWidget();
         tab->setObjectName(QString::fromUtf8("tab"));
+        label_3 = new QLabel(tab);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
+        label_3->setGeometry(QRect(200, 0, 371, 16));
+        QFont font;
+        font.setPointSize(8);
+        label_3->setFont(font);
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
@@ -96,11 +112,11 @@ public:
         label = new QLabel(centralWidget);
         label->setObjectName(QString::fromUtf8("label"));
         label->setGeometry(QRect(350, 400, 91, 31));
-        QFont font;
-        font.setPointSize(20);
-        font.setBold(true);
-        font.setWeight(75);
-        label->setFont(font);
+        QFont font1;
+        font1.setPointSize(20);
+        font1.setBold(true);
+        font1.setWeight(75);
+        label->setFont(font1);
         label_2 = new QLabel(centralWidget);
         label_2->setObjectName(QString::fromUtf8("label_2"));
         label_2->setGeometry(QRect(600, 447, 116, 20));
@@ -110,9 +126,9 @@ public:
         lineEdit_3 = new QLineEdit(centralWidget);
         lineEdit_3->setObjectName(QString::fromUtf8("lineEdit_3"));
         lineEdit_3->setGeometry(QRect(700, 490, 91, 27));
-        pushButton_3 = new QPushButton(centralWidget);
-        pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
-        pushButton_3->setGeometry(QRect(600, 550, 88, 27));
+        b_filtre_proximite = new QPushButton(centralWidget);
+        b_filtre_proximite->setObjectName(QString::fromUtf8("b_filtre_proximite"));
+        b_filtre_proximite->setGeometry(QRect(600, 550, 88, 27));
         catGorieLabel = new QLabel(centralWidget);
         catGorieLabel->setObjectName(QString::fromUtf8("catGorieLabel"));
         catGorieLabel->setGeometry(QRect(60, 440, 116, 32));
@@ -122,27 +138,27 @@ public:
         nomOuCategorieLabel->setAcceptDrops(false);
         nomOuCategorieLabel->setAutoFillBackground(false);
         nomOuCategorieLabel->setLineWidth(1);
-        pushButton_2 = new QPushButton(centralWidget);
-        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
-        pushButton_2->setGeometry(QRect(420, 550, 81, 27));
+        b_filtre_keyword = new QPushButton(centralWidget);
+        b_filtre_keyword->setObjectName(QString::fromUtf8("b_filtre_keyword"));
+        b_filtre_keyword->setGeometry(QRect(420, 550, 81, 27));
         lineEdit = new QLineEdit(centralWidget);
         lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
         lineEdit->setGeometry(QRect(420, 490, 131, 27));
-        toolButton = new QToolButton(centralWidget);
-        toolButton->setObjectName(QString::fromUtf8("toolButton"));
-        toolButton->setGeometry(QRect(300, 550, 30, 32));
+        b_add_cat = new QToolButton(centralWidget);
+        b_add_cat->setObjectName(QString::fromUtf8("b_add_cat"));
+        b_add_cat->setGeometry(QRect(300, 550, 30, 32));
         QIcon icon;
         icon.addFile(QString::fromUtf8("button_add.png"), QSize(), QIcon::Normal, QIcon::Off);
-        toolButton->setIcon(icon);
+        b_add_cat->setIcon(icon);
         listView = new QListView(centralWidget);
         listView->setObjectName(QString::fromUtf8("listView"));
         listView->setGeometry(QRect(60, 470, 231, 111));
-        toolButton_2 = new QToolButton(centralWidget);
-        toolButton_2->setObjectName(QString::fromUtf8("toolButton_2"));
-        toolButton_2->setGeometry(QRect(300, 514, 31, 31));
+        b_delete_cat = new QToolButton(centralWidget);
+        b_delete_cat->setObjectName(QString::fromUtf8("b_delete_cat"));
+        b_delete_cat->setGeometry(QRect(300, 514, 31, 31));
         QIcon icon1;
         icon1.addFile(QString::fromUtf8("button_add_files/button_delete.png"), QSize(), QIcon::Normal, QIcon::Off);
-        toolButton_2->setIcon(icon1);
+        b_delete_cat->setIcon(icon1);
         btnExport = new QPushButton(centralWidget);
         btnExport->setObjectName(QString::fromUtf8("btnExport"));
         btnExport->setGeometry(QRect(20, 400, 111, 27));
@@ -156,6 +172,8 @@ public:
         menuLangages->setObjectName(QString::fromUtf8("menuLangages"));
         menuLangages->setEnabled(true);
         menuLangages->setMinimumSize(QSize(50, 50));
+        menuAide = new QMenu(menuBar);
+        menuAide->setObjectName(QString::fromUtf8("menuAide"));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
@@ -166,9 +184,11 @@ public:
         MainWindow->setStatusBar(statusBar);
 
         menuBar->addAction(menuLangages->menuAction());
+        menuBar->addAction(menuAide->menuAction());
         menuLangages->addAction(en);
         menuLangages->addAction(fr);
         menuLangages->addAction(es);
+        menuAide->addAction(actionMode_d_emploi);
 
         retranslateUi(MainWindow);
 
@@ -184,21 +204,24 @@ public:
         en->setText(QApplication::translate("MainWindow", "Anglais", 0, QApplication::UnicodeUTF8));
         fr->setText(QApplication::translate("MainWindow", "Fran\303\247ais", 0, QApplication::UnicodeUTF8));
         es->setText(QApplication::translate("MainWindow", "Espagnol", 0, QApplication::UnicodeUTF8));
+        actionMode_d_emploi->setText(QApplication::translate("MainWindow", "Mode d'emploi", 0, QApplication::UnicodeUTF8));
+        label_3->setText(QApplication::translate("MainWindow", "Double clickez sur la carte pour r\303\251cup\303\251rer les points d'int\303\251r\303\252t des alentours", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "carte", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Modifier les points d'int\303\251r\303\252t", 0, QApplication::UnicodeUTF8));
         label->setText(QApplication::translate("MainWindow", "Filtres", 0, QApplication::UnicodeUTF8));
         label_2->setText(QApplication::translate("MainWindow", "A proximit\303\251 de :", 0, QApplication::UnicodeUTF8));
-        pushButton_3->setText(QApplication::translate("MainWindow", "Filtrez", 0, QApplication::UnicodeUTF8));
+        b_filtre_proximite->setText(QApplication::translate("MainWindow", "Filtrez", 0, QApplication::UnicodeUTF8));
         catGorieLabel->setText(QApplication::translate("MainWindow", "Cat\303\251gories : ", 0, QApplication::UnicodeUTF8));
         nomOuCategorieLabel->setText(QApplication::translate("MainWindow", "Nom ou description :", 0, QApplication::UnicodeUTF8));
-        pushButton_2->setText(QApplication::translate("MainWindow", "Filtrez", 0, QApplication::UnicodeUTF8));
+        b_filtre_keyword->setText(QApplication::translate("MainWindow", "Filtrez", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
-        toolButton->setToolTip(QApplication::translate("MainWindow", "Ajouter une cat\303\251gorie dans la liste", 0, QApplication::UnicodeUTF8));
+        b_add_cat->setToolTip(QApplication::translate("MainWindow", "Ajouter une cat\303\251gorie dans la liste", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
-        toolButton->setText(QApplication::translate("MainWindow", "...", 0, QApplication::UnicodeUTF8));
-        toolButton_2->setText(QApplication::translate("MainWindow", "...", 0, QApplication::UnicodeUTF8));
+        b_add_cat->setText(QApplication::translate("MainWindow", "...", 0, QApplication::UnicodeUTF8));
+        b_delete_cat->setText(QApplication::translate("MainWindow", "...", 0, QApplication::UnicodeUTF8));
         btnExport->setText(QApplication::translate("MainWindow", "Exporter en CSV", 0, QApplication::UnicodeUTF8));
         menuLangages->setTitle(QApplication::translate("MainWindow", "Langages", 0, QApplication::UnicodeUTF8));
+        menuAide->setTitle(QApplication::translate("MainWindow", "Aide", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

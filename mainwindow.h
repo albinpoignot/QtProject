@@ -23,6 +23,7 @@
 #include "c_details.h"
 #include "c_webservice.h"
 #include "settings.h"
+#include "c_modeemploi.h"
 
 using namespace qmapcontrol;
 
@@ -57,6 +58,7 @@ public:
     void setDetails(C_details *);
     void setSettings(Settings *);
     void setTranslator(QTranslator * tr);
+    void setModeEmploi(C_modeEmploi *);
 
 private slots:
 
@@ -128,12 +130,12 @@ private slots:
     /**
       * \brief Applique le filtre sur le nom ou la description
       */
-    void on_pushButton_2_clicked();
+    void on_b_filtre_keyword_clicked();
 
     /**
       * \brief Applique le filtre sur les longitudes/latitudes
       */
-    void on_pushButton_3_clicked();
+    void on_b_filtre_proximite_clicked();
 
     /**
       * \brief Appelée lorsqu'un item de la table a été modifiée et la met à jour
@@ -144,18 +146,24 @@ private slots:
     /**
       * \brief Affiche le dialogue pour ajouter une catégorie
       */
-    void on_toolButton_clicked();
+    void on_b_add_cat_clicked();
 
     /**
       * \brief Supprime la catégorie sélectionnée
       */
-    void on_toolButton_2_clicked();
+    void on_b_delete_cat_clicked();
 
     /**
       * \brief Appelée lorsqu'un point à été modifié dans la table : mise à jours des valeurs
       * @param point Le point qui a été modifié
       */
     void updateDone(C_poi point);
+
+    /**
+      * \brief Appelé lorsque le menu mode d'emploi est selectionné, ouvre la fenetre mode d'emploi
+      */
+    void on_ActionModeEmploi(QAction *);
+
 
 private:
 
@@ -190,9 +198,15 @@ private:
     C_details * details;
 
     /**
+      * \brief Instance de la fenêtre affichant le mode d'emploi
+      */
+    C_modeEmploi * modeEmploi;
+
+    /**
       * \brief Instance d'un objet permettant d'accéder au web-service
       */
     C_webservice ws;
+
 
     /**
       * \brief Liste des points dessinés à l'écran
@@ -205,7 +219,7 @@ private:
     QSettings settings;
 
     /**
-      * \brief Fenêtre d'affiche des settings
+      * \brief Fenêtre d'ajout des settings
       */
     Settings * settingView;
 
