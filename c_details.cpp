@@ -14,16 +14,17 @@ C_details::~C_details()
     delete ui;
 }
 
-void C_details::setDetails(C_poi point)
+void C_details::setDetails(C_poi point, QStringList catList)
 {
     ui->txtLongitude->setText(QString::number(point.getPoint().x()));
     ui->txtLatitude->setText(QString::number(point.getPoint().y()));
     ui->txtNom->setText(point.getNom());
-    ui->txtCategorie->setText(point.getCat());
     ui->txtDesc->setPlainText(point.getDescription());
-    //ui->txtDesc->setText(point.getDescription());
     ui->txtHoraires->setPlainText(point.getHoraires());
-    //ui->txtHoraires->setText(point.getHoraires());
+
+    ui->cbCategories->clear();
+    ui->cbCategories->addItems(catList);
+    ui->cbCategories->setCurrentIndex(ui->cbCategories->findText(point.getCat()));
 
     qDebug() << "C_details::setDetails : " + point.toString();
 }
@@ -44,7 +45,7 @@ void C_details::on_buttonBox_accepted()
         case QMessageBox::Yes:
             point.setPoint(QPointF(ui->txtLongitude->text().toFloat(), ui->txtLatitude->text().toFloat()));
             point.setNom(ui->txtNom->text());
-            point.setCat(ui->txtCategorie->text());
+            point.setCat(ui->cbCategories->currentText());
             point.setDescription(ui->txtDesc->toPlainText());
             point.setHoraires(ui->txtHoraires->toPlainText());
 

@@ -16,12 +16,27 @@ public:
     explicit Settings(QWidget *parent = 0);
     ~Settings();
 private slots:
+
+    /**
+      * \brief Appelée lors de l'acception de l'ajout d'une nouvelle catégorie
+      */
     void on_buttonBox_accepted();
 
+    /**
+      * \brief Appelée lors du refus de l'ajout d'une nouvelle catégorie
+      */
     void on_buttonBox_rejected();
 signals:
-       void newCategorie(QString);
+    /**
+      * \brief To delete
+      * \deprecated
+      */
+    void newCategorie(QString);
 private:
+
+    /**
+      * \brief Interface utilisateur
+      */
     Ui::Settings *ui;
 };
 

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Sun Mar 18 17:45:30 2012
+** Created: Mon Mar 19 23:16:42 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -19,6 +19,7 @@
 #include <QtGui/QLineEdit>
 #include <QtGui/QListView>
 #include <QtGui/QMainWindow>
+#include <QtGui/QMenu>
 #include <QtGui/QMenuBar>
 #include <QtGui/QPushButton>
 #include <QtGui/QStatusBar>
@@ -33,6 +34,9 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
+    QAction *en;
+    QAction *fr;
+    QAction *es;
     QWidget *centralWidget;
     QTabWidget *tabWidget;
     QWidget *tab;
@@ -51,7 +55,9 @@ public:
     QToolButton *toolButton;
     QListView *listView;
     QToolButton *toolButton_2;
+    QPushButton *btnExport;
     QMenuBar *menuBar;
+    QMenu *menuLangages;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -61,6 +67,13 @@ public:
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
         MainWindow->resize(800, 648);
         MainWindow->setMinimumSize(QSize(50, 50));
+        en = new QAction(MainWindow);
+        en->setObjectName(QString::fromUtf8("en"));
+        en->setCheckable(false);
+        fr = new QAction(MainWindow);
+        fr->setObjectName(QString::fromUtf8("fr"));
+        es = new QAction(MainWindow);
+        es->setObjectName(QString::fromUtf8("es"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         tabWidget = new QTabWidget(centralWidget);
@@ -82,7 +95,7 @@ public:
         tabWidget->addTab(tab_2, QString());
         label = new QLabel(centralWidget);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(350, 400, 71, 31));
+        label->setGeometry(QRect(350, 400, 91, 31));
         QFont font;
         font.setPointSize(20);
         font.setBold(true);
@@ -130,17 +143,32 @@ public:
         QIcon icon1;
         icon1.addFile(QString::fromUtf8("button_add_files/button_delete.png"), QSize(), QIcon::Normal, QIcon::Off);
         toolButton_2->setIcon(icon1);
+        btnExport = new QPushButton(centralWidget);
+        btnExport->setObjectName(QString::fromUtf8("btnExport"));
+        btnExport->setGeometry(QRect(20, 400, 111, 27));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 800, 25));
+        menuBar->setGeometry(QRect(0, 0, 800, 50));
+        menuBar->setMinimumSize(QSize(50, 50));
+        menuBar->setBaseSize(QSize(50, 50));
+        menuLangages = new QMenu(menuBar);
+        menuLangages->setObjectName(QString::fromUtf8("menuLangages"));
+        menuLangages->setEnabled(true);
+        menuLangages->setMinimumSize(QSize(50, 50));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
+        mainToolBar->setEnabled(true);
         MainWindow->addToolBar(Qt::TopToolBarArea, mainToolBar);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QString::fromUtf8("statusBar"));
         MainWindow->setStatusBar(statusBar);
+
+        menuBar->addAction(menuLangages->menuAction());
+        menuLangages->addAction(en);
+        menuLangages->addAction(fr);
+        menuLangages->addAction(es);
 
         retranslateUi(MainWindow);
 
@@ -153,9 +181,12 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Vos POI", 0, QApplication::UnicodeUTF8));
+        en->setText(QApplication::translate("MainWindow", "Anglais", 0, QApplication::UnicodeUTF8));
+        fr->setText(QApplication::translate("MainWindow", "Fran\303\247ais", 0, QApplication::UnicodeUTF8));
+        es->setText(QApplication::translate("MainWindow", "Espagnol", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "carte", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Modifier les points d'int\303\251r\303\252t", 0, QApplication::UnicodeUTF8));
-        label->setText(QApplication::translate("MainWindow", "Filtre", 0, QApplication::UnicodeUTF8));
+        label->setText(QApplication::translate("MainWindow", "Filtres", 0, QApplication::UnicodeUTF8));
         label_2->setText(QApplication::translate("MainWindow", "A proximit\303\251 de :", 0, QApplication::UnicodeUTF8));
         pushButton_3->setText(QApplication::translate("MainWindow", "Filtrez", 0, QApplication::UnicodeUTF8));
         catGorieLabel->setText(QApplication::translate("MainWindow", "Cat\303\251gories : ", 0, QApplication::UnicodeUTF8));
@@ -166,6 +197,8 @@ public:
 #endif // QT_NO_TOOLTIP
         toolButton->setText(QApplication::translate("MainWindow", "...", 0, QApplication::UnicodeUTF8));
         toolButton_2->setText(QApplication::translate("MainWindow", "...", 0, QApplication::UnicodeUTF8));
+        btnExport->setText(QApplication::translate("MainWindow", "Exporter en CSV", 0, QApplication::UnicodeUTF8));
+        menuLangages->setTitle(QApplication::translate("MainWindow", "Langages", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

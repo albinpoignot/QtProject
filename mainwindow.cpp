@@ -15,7 +15,6 @@ void MainWindow::init()
     QVBoxLayout * layout  = new QVBoxLayout();
 
     // create MapControl
-    //mc = new MapControl(QSize(455,315));
     mc = new MapControl(QSize(ui->tabWidget->width() - 25, ui->tabWidget->height() - 60));
 
     mc->showScale(true);
@@ -47,11 +46,33 @@ void MainWindow::init()
     details->setParent(this);
 
     addZoomButton();
-    //addGeometryLayer();
     drawTabWidgetContent();
 
     fillFiltre();
 
+    ui->menuBar->setVisible(true);
+    connect(ui->menuBar, SIGNAL(triggered(QAction*)),
+            this, SLOT(languageChanged(QAction*)));
+
+}
+
+void MainWindow::setTranslator(QTranslator * tr)
+{
+    trsl = tr;
+}
+
+void MainWindow::languageChanged(QAction * action)
+{
+    if(action != 0)
+    {
+        qApp->removeTranslator(trsl);
+
+        trsl = new QTranslator();
+
+        trsl->load("qt_" + action->objectName(), "/usr/share/qt4/translations");
+
+        qApp->installTranslator(trsl);
+    }
 }
 
 void MainWindow::initQsettings()
@@ -145,8 +166,6 @@ void MainWindow::drawPoints()
             listeCirclePoints.removeAt(i);
             //qDebug() << listeCirclePoints[i]->coordinate().x();
         }
-        /*while (!listeCirclePoints.isEmpty())
-            delete listeCirclePoints.takeFirst();*/
     }
 
     qDebug() << " ****** all points are deleted";
@@ -198,90 +217,108 @@ void MainWindow::updateTable()
 
 void MainWindow::fillTable()
 {
-    if(!currentList.empty())
+    int nbPoi = currentList.size();
+
+    table = new QTableWidget(nbPoi,7);
+    ui->verticalLayout->addWidget(table);
+
+
+    QTableWidgetItem * item = new QTableWidgetItem();
+    item->setText("Catégorie");
+    table->setHorizontalHeaderItem(0,item);
+
+    item = new QTableWidgetItem();
+    item->setText("Nom");
+    table->setHorizontalHeaderItem(1,item);
+
+    item = new QTableWidgetItem();
+    item->setText("Latitude");
+    table->setHorizontalHeaderItem(2,item);
+
+    item = new QTableWidgetItem();
+    item->setText("longitude");
+    table->setHorizontalHeaderItem(3,item);
+
+    item = new QTableWidgetItem();
+    item->setText("Description");
+    table->setHorizontalHeaderItem(4,item);
+
+    item = new QTableWidgetItem();
+    item->setText("Horaires");
+    table->setHorizontalHeaderItem(5,item);
+
+    item = new QTableWidgetItem();
+    item->setText("Supprimer");
+    table->setHorizontalHeaderItem(6,item);
+    QComboBox * cb;
+    for(int i = 0; i < nbPoi;i++)
     {
-        int nbPoi = currentList.size();
-
-        table = new QTableWidget(nbPoi,7);
-        ui->verticalLayout->addWidget(table);
-
-
-        QTableWidgetItem * item = new QTableWidgetItem();
-        item->setText("Catégorie");
-        table->setHorizontalHeaderItem(0,item);
-
-        item = new QTableWidgetItem();
-        item->setText("Nom");
-        table->setHorizontalHeaderItem(1,item);
-
-        item = new QTableWidgetItem();
-        item->setText("Latitude");
-        table->setHorizontalHeaderItem(2,item);
-
-        item = new QTableWidgetItem();
-        item->setText("longitude");
-        table->setHorizontalHeaderItem(3,item);
-
-        item = new QTableWidgetItem();
-        item->setText("Description");
-        table->setHorizontalHeaderItem(4,item);
-
-        item = new QTableWidgetItem();
-        item->setText("Horaires");
-        table->setHorizontalHeaderItem(5,item);
-
-        item = new QTableWidgetItem();
-        item->setText("Supprimer");
-        table->setHorizontalHeaderItem(6,item);
-
-        for(int i = 0; i < nbPoi;i++)
+        for(int j = 0; j < 7; j++)
         {
-            for(int j = 0; j < 7; j++)
+            item = new QTableWidgetItem();
+            switch(j)
             {
-                item = new QTableWidgetItem();
-                switch(j)
-                {
-                    case 0: item->setText(currentList[i].getCat());
-                            break;
-                    case 1: item->setText(currentList[i].getNom());
-                            break;
-                    case 2: item->setText(QString::number(currentList[i].getPoint().x()));
-                            item->setFlags(item->flags() & ~Qt::ItemIsEditable);
-                            break;
-                    case 3: item->setText(QString::number(currentList[i].getPoint().y()));
-                            item->setFlags(item->flags() & ~Qt::ItemIsEditable);
-                            break;
-                    case 4: item->setText(currentList[i].getDescription());
-                            break;
-                    case 5: item->setText(currentList[i].getHoraires());
-                            break;
-                    case 6: item->setText("Delete");
-                            item->setFlags(item->flags() & ~Qt::ItemIsEditable);
-                            break;
-                }
-                table->setItem(i,j,item);
+                case 0: cb = new QComboBox();
+                        cb->addItems(settings.allKeys());
+                        cb->setCurrentIndex(cb->findText(currentList[i].getCat()));
+                        table->setCellWidget(i, 0, cb);
+                        //item->setText(currentList[i].getCat());
+                        break;
+                case 1: item->setText(currentList[i].getNom());
+                        break;
+                case 2: item->setText(QString::number(currentList[i].getPoint().x()));
+                        item->setFlags(item->flags() & ~Qt::ItemIsEditable);
+                        break;
+                case 3: item->setText(QString::number(currentList[i].getPoint().y()));
+                        item->setFlags(item->flags() & ~Qt::ItemIsEditable);
+                        break;
+                case 4: item->setText(currentList[i].getDescription());
+                        break;
+                case 5: item->setText(currentList[i].getHoraires());
+                        break;
+                case 6: item->setText("Delete");
+                        item->setFlags(item->flags() & ~Qt::ItemIsEditable);
+                        break;
             }
+            table->setItem(i,j,item);
         }
-
-        connect(table, SIGNAL(itemChanged(QTableWidgetItem*)),
-                this, SLOT(modifyPoint(QTableWidgetItem*)));
-
-        connect(table, SIGNAL(itemDoubleClicked(QTableWidgetItem *)),
-                this, SLOT(deletePoint(QTableWidgetItem*)));
     }
+
+    connect(table, SIGNAL(itemClicked(QTableWidgetItem*)),
+            this, SLOT(changeCatPoint(QTableWidgetItem*)));
+
+    connect(table, SIGNAL(itemChanged(QTableWidgetItem*)),
+            this, SLOT(modifyPoint(QTableWidgetItem*)));
+
+    connect(table, SIGNAL(itemDoubleClicked(QTableWidgetItem *)),
+            this, SLOT(deletePoint(QTableWidgetItem*)));
+}
+
+void MainWindow::changeCatPoint(QTableWidgetItem * item)
+{
+    qDebug() << table->row(item);
 }
 
 void MainWindow::modifyPoint(QTableWidgetItem * item)
 {
     C_poi point;
 
-    point.setCat(table->item(item->row(), 0)->text());
+    QComboBox * cb = (QComboBox*)(table->cellWidget(item->row(), 0));
+
+    point.setCat(cb->currentText());
     point.setNom(table->item(item->row(), 1)->text());
     point.setPoint( QPointF(table->item(item->row(), 2)->text().toFloat(),
                            table->item(item->row(), 3)->text().toFloat()) );
     point.setDescription(table->item(item->row(),4)->text());
     point.setHoraires(table->item(item->row(),5)->text());
     C_qdbc::updatePoi(point);
+
+
+    currentList[item->row()].setCat(point.getCat());
+    currentList[item->row()].setNom(point.getNom());
+    currentList[item->row()].setDescription(point.getDescription());
+    currentList[item->row()].setHoraires(point.getHoraires());
+
 }
 
 void MainWindow::deletePoint(QTableWidgetItem * item)
@@ -330,7 +367,7 @@ void MainWindow::pointClick(Geometry* geom, QPoint coord_px)
 
     C_poi point = C_qdbc::getPoi(cp->longitude(), cp->latitude());
 
-    details->setDetails(point);
+    details->setDetails(point, settings.allKeys());
 
     /* TO THE RIGHT
      * details->move(this->x() + ui->tabWidget->x() + ui->tabWidget->width() + 10,
@@ -382,6 +419,7 @@ void MainWindow::wsFinished()
 {
     qDebug() << "Request finished _ wsFinished()";
     drawPoints();
+    currentList = C_qdbc::getAllPoi();
 }
 
 void MainWindow::on_tabWidget_currentChanged(int index)
@@ -557,8 +595,6 @@ void MainWindow::on_pushButton_3_clicked()
 
 }
 
-
-
 void MainWindow::keepPointFromList(QList<C_poi> pois,bool allPoints)
 {
     int nbCat = model->rowCount();
@@ -583,4 +619,23 @@ void MainWindow::keepPointFromList(QList<C_poi> pois,bool allPoints)
     }
     currentList = pois;
     updateTable();
+}
+
+void MainWindow::on_btnExport_clicked()
+{
+    QFile file(QDir::currentPath() + "/export_test.csv");
+    file.open(QIODevice::WriteOnly | QIODevice::Text);
+    QTextStream out(&file);
+    C_poi point;
+
+    for(int i = 0; i < currentList.size(); i++)
+    {
+        point = currentList.at(i);
+        out << QString::number(point.getPoint().x()) + ';' + QString::number(point.getPoint().y()) + ';' +
+               point.getNom() + ';' + point.getCat() + ';' + point.getDescription() + ';' +
+               point.getHoraires() + '\n';
+    }
+
+    file.close();
+
 }

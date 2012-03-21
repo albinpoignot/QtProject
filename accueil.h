@@ -46,15 +46,26 @@ private slots:
     void wsFinished();
 
 private:
+    /**
+      * \brief Interface utilisateur
+      */
     Ui::Accueil *ui;
+
+    /**
+      * \brief Fenêtre parente
+      */
+    MainWindow * mw;
+
+    /**
+      * \brief Web service de récupération des POI
+      */
+    C_webservice * ws;
 
     /**
       * \brief Ouvre la fenetre parente et renseigne la BDD fournie
       * @param fileName Nom de la BDD
       */
     void ouvrirMainWindow(QString fileName);
-    MainWindow * mw;
-    C_webservice * ws;
 };
 
 #endif // ACCUEIL_H

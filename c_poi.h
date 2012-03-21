@@ -13,7 +13,6 @@ private:
     QString sNom;
     QString sDescription;
     QString sHoraires;
-    //QHash<double, double> hPoint;
     QPointF pPoint;
 
 public:
