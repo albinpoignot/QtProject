@@ -85,7 +85,7 @@ private slots:
       * de suppression si un double clic a eu lieu sur la dernière case d'une des lignes de la table
       * @param item L'item clické
       */
-    void deletePoint(QTableWidgetItem* item);
+    void on_DbClickOnTable(QTableWidgetItem* item);
 
     /**
       * \brief
@@ -120,7 +120,7 @@ private slots:
     void wsFinished();
 
     /**
-      * \brief Appelée lors d'un clic sur le bouton d'export : export le contenu de la table
+      * \brief Appelée lors d'un clic sur le bouton d'export : exporte le contenu de la table
       * dans fichier CSV
       */
     void on_btnExport_clicked();
@@ -148,11 +148,14 @@ private slots:
 
     /**
       * \brief Supprime la catégorie sélectionnée
-      * @param
       */
     void on_toolButton_2_clicked();
 
-
+    /**
+      * \brief Appelée lorsqu'un point à été modifié dans la table : mise à jours des valeurs
+      * @param point Le point qui a été modifié
+      */
+    void updateDone(C_poi point);
 
 private:
 
@@ -220,6 +223,11 @@ private:
       * \brief Translator courant
       */
     QTranslator * trsl;
+
+    /**
+      * \brief Ligne du point mis à jour
+      */
+    int currentRow;
 
     /**
       * \brief Ajoute les boutons de zoom et de-zoom sur l'écran

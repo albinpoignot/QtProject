@@ -22,6 +22,13 @@ private:
       */
     static bool isDatabaseReady();
 
+signals:
+    /**
+      * \brief Emis lorsque la mise a jour de la BDD est terminée
+      */
+    static void updateFinished();
+
+
 public:
 
     /**
@@ -49,12 +56,6 @@ public:
     static QList<C_poi> getAllPoi();
 
     /**
-      * \brief Mise à jour d'un POI
-      * @param point : nouveau point (lon et lat ne doivent pas changer)
-      */
-    static void updatePoi(C_poi point);
-
-    /**
       * \brief Suppression d'un POI
       * @param lon : longitude du point à supprimer
       * @param lat : latitude du point à supprimer
@@ -71,6 +72,12 @@ public:
       * \brief Supprime la base de données
       */
     static void removeDb();
+
+    /**
+      * \brief Mise à jour d'un POI
+      * @param point : nouveau point (lon et lat ne doivent pas changer)
+      */
+    static void updatePoi(C_poi point);
 };
 
 #endif // C_QDBC_H

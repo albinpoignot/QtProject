@@ -50,8 +50,12 @@ void C_details::on_buttonBox_accepted()
             point.setHoraires(ui->txtHoraires->toPlainText());
 
             C_qdbc::updatePoi(point);
+
             messageBox.close();
             this->close();
+
+            emit updateFinished(point);
+
             break;
         case QMessageBox::No:
             messageBox.close();
@@ -67,27 +71,4 @@ void C_details::on_buttonBox_rejected()
     this->close();
 }
 
-void C_details::on_txtNom_textEdited(const QString &arg1)
-{
-    ui->txtNom->setStyleSheet("background-color:red;");
-}
 
-void C_details::on_txtNom_textChanged(const QString &arg1)
-{
-
-}
-
-void C_details::on_txtCategorie_textEdited(const QString &arg1)
-{
-    ui->txtNom->setStyleSheet("background-color:red;");
-}
-
-void C_details::on_txtDesc_textChanged()
-{
-    //ui->txtDesc->setStyleSheet("background-color:red;");
-}
-
-void C_details::on_txtDesc_undoAvailable(bool b)
-{
-
-}

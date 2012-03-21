@@ -152,9 +152,7 @@ void MainWindow::addGeometryLayer()
 
 void MainWindow::drawPoints()
 {
-    qDebug() << "*** draw points start - listeCirclePoints.size() = " << listeCirclePoints.size();
-
-    CirclePoint * point;
+    //qDebug() << "*** draw points start - listeCirclePoints.size() = " << listeCirclePoints.size();
 
     points->clearGeometries();
 
@@ -219,7 +217,7 @@ void MainWindow::fillTable()
 {
     int nbPoi = currentList.size();
 
-    table = new QTableWidget(nbPoi,7);
+    table = new QTableWidget(nbPoi,8);
     ui->verticalLayout->addWidget(table);
 
 
@@ -245,26 +243,31 @@ void MainWindow::fillTable()
 
     item = new QTableWidgetItem();
     item->setText("Horaires");
-    table->setHorizontalHeaderItem(5,item);
+    table->setHorizontalHeaderItem(5/*cb = new QComboBox();
+                                                       cb->addItems(settings.allKeys());
+                                                       cb->setCurrentIndex(cb->findText(currentList[i].getCat()));
+                                                       table->setCellWidget(i, 0, cb);*/,item);
+
+    item = new QTableWidgetItem();
+    item->setText("Modifier");
+    table->setHorizontalHeaderItem(6,item);
 
     item = new QTableWidgetItem();
     item->setText("Supprimer");
-    table->setHorizontalHeaderItem(6,item);
-    QComboBox * cb;
+    table->setHorizontalHeaderItem(7,item);
+
     for(int i = 0; i < nbPoi;i++)
     {
-        for(int j = 0; j < 7; j++)
+        for(int j = 0; j < 8; j++)
         {
             item = new QTableWidgetItem();
             switch(j)
             {
-                case 0: cb = new QComboBox();
-                        cb->addItems(settings.allKeys());
-                        cb->setCurrentIndex(cb->findText(currentList[i].getCat()));
-                        table->setCellWidget(i, 0, cb);
-                        //item->setText(currentList[i].getCat());
+                case 0: item->setText(currentList[i].getCat());
+                        item->setFlags(item->flags() & ~Qt::ItemIsEditable);
                         break;
                 case 1: item->setText(currentList[i].getNom());
+                        item->setFlags(item->flags() & ~Qt::ItemIsEditable);
                         break;
                 case 2: item->setText(QString::number(currentList[i].getPoint().x()));
                         item->setFlags(item->flags() & ~Qt::ItemIsEditable);
@@ -273,10 +276,15 @@ void MainWindow::fillTable()
                         item->setFlags(item->flags() & ~Qt::ItemIsEditable);
                         break;
                 case 4: item->setText(currentList[i].getDescription());
+                        item->setFlags(item->flags() & ~Qt::ItemIsEditable);
                         break;
                 case 5: item->setText(currentList[i].getHoraires());
+                        item->setFlags(item->flags() & ~Qt::ItemIsEditable);
                         break;
-                case 6: item->setText("Delete");
+                case 6: item->setText("Modifier");
+                        item->setFlags(item->flags() & ~Qt::ItemIsEditable);
+                        break;
+                case 7: item->setText("Supprimer");
                         item->setFlags(item->flags() & ~Qt::ItemIsEditable);
                         break;
             }
@@ -284,14 +292,8 @@ void MainWindow::fillTable()
         }
     }
 
-    connect(table, SIGNAL(itemClicked(QTableWidgetItem*)),
-            this, SLOT(changeCatPoint(QTableWidgetItem*)));
-
-    connect(table, SIGNAL(itemChanged(QTableWidgetItem*)),
-            this, SLOT(modifyPoint(QTableWidgetItem*)));
-
     connect(table, SIGNAL(itemDoubleClicked(QTableWidgetItem *)),
-            this, SLOT(deletePoint(QTableWidgetItem*)));
+            this, SLOT(on_DbClickOnTable(QTableWidgetItem*)));
 }
 
 void MainWindow::changeCatPoint(QTableWidgetItem * item)
@@ -321,9 +323,9 @@ void MainWindow::modifyPoint(QTableWidgetItem * item)
 
 }
 
-void MainWindow::deletePoint(QTableWidgetItem * item)
+void MainWindow::on_DbClickOnTable(QTableWidgetItem * item)
 {
-    if(item->column() == 6)
+    if(item->column() == 7)
     {
         //qDebug() << "Suppression demandee -> " << table->item(item->row(), 1)->text();
 
@@ -345,6 +347,23 @@ void MainWindow::deletePoint(QTableWidgetItem * item)
                 messageBox.close();
                 break;
         }
+    }
+    else if(item->column() == 6)
+    {
+        C_poi point = C_qdbc::getPoi(table->item(item->row(), 2)->text().toFloat(),
+                                     table->item(item->row(), 3)->text().toFloat());
+
+        details->setDetails(point, settings.allKeys());
+
+        ui->lineEdit_2->setText(QString::number(point.getPoint().x()));
+        ui->lineEdit_3->setText(QString::number(point.getPoint().y()));
+
+        details->show();
+
+        currentRow = item->row();
+
+        connect(details, SIGNAL(updateFinished(C_poi)),
+                this, SLOT(updateDone(C_poi)));
 
     }
 }
@@ -638,4 +657,19 @@ void MainWindow::on_btnExport_clicked()
 
     file.close();
 
+}
+
+void MainWindow::updateDone(C_poi point)
+{
+    table->item(currentRow, 0)->setText(point.getCat());
+
+    table->item(currentRow, 1)->setText(point.getNom());
+
+    table->item(currentRow, 2)->setText(QString::number(point.getPoint().x()));
+
+    table->item(currentRow, 3)->setText(QString::number(point.getPoint().y()));
+
+    table->item(currentRow, 4)->setText(point.getDescription());
+
+    table->item(currentRow, 5)->setText(point.getHoraires());
 }

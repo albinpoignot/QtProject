@@ -28,6 +28,13 @@ public:
       */
     void setDetails(C_poi point, QStringList catList);
 
+signals:
+    /**
+      * \brief Emis lorsque la mise a jour de la BDD est terminée
+      * @param point Le point qui a été mis à jour
+      */
+    void updateFinished(C_poi point);
+
 private slots:
     /**
       * \brief Appelée lors de l'acception de la modification
@@ -38,36 +45,6 @@ private slots:
       * \brief Appelée lors du refus de la modification
       */
     void on_buttonBox_rejected();
-
-    /**
-      * \brief To delete
-      * \deprecated
-      */
-    void on_txtNom_textChanged(const QString &arg1);
-
-    /**
-      * \brief To delete
-      * \deprecated
-      */
-    void on_txtNom_textEdited(const QString &arg1);
-
-    /**
-      * \brief To delete
-      * \deprecated
-      */
-    void on_txtCategorie_textEdited(const QString &arg1);
-
-    /**
-      * \brief To delete
-      * \deprecated
-      */
-    void on_txtDesc_textChanged();
-
-    /**
-      * \brief To delete
-      * \deprecated
-      */
-    void on_txtDesc_undoAvailable(bool b);
 
 private:
     /**
