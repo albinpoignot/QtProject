@@ -9,6 +9,8 @@ QT       += core gui network sql xml
 
 TARGET = projetQt
 
+CONFIG += testlib
+
 TEMPLATE = app
 
 
@@ -20,8 +22,8 @@ SOURCES += main.cpp\
     c_qdbc.cpp \
     c_details.cpp \
     settings.cpp \
-    TestQdbc.cpp \
-    c_modeemploi.cpp
+    c_modeemploi.cpp \
+    testUnitaires/C_testQdbc.cpp
 
 HEADERS  += mainwindow.h \
     c_webservice.h \
@@ -37,3 +39,6 @@ FORMS    += mainwindow.ui \
     c_details.ui \
     settings.ui \
     c_modeemploi.ui
+
+OTHER_FILES += \
+    testUnitaires/testUnitaires.pro
