@@ -1,2 +1,24 @@
-Florian travail avec des incompétents
-c'est pas très très gentil de dire ça.
+Bienvenue dans l'aide de l'application.
+
+Cette application vous permet de gérer les points d'intérêt référencés par l'API de Géovélo. Vous pourrez les visualiser, les éditer à votre convenance et leur rajouter une description personnelle et éventuellement des horaires d'ouverture.
+
+
+I. La zone inférieure
+
+Cette zone est disponible quel que soit l'onglet affiché. Elle contient les filtres que vous pouvez effectuer sur les points d'intérêt affichés.
+
+Vous pouvez cocher/décocher les catégories que vous souhaitez voir afficher ou non. Vous pouvez également ajouter de nouvelles catégories en cliquant sur le bouton "+" (plus) ou en supprimer une en cliquant sur la catégorie puis en cliquant sur le bouton "-" (moins).
+
+Vous pouvez également effectuer un filtre sur le nom ou la description ou bien sur la longitude et la latitude en remplissant les champs concernés puis en cliquant sur "Filtrer"
+
+II. L'onglet "Carte"
+
+Cet onglet vous permet de visualiser la carte du monde et les points d'intérêts disponibles.
+
+     * Clic sur un point d'intérêt : affichage des détails. La fenêtre ainsi affichée vous permet également d'éditer les détails de ce point.
+
+     * Double clic quelque part sur la carte : récupération des points d'intérêt aux alentours de l'endroit cliqué.
+
+III. L'onglet "Modifier les points d'intérêt"
+
+Cet onglet vous propose une liste "brute" des points d'intérêts. Elle vous permet alors de les consulter tous d'un coup et de les éditer et les supprimer facilement. Les dernières cases de la liste présente les boutons d'édition et de suppression.
