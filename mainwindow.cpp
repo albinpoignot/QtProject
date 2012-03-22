@@ -184,7 +184,7 @@ void MainWindow::drawPoints()
         }
     }
 
-    qDebug() << " ****** all points are deleted";
+    //qDebug() << " ****** all points are deleted";
 
     // STEP 2 : obtention des points actuellement dans la BDD pour dessin
     QList<C_poi> listePoints = C_qdbc::getAllPoi();
@@ -198,7 +198,7 @@ void MainWindow::drawPoints()
     connect(points, SIGNAL(geometryClicked(Geometry*,QPoint)),
             this, SLOT(pointClick(Geometry*,QPoint)));
 
-    qDebug() << "fin de drawPoints() - listeCirclePoints.size() = " << listeCirclePoints.size();
+    //qDebug() << "fin de drawPoints() - listeCirclePoints.size() = " << listeCirclePoints.size();
 }
 
 void MainWindow::addPoint(C_poi poi)
