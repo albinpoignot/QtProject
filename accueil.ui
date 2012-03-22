@@ -56,6 +56,9 @@
    <property name="text">
     <string>Bienvenue</string>
    </property>
+   <property name="margin">
+    <number>0</number>
+   </property>
   </widget>
   <widget class="QLabel" name="label_2">
    <property name="geometry">

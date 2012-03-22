@@ -10,6 +10,7 @@
 #include <QVBoxLayout>
 #include <QWidget>
 #include "mainwindow.h"
+#include <QTranslator>
 
 namespace Ui {
     class Accueil;

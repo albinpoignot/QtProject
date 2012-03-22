@@ -39,3 +39,5 @@ FORMS    += mainwindow.ui \
     c_details.ui \
     settings.ui \
     c_modeemploi.ui
+
+TRANSLATIONS = qtproject_en.ts

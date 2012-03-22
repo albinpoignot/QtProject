@@ -76,9 +76,11 @@ void MainWindow::languageChanged(QAction * action)
 
         trsl = new QTranslator();
 
-        trsl->load("qt_" + action->objectName(), "/usr/share/qt4/translations");
-
+        //trsl->load("qt_" + action->objectName(), "/usr/share/qt4/translations");
+        qDebug() << action->objectName();
+        trsl->load(QString("qtproject_") + action->objectName());
         qApp->installTranslator(trsl);
+
     }
 }
 

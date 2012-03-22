@@ -20,7 +20,9 @@ int main(int argc, char *argv[])
     QString locale = QLocale::system().name();
 
     QTranslator translator;
-    translator.load("qt_" + locale.left(2), "/usr/share/qt4/translations");
+    //translator.load("qt_" + locale.left(2), "/usr/share/qt4/translations");
+    // translator.load(QString("qtproject_") + locale);
+     translator.load(QString("qtproject_en"));
     a.installTranslator(&translator);
 
     MainWindow w;
