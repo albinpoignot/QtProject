@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'c_modeemploi.ui'
 **
-** Created: Wed Mar 21 22:07:07 2012
+** Created: Thu Mar 22 01:22:18 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -46,6 +46,7 @@ public:
         textEdit = new QTextEdit(C_modeEmploi);
         textEdit->setObjectName(QString::fromUtf8("textEdit"));
         textEdit->setGeometry(QRect(20, 40, 421, 221));
+        textEdit->setReadOnly(true);
 
         retranslateUi(C_modeEmploi);
 
