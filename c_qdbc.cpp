@@ -93,7 +93,7 @@ C_poi C_qdbc::getPoi(double lon, double lat)
             if(query.value(5).toString() != NULL)
                 point.setHoraires(query.value(5).toString());
 
-            qDebug() << "getPoi : " + point.toString();
+            //qDebug() << "getPoi : " + point.toString();
         }
 
         db.close();
@@ -155,11 +155,11 @@ void C_qdbc::updatePoi(C_poi point)
                 + "', horaires = '" + point.getHoraires() + "'";
         queryText.append(" WHERE long = " + QString::number(point.getPoint().x()) + " AND lat = " + QString::number(point.getPoint().y()));
 
-        qDebug() << queryText;
+        //qDebug() << queryText;
 
         bool res = query.exec(queryText);
 
-        qDebug() << "updatePOI : " << point.toString();
+        //qDebug() << "updatePOI : " << point.toString();
 
         if(!res)
         {
@@ -180,7 +180,7 @@ void C_qdbc::deletePoi(double lon, double lat)
         QSqlQuery query;
         QString queryText = "DELETE FROM poi WHERE long = " + QString::number(lon) + " AND lat = " + QString::number(lat);
 
-        qDebug() << queryText;
+        //qDebug() << queryText;
 
         bool res = query.exec(queryText);
 

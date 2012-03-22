@@ -4,8 +4,17 @@
 #include "settings.h"
 #include "c_modeemploi.h"
 
+#include "testclasse.h"
+
+/*
+ * Décommenter cette ligne et commenter la totalité du main() pour
+ * effectuer les tests unitaires
+ */
+//QTEST_MAIN(TestClasse)
+
 int main(int argc, char *argv[])
 {
+
     QApplication a(argc, argv);
 
     QString locale = QLocale::system().name();
@@ -29,14 +38,5 @@ int main(int argc, char *argv[])
     d.setW(&w);
     d.show();
 
-
-    /*C_qdbc::initDB("Test.db");
-    C_webservice ws;
-    ws.getPOI(48.86,2.33);*/
-    /*this->close();
-    mw->show();
-    mw->init();*/
-
-    //C_qdbc::removeDb();
     return a.exec();
 }

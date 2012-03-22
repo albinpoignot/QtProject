@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'accueil.ui'
 **
-** Created: Wed Mar 21 22:07:07 2012
+** Created: Thu Mar 22 00:26:00 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -70,10 +70,10 @@ public:
     void retranslateUi(QDialog *Accueil)
     {
         Accueil->setWindowTitle(QApplication::translate("Accueil", "Accueil", 0, QApplication::UnicodeUTF8));
-        pushButton->setText(QApplication::translate("Accueil", "ouvrir une base de donn\303\251es existante", 0, QApplication::UnicodeUTF8));
-        pushButton_2->setText(QApplication::translate("Accueil", "cr\303\251er une nouvelle base de donn\303\251es", 0, QApplication::UnicodeUTF8));
+        pushButton->setText(QApplication::translate("Accueil", "Ouvrir une base de donn\303\251es existante", 0, QApplication::UnicodeUTF8));
+        pushButton_2->setText(QApplication::translate("Accueil", "Cr\303\251er une nouvelle base de donn\303\251es", 0, QApplication::UnicodeUTF8));
         label->setText(QApplication::translate("Accueil", "Bienvenue", 0, QApplication::UnicodeUTF8));
-        label_2->setText(QApplication::translate("Accueil", "Si c'est votre premi\303\250re visite, veuillez en cr\303\251er une nouvelle base de donn\303\251e", 0, QApplication::UnicodeUTF8));
+        label_2->setText(QApplication::translate("Accueil", "Si c'est votre premi\303\250re visite, veuillez cr\303\251er une nouvelle base de donn\303\251es", 0, QApplication::UnicodeUTF8));
         label_3->setText(QApplication::translate("Accueil", "Abdelnor Bousmina - Albin Poignot", 0, QApplication::UnicodeUTF8));
         label_4->setText(QApplication::translate("Accueil", "Version 1.0", 0, QApplication::UnicodeUTF8));
     } // retranslateUi

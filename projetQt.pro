@@ -11,6 +11,7 @@ TARGET = projetQt
 
 TEMPLATE = app
 
+CONFIG  += qtestlib
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -20,8 +21,8 @@ SOURCES += main.cpp\
     c_qdbc.cpp \
     c_details.cpp \
     settings.cpp \
-    TestQdbc.cpp \
-    c_modeemploi.cpp
+    c_modeemploi.cpp \
+    testclasse.cpp
 
 HEADERS  += mainwindow.h \
     c_webservice.h \
@@ -30,7 +31,8 @@ HEADERS  += mainwindow.h \
     c_qdbc.h \
     c_details.h \
     settings.h \
-    c_modeemploi.h
+    c_modeemploi.h \
+    testclasse.h
 
 FORMS    += mainwindow.ui \
     accueil.ui \

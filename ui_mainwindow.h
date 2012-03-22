@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Wed Mar 21 22:31:27 2012
+** Created: Thu Mar 22 00:26:00 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -157,7 +157,7 @@ public:
         b_delete_cat->setObjectName(QString::fromUtf8("b_delete_cat"));
         b_delete_cat->setGeometry(QRect(300, 514, 31, 31));
         QIcon icon1;
-        icon1.addFile(QString::fromUtf8("button_add_files/button_delete.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon1.addFile(QString::fromUtf8("button_delete.png"), QSize(), QIcon::Normal, QIcon::Off);
         b_delete_cat->setIcon(icon1);
         btnExport = new QPushButton(centralWidget);
         btnExport->setObjectName(QString::fromUtf8("btnExport"));
