@@ -195,8 +195,6 @@ void MainWindow::drawPoints()
         }
     }
 
-//    qDebug() << " ****** all points are deleted";
-
     // STEP 2 : obtention des points actuellement dans la BDD pour dessin
     QList<C_poi> listePoints = C_qdbc::getAllPoi();
     int nbPoi = listePoints.size();
@@ -209,7 +207,6 @@ void MainWindow::drawPoints()
     connect(points, SIGNAL(geometryClicked(Geometry*,QPoint)),
             this, SLOT(pointClick(Geometry*,QPoint)));
 
-  //  qDebug() << "fin de drawPoints() - listeCirclePoints.size() = " << listeCirclePoints.size();
 }
 
 void MainWindow::addPoint(C_poi poi)
@@ -399,7 +396,7 @@ void MainWindow::on_DbClickOnTable(QTableWidgetItem * item)
 
 void MainWindow::confirmedDelete(int deletedRow)
 {
-    //qDebug() << "Suppression confirmee -> " << table->item(deletedRow, 1)->text();
+
 
     if(deletedRow >= 0)
     {
@@ -416,11 +413,6 @@ void MainWindow::pointClick(Geometry* geom, QPoint coord_px)
     C_poi point = C_qdbc::getPoi(cp->longitude(), cp->latitude());
 
     details->setDetails(point, settings.allKeys());
-
-    /* TO THE RIGHT
-     * details->move(this->x() + ui->tabWidget->x() + ui->tabWidget->width() + 10,
-     *             this->y() + ui->tabWidget->y() + 50);
-     */
 
     /*
      * ON THE POINT
@@ -440,7 +432,6 @@ void MainWindow::clickInTheWorld(const QMouseEvent* evnt,QPointF point)
 {
     if(evnt->type() == QEvent::MouseButtonDblClick)
     {
-        //qDebug() << "DOUBLE click in the world - " << QString::number(point.x()) << ":" << QString::number(point.y());
 
         QMessageBox messageBox;
         messageBox.setText("Voulez-vous récupérer les points proches de votre clic ?");
@@ -671,7 +662,7 @@ void MainWindow::keepPointFromList(QList<C_poi> pois,bool allPoints)
 
 void MainWindow::on_btnExport_clicked()
 {
-    QFile file(QDir::currentPath() + "/export_test.csv");
+    QFile file(QDir::currentPath() + "/export.csv");
     file.open(QIODevice::WriteOnly | QIODevice::Text);
     QTextStream out(&file);
     C_poi point;
