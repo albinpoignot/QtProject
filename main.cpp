@@ -20,10 +20,13 @@ int main(int argc, char *argv[])
     QString locale = QLocale::system().name();
 
     QTranslator translator;
-    //translator.load("qt_" + locale.left(2), "/usr/share/qt4/translations");
+
+    QTranslator tr;
+    tr.load("qt_" + locale.left(2), "/usr/share/qt4/translations");
+
      translator.load(QString("qtproject_") + locale);
-     //translator.load(QString("qtproject_en"));
     a.installTranslator(&translator);
+    a.installTranslator(&tr);
 
     MainWindow w;
     Accueil d;
@@ -36,6 +39,7 @@ int main(int argc, char *argv[])
     w.setSettings(&settings);
     w.setDetails(&details);
     w.setTranslator(&translator);
+    w.setTranslator2(&tr);
     w.setModeEmploi(&m);
     d.setW(&w);
     d.show();

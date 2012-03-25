@@ -16,6 +16,8 @@ C_details::~C_details()
 
 void C_details::setDetails(C_poi point, QStringList catList)
 {
+    ui->retranslateUi(this);
+
     ui->txtLongitude->setText(QString::number(point.getPoint().x()));
     ui->txtLatitude->setText(QString::number(point.getPoint().y()));
     ui->txtNom->setText(point.getNom());

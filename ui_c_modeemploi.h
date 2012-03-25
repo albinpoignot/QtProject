@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'c_modeemploi.ui'
 **
-** Created: Thu Mar 22 01:22:18 2012
+** Created: Thu Mar 22 11:05:47 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -34,6 +34,13 @@ public:
         if (C_modeEmploi->objectName().isEmpty())
             C_modeEmploi->setObjectName(QString::fromUtf8("C_modeEmploi"));
         C_modeEmploi->resize(465, 320);
+        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(C_modeEmploi->sizePolicy().hasHeightForWidth());
+        C_modeEmploi->setSizePolicy(sizePolicy);
+        C_modeEmploi->setMinimumSize(QSize(465, 320));
+        C_modeEmploi->setMaximumSize(QSize(465, 320));
         b_fermer = new QPushButton(C_modeEmploi);
         b_fermer->setObjectName(QString::fromUtf8("b_fermer"));
         b_fermer->setGeometry(QRect(350, 280, 101, 31));
@@ -55,7 +62,7 @@ public:
 
     void retranslateUi(QDialog *C_modeEmploi)
     {
-        C_modeEmploi->setWindowTitle(QApplication::translate("C_modeEmploi", "Dialog", 0, QApplication::UnicodeUTF8));
+        C_modeEmploi->setWindowTitle(QApplication::translate("C_modeEmploi", "Mode d'emploi", 0, QApplication::UnicodeUTF8));
         b_fermer->setText(QApplication::translate("C_modeEmploi", "Fermer", 0, QApplication::UnicodeUTF8));
         label->setText(QApplication::translate("C_modeEmploi", "Mode d'emploi", 0, QApplication::UnicodeUTF8));
     } // retranslateUi

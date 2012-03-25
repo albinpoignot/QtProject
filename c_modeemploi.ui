@@ -29,7 +29,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Mode d'emploi</string>
   </property>
   <widget class="QPushButton" name="b_fermer">
    <property name="geometry">

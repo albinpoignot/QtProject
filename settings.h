@@ -15,6 +15,7 @@ class Settings : public QDialog
 public:
     explicit Settings(QWidget *parent = 0);
     ~Settings();
+    void changeLang();
 private slots:
 
     /**

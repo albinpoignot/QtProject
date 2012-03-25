@@ -16,6 +16,7 @@ class C_modeEmploi : public QDialog
 public:
     explicit C_modeEmploi(QWidget *parent = 0);
     ~C_modeEmploi();
+    void changeLang();
 
 private:
     Ui::C_modeEmploi *ui;

@@ -26,3 +26,8 @@ void Settings::on_buttonBox_rejected()
 {
     this->close();
 }
+
+void Settings::changeLang()
+{
+     ui->retranslateUi(this);
+}

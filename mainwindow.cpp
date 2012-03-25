@@ -63,6 +63,11 @@ void MainWindow::setTranslator(QTranslator * tr)
     trsl = tr;
 }
 
+void MainWindow::setTranslator2(QTranslator * tr)
+{
+    trsl2 = tr;
+}
+
 void MainWindow::setModeEmploi(C_modeEmploi * me)
 {
     modeEmploi = me;
@@ -70,18 +75,24 @@ void MainWindow::setModeEmploi(C_modeEmploi * me)
 
 void MainWindow::languageChanged(QAction * action)
 {
-    if(action != 0)
+    if(action != 0 && action->objectName() != "actionMode_d_emploi")
     {
         qApp->removeTranslator(trsl);
+        qApp->removeTranslator(trsl2);
 
         trsl = new QTranslator();
+        trsl2 = new QTranslator();
 
-        //trsl->load("qt_" + action->objectName(), "/usr/share/qt4/translations");
         trsl->load(QString("qtproject_") + action->objectName());
+        trsl2->load("qt_" + action->objectName(), "/usr/share/qt4/translations");
+
 
         qApp->installTranslator(trsl);
+        qApp->installTranslator(trsl2);
 
         ui->retranslateUi(this);
+        modeEmploi->changeLang();
+        settingView->changeLang();
     }
 }
 
@@ -184,7 +195,7 @@ void MainWindow::drawPoints()
         }
     }
 
-    qDebug() << " ****** all points are deleted";
+//    qDebug() << " ****** all points are deleted";
 
     // STEP 2 : obtention des points actuellement dans la BDD pour dessin
     QList<C_poi> listePoints = C_qdbc::getAllPoi();
@@ -198,7 +209,7 @@ void MainWindow::drawPoints()
     connect(points, SIGNAL(geometryClicked(Geometry*,QPoint)),
             this, SLOT(pointClick(Geometry*,QPoint)));
 
-    qDebug() << "fin de drawPoints() - listeCirclePoints.size() = " << listeCirclePoints.size();
+  //  qDebug() << "fin de drawPoints() - listeCirclePoints.size() = " << listeCirclePoints.size();
 }
 
 void MainWindow::addPoint(C_poi poi)
@@ -674,6 +685,11 @@ void MainWindow::on_btnExport_clicked()
     }
 
     file.close();
+
+    QMessageBox messageBox;
+    messageBox.setText("Votre liste a bien été enregistrée");
+    messageBox.setStandardButtons(QMessageBox::Ok);
+    messageBox.exec();
 
 }
 

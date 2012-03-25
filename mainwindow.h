@@ -58,6 +58,7 @@ public:
     void setDetails(C_details *);
     void setSettings(Settings *);
     void setTranslator(QTranslator * tr);
+    void setTranslator2(QTranslator * tr);
     void setModeEmploi(C_modeEmploi *);
 
 private slots:
@@ -237,7 +238,7 @@ private:
       * \brief Translator courant
       */
     QTranslator * trsl;
-
+    QTranslator * trsl2;
     /**
       * \brief Ligne du point mis à jour
       */

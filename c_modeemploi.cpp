@@ -21,6 +21,11 @@ C_modeEmploi::C_modeEmploi(QWidget *parent) :
 
 }
 
+void C_modeEmploi::changeLang()
+{
+     ui->retranslateUi(this);
+}
+
 C_modeEmploi::~C_modeEmploi()
 {
     delete ui;

@@ -87,7 +87,7 @@
     <message>
         <location filename="c_modeemploi.ui" line="32"/>
         <source>Dialog</source>
-        <translation></translation>
+        <translation>Instructions</translation>
     </message>
     <message>
         <location filename="c_modeemploi.ui" line="44"/>
