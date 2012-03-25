@@ -1,6 +1,14 @@
 #ifndef C_WEBSERVICE_H
 #define C_WEBSERVICE_H
 
+/**
+ * \file c_webservice.h
+ * \brief intéraction avec le webservice
+ * \author Albin Poignot
+ *         Abdelnor Bousmina
+ */
+
+
 #include <QDomDocument>
 #include <QDomNode>
 #include <QNetworkAccessManager>
@@ -20,7 +28,12 @@
 
 #include <QDebug>
 
-
+/*! \class C_webservice
+   * \brief intéraction avec le webservice
+   *
+   * Offre des méthodes permettant de se connecter au webservice, récupérer un fichier kml
+   * et parser ce fichier
+   */
 class C_webservice:public QObject
 {
 

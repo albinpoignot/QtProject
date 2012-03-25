@@ -1,6 +1,13 @@
 #ifndef C_QDBC_H
 #define C_QDBC_H
 
+/**
+ * \file c_qdbc.h
+ * \brief offre des methodes d'intéraction avec la base de données
+ * \author Albin Poignot
+ *         Abdelnor Bousmina
+ */
+
 #include "c_poi.h"
 
 #include <QString>
@@ -13,6 +20,10 @@
 #include <QSqlError>
 #include <QSqlQuery>
 
+/*! \class C_qdbc
+   * \brief classe offrant des methodes d'intéraction avec la base de données
+   *
+   */
 class C_qdbc
 {
 private:

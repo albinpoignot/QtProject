@@ -1,13 +1,29 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
+/**
+ * \file settings.h
+ * \brief configuration de l'application
+ * \author Albin Poignot
+ *         Abdelnor Bousmina
+ */
+
 #include <QDialog>
 #include <QSettings>
 
+/*! \namespace Ui
+ *
+ * espace de nommage regroupant les interfaces graphiques
+ */
 namespace Ui {
     class Settings;
 }
 
+/*! \class Settings
+   * \brief configuration de l'application
+   *
+   * Classe associée à l'interface graphique permettant d'ajouter une nouvelle catégorie
+   */
 class Settings : public QDialog
 {
     Q_OBJECT
@@ -29,8 +45,7 @@ private slots:
     void on_buttonBox_rejected();
 signals:
     /**
-      * \brief To delete
-      * \deprecated
+      * \brief Signal émis lorsqu'une nouvelle catégorie a été spécifiée par l'utilisateur
       */
     void newCategorie(QString);
 private:

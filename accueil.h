@@ -1,6 +1,14 @@
 #ifndef ACCUEIL_H
 #define ACCUEIL_H
 
+
+/**
+ * \file accueil.h
+ * \brief Interface d'accueil de l'application
+ * \author Albin Poignot
+ *         Abdelnor Bousmina
+ */
+
 #include <QDialog>
 #include <QInputDialog>
 #include "c_webservice.h"
@@ -12,10 +20,19 @@
 #include "mainwindow.h"
 #include <QTranslator>
 
+/*! \namespace Ui
+ *
+ * espace de nommage regroupant les interfaces graphiques
+ */
 namespace Ui {
     class Accueil;
 }
 
+/*! \class Accueil
+   * \brief Interface d'accueil de l'application
+   *
+   *  Classe associée à l'interface d'accueil de l'utilisateur lui permettant de choisir sa base de données
+   */
 class Accueil : public QDialog
 {
     Q_OBJECT

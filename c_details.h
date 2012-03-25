@@ -1,6 +1,13 @@
 #ifndef C_DETAILS_H
 #define C_DETAILS_H
 
+/**
+ * \file c_details.h
+ * \brief Mise à jour des points d'intérêt
+ * \author Albin Poignot
+ *         Abdelnor Bousmina
+ */
+
 #include <QDialog>
 #include <QMessageBox>
 
@@ -9,10 +16,19 @@
 #include "c_poi.h"
 #include "c_qdbc.h"
 
+/*! \namespace Ui
+ *
+ * espace de nommage regroupant les interfaces graphiques
+ */
 namespace Ui {
     class C_details;
 }
 
+/*! \class C_details
+   * \brief Mise à jour des points d'intérêt
+   *
+   * Classe associée à l'interface permettant de modifier les points d'intérêt.
+   */
 class C_details : public QDialog
 {
     Q_OBJECT

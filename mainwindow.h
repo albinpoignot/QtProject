@@ -1,6 +1,13 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+/**
+ * \file mainwindow.h
+ * \brief classe principale de l'application
+ * \author Albin Poignot
+ *         Abdelnor Bousmina
+ */
+
 #include <QFile>
 #include <QFileDialog>
 #include <QInputDialog>
@@ -27,10 +34,19 @@
 
 using namespace qmapcontrol;
 
+/*! \namespace Ui
+ *
+ * espace de nommage regroupant les interfaces graphiques
+ */
 namespace Ui {
     class MainWindow;
 }
 
+/*! \class MainWindow
+   * \brief classe principale de l'application
+   *
+   * Offre les méthodes générales pour interagir avec l'application et les autres classes
+   */
 class MainWindow : public QMainWindow
 {
     Q_OBJECT

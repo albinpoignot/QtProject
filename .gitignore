@@ -4,3 +4,6 @@ tmp
 Makefile
 button_add_files
 projetQt
+*.db
+*.csv
+/rapport
